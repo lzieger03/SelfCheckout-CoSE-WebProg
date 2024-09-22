@@ -1,1 +1,1 @@
-# SelfCheckOut-CoSe-WebProg
+# SelfCheckOut-CoSE-WebProg
