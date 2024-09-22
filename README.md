@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # SelfCheckOut-CoSe-WebProg
 
 ## Aufbau 
@@ -41,3 +42,6 @@
     - .env: Umgebungsvariablen (nicht ins Repository hochladen).
     - jest.config.js oder karma.config.js: Test-Konfigurationen.
     - eslint.json oder .prettierrc: Linter- und Formatter-Einstellungen.
+=======
+# SelfCheckOut-CoSE-WebProg
+>>>>>>> refs/remotes/origin/main
