@@ -1,1 +1,0 @@
-Hallo Lars. Ich bin schlecht in Git. 
