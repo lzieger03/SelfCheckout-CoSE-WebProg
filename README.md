@@ -1,4 +1,4 @@
-# SelfCheckOut-CoSe-WebProg
+# SelfCheckOut-CoSE-WebProg
 
 ## Aufbau 
 
@@ -6,7 +6,6 @@
     - README.md: Projektbeschreibung, Installationsanweisungen und Usage-Informationen.
     - package.json oder pom.xml/build.gradle: Abhängigkeiten und Skripte (je nach Frontend- und Backend-Technologien wie Node.js, Maven oder Gradle).
     - .gitignore: Dateien, die nicht ins Repository geladen werden sollen.
-    - Dockerfile und docker-compose.yml (falls Docker genutzt wird).
     - tsconfig.json oder babel.config.json (je nach verwendeter Sprache und Transpiler).
 
 2. Frontend-Verzeichnis (z.B. client):
