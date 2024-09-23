@@ -51,6 +51,11 @@ main {
     border-radius: 8px;
 }
 
+#item-preview-image {
+    width: 500px;
+    height: 500px;
+}
+
 #productOverview-container {
     display: flex;
     flex-direction: column;
@@ -75,9 +80,11 @@ main {
 }
 
 .quantity-btn {
-    background-color: #F8C171;
+    background-color: #FBDC3C;
     border-radius: 10px;
-    color: white;
+    width: 70px;
+    color: #252E3D;
+    font-weight: 700;
     border: none;
     padding: 10px 20px;
     cursor: pointer;
@@ -86,7 +93,7 @@ main {
 }
 
 .quantity-btn:hover {
-    background-color: #D3A96A;
+    background-color: #F0CD20;
 }
 
 .quantity-display {
@@ -103,7 +110,7 @@ main {
 }
 
 .accessibility-button {
-    background-color: #F18805;
+    background-color: #FBDC3C;
     border-radius: 30px;
     border: none;
     color: white;
@@ -114,14 +121,14 @@ main {
 }
 
 .accessibility-button:hover {
-    background-color: #F39005;
+    background-color: #F0CD20;
     transform: translateY(-2px);
 }
 
 .accessibility-button-image {
     max-width: 75px;
     max-height: 75px;
-    filter: invert();
+    filter: brightness(0) saturate(100%) invert(11%) sepia(6%) saturate(1457%) hue-rotate(170deg) brightness(89%) contrast(90%);
 }
 
 
@@ -228,6 +235,7 @@ main {
     height: 30px;
     margin: 10px;
     padding: 0;
+    filter: brightness(0) saturate(100%) invert(11%) sepia(6%) saturate(1457%) hue-rotate(170deg) brightness(89%) contrast(90%);
 }
 
 footer {
