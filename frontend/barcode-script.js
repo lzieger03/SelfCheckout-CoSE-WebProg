@@ -1,6 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
     const barcodeInput = document.getElementById("barcode-input");
     const barcodeList = document.getElementById("barcode-list");
+
+    // Erlaubt nur Zahlen-Eingaben im Textfeld
+    barcodeInput.addEventListener('input', (event) => {
+        barcodeInput.value = barcodeInput.value.replace(/[^0-9]/g, ''); // Filtert alle nicht-numerischen Zeichen heraus
+    });
   
     // Funktion, um gescannte Artikelnummer zur Liste hinzuzufügen
     function addBarcodeToList(barcode) {
