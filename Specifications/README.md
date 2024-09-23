@@ -104,3 +104,4 @@ The project team consists of 2-3 members, each responsible for specific parts (U
 
 ## Conclusion  
 This **Self-Checkout System** aims to create an inclusive, efficient, and modern checkout experience for supermarket customers. With clear personas, functional requirements, and a well-defined architecture, this project offers a valuable opportunity to practice full-stack application development.
+
