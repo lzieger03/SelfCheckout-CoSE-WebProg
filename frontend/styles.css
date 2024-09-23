@@ -105,7 +105,7 @@ main {
     margin: 0px 50px;
 }
 
-#quantity-button-image{
+#quantity-button-image {
     width: 20px;
     height: 20px;
     vertical-align: middle;
@@ -144,10 +144,6 @@ main {
 
 
 /* Rechter Bereich */
-#test {
-    color: green;
-}
-
 #right-section {
     flex: 2;
     background-color: white;
@@ -203,15 +199,87 @@ main {
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-#price-detail-subtotal, #price-detail-subtotal-label  {
+#price-detail-subtotal,
+#price-detail-subtotal-label {
     font-size: 1.6rem;
 }
-#price-detail-tax, #price-detail-tax-label  {
+
+#price-detail-tax,
+#price-detail-tax-label {
     font-size: 1.4rem;
 }
-#price-detail-total, #price-detail-total-label  {
+
+#price-detail-total,
+#price-detail-total-label {
     font-size: 1.8rem;
 }
+
+/* Right section - Barcode List */
+#barcode-input {
+    font-size: 14px;
+    border-radius: 6px;
+    line-height: 1.5;
+    padding: 5px 10px;
+    width: 90%;
+    transition: box-shadow 100ms ease-in, border 100ms ease-in, background-color 100ms ease-in;
+    border: 2px solid #dee1e2;
+    color: rgb(14, 14, 16);
+    background: #ffffff;
+    display: block;
+    height: 36px;
+    margin: 10px;
+}
+
+:hover {
+    border-color: #ccc;
+}
+
+:focus {
+    border-color: #9147ff;
+    background: #fff;
+}
+
+
+/* Stil für das Listenelement */
+#barcode-list li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+
+/* Bildstil */
+#barcode-list-productImage {
+    max-width: 50px;
+    height: auto;
+    margin-right: 15px;
+}
+
+/* Stil für die Produktinformationen */
+#barcode-list-productName,
+#barcode-list-productSinglePrice,
+#barcode-list-productQuantity,
+#barcode-list-productTotalPrice {
+    margin: 0 10px;
+    text-align: center;
+}
+
+/* Zusätzlicher Stil für Preise */
+#barcode-list-productSinglePrice,
+#barcode-list-productTotalPrice {
+    font-weight: bold;
+}
+
+/* Stil für die Trennlinie (falls gewünscht) */
+#barcode-list li hr {
+    width: 100%;
+    border: none;
+    border-top: 1px solid #ccc;
+    margin-top: 10px;
+}
+
 
 /* Bezahl-Button */
 #payment-button {
@@ -268,13 +336,15 @@ footer {
 
 /* Pop-up Overlay */
 .popup-overlay {
-    display: none; /* Initially hidden */
+    display: none;
+    /* Initially hidden */
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5); /* Slightly dim the background */
+    background: rgba(0, 0, 0, 0.5);
+    /* Slightly dim the background */
     justify-content: center;
     align-items: center;
     z-index: 1000;
@@ -313,7 +383,8 @@ footer {
 .payment-methods {
     display: flex;
     justify-content: space-between;
-    flex-wrap: wrap; /* Falls der Platz nicht ausreicht, brechen die Elemente um */
+    flex-wrap: wrap;
+    /* Falls der Platz nicht ausreicht, brechen die Elemente um */
     padding: 0;
     margin: 0;
     list-style: none;
@@ -353,11 +424,14 @@ footer {
 /* Kartenspezifisches Styling */
 .card-option {
     display: flex;
-    flex-direction: column; /* Icon und Info übereinander */
+    flex-direction: column;
+    /* Icon und Info übereinander */
     align-items: center;
     justify-content: center;
-    width: 170px; /* Feste Breite */
-    height: 170px; /* Feste Höhe für quadratische Form */
+    width: 170px;
+    /* Feste Breite */
+    height: 170px;
+    /* Feste Höhe für quadratische Form */
     border: 2px solid #ccc;
     border-radius: 10px;
     padding: 15px;
@@ -382,9 +456,11 @@ footer {
 }
 
 /* Stil für ausgewählten Radio-Button */
-input[type="radio"]:checked + .card-option {
-    border-color: blue;  /* Hervorhebung der ausgewählten Option */
-    box-shadow: 0 0 10px rgba(0, 0, 255, 0.3); /* Visueller Fokus */
+input[type="radio"]:checked+.card-option {
+    border-color: blue;
+    /* Hervorhebung der ausgewählten Option */
+    box-shadow: 0 0 10px rgba(0, 0, 255, 0.3);
+    /* Visueller Fokus */
 }
 
 /* Verstecke den eigentlichen Radio-Button */
