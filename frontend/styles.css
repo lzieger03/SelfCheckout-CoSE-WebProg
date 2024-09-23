@@ -37,7 +37,7 @@ main {
 /* Linker Bereich */
 #left-section {
     flex: 1;
-    background-color: #EDF3F5;
+    background-color: white;
     color: #252E3D;
     padding: 20px;
     display: flex;
@@ -97,13 +97,13 @@ main {
 /* Rechter Bereich */
 #right-section {
     flex: 2;
-    background-color: #EDF3F5;
+    background-color: white;
     padding: 20px;
     border-radius: 8px;
 }
 
 #item-list {
-    background-color: #436150;
+    background-color: #E3E6E6;
     height: 300px;
     margin-bottom: 20px;
     border-radius: 8px;
@@ -142,6 +142,7 @@ main {
 /* Footer Styling */
 footer {
     background-color: #252E3D;
+    height: 7rem;
     color: white;
     text-align: center;
     padding: 1rem;
