@@ -1,0 +1,146 @@
+/* Allgemeine Layout-Einstellungen */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Header Styling */
+header {
+    background-color: #444;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+}
+
+header h1 {
+    font-size: 2rem;
+}
+
+/* Main Layout */
+main {
+    display: flex;
+    flex: 1;
+    padding: 20px;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+/* Linker Bereich */
+#left-section {
+    flex: 1;
+    background-color: #eaeaea;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 8px;
+}
+
+#product-image img {
+    width: 200px;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+#product-info {
+    text-align: center;
+}
+
+#quantity-controls {
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.quantity-btn {
+    background-color: #a06060;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+.quantity-btn:hover {
+    background-color: #8e4c4c;
+}
+
+.quantity-display {
+    font-size: 1.5rem;
+}
+
+#other-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+#other-buttons .button {
+    width: 40px;
+    height: 40px;
+    background-color: #a06060;
+    border-radius: 8px;
+}
+
+/* Rechter Bereich */
+#right-section {
+    flex: 2;
+    background-color: #d1d5d8;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+#item-list {
+    background-color: #436150;
+    height: 300px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+}
+
+#price-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.price-detail {
+    width: 45%;
+    height: 50px;
+    background-color: #a06060;
+    border-radius: 8px;
+}
+
+/* Bezahl-Button */
+.pay-btn {
+    background-color: #436150;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 8px;
+}
+
+.pay-btn:hover {
+    background-color: #374d40;
+}
+
+/* Footer Styling */
+footer {
+    background-color: #444;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.9rem;
+}
