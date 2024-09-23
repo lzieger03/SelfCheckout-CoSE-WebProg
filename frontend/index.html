@@ -25,9 +25,9 @@
                     <p id="product-info-itemNumber">Item number</p>
                 </div>
                 <div id="quantity-controls">
-                    <button class="quantity-btn"><img src="resources/minusButton.svg" alt="-" id="quantity-button-image"></button>
+                    <button id="quantity-btn-minus" class="quantity-btn"><img src="resources/minusButton.svg" alt="-" id="quantity-button-image"></button>
                     <span class="quantity-display">1</span>
-                    <button class="quantity-btn"><img src="resources/plusButton.svg" alt="+" id="quantity-button-image"></button>
+                    <button id="quantity-btn-plus" class="quantity-btn"><img src="resources/plusButton.svg" alt="+" id="quantity-button-image"></button>
                 </div>
             </div>
             <div id="accessibility-controls">
@@ -41,7 +41,8 @@
         <!-- Rechter Bereich für Artikelübersicht -->
         <div id="right-section">
             <div id="item-list">
-
+                <input type="text" id="barcode-input" placeholder="Scan Barcode here" autofocus>
+                <ul id="barcode-list" class="barcode-list"></ul>
             </div>
             <div id="price-info">
                 <div class="price-detail">
@@ -123,7 +124,8 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="barcode-script.js"></script>
+    <script src="payment-script.js"></script>
 
     <!-- Footer-Bereich -->
     <footer>

@@ -12,6 +12,7 @@ body {
     flex-direction: column;
     min-height: 100vh;
     max-height: 100%;
+    list-style: none;
 }
 
 
@@ -107,6 +108,7 @@ main {
 #quantity-button-image{
     width: 20px;
     height: 20px;
+    vertical-align: middle;
 }
 
 
@@ -142,6 +144,10 @@ main {
 
 
 /* Rechter Bereich */
+#test {
+    color: green;
+}
+
 #right-section {
     flex: 2;
     background-color: white;
