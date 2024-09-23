@@ -41,7 +41,6 @@ main {
     color: #252E3D;
     padding: 20px;
     display: grid;
-    grid-template-columns: auto;
     grid-template-rows: auto auto;
     align-items: center;
     justify-content: center;
@@ -49,7 +48,6 @@ main {
 }
 
 #productOverview-container {
-    grid-row: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -80,6 +78,7 @@ main {
     padding: 10px 20px;
     cursor: pointer;
     font-size: 1.2rem;
+    transition: background-color .2s ease-in-out;
 }
 
 .quantity-btn:hover {
@@ -90,30 +89,23 @@ main {
     font-size: 1.5rem;
 }
 
-/*Accessibility Buttons in left section*/
+/* Accessibility Buttons */
 #accessibility-controls {
-    grid-row: 2;
     display: flex;
-    flex-direction: row;
-    align-self: flex-end;
     gap: 10px;
     margin-top: 20px;
+    align-self: flex-end;
 }
 
-/* CSS */
 .accessibility-button {
     background-color: #F18805;
     border-radius: 30px;
     border: none;
-    color: #fff;
+    color: white;
     cursor: pointer;
-    display: inherit;
-    position: relative;
     text-align: center;
     padding: 20px;
-    touch-action: manipulation;
-    vertical-align: baseline;
-    transition: all .2s cubic-bezier(.22, .61, .36, 1);
+    transition: background-color .2s, transform .2s cubic-bezier(.22, .61, .36, 1);
 }
 
 .accessibility-button:hover {
@@ -147,8 +139,7 @@ main {
 #price-info {
     display: grid;
     grid-template-columns: auto auto auto;
-    grid-template-rows: auto auto auto;
-    grid-gap: 5px;
+    gap: 5px;
     margin-bottom: 20px;
 }
 
@@ -160,13 +151,11 @@ main {
 }
 
 /* Bezahl-Button */
-#payment-button{
+#payment-button {
     display: flex;
-    flex-direction: row;
-    align-self: flex-end;
     width: 100%;
+    justify-content: flex-end;
 }
-
 
 .pay-btn {
     background-color: #FBDC3C;
@@ -178,21 +167,16 @@ main {
     cursor: pointer;
     width: 100%;
     border-radius: 8px;
-    transition: all .2s cubic-bezier(.22, .61, .36, 1);
-}
-
-.pay-btn:hover {
-    transform: translateY(-2px);
+    transition: background-color .2s, transform .2s cubic-bezier(.22, .61, .36, 1);
 }
 
 .pay-btn:hover {
     background-color: #F0CD20;
+    transform: translateY(-2px);
 }
 
-/* Footer Styling */
 footer {
     background-color: #252E3D;
-    height: 3 rem;
     color: white;
     text-align: center;
     padding: 1rem;
