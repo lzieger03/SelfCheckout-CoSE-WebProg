@@ -7,7 +7,7 @@
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-color: #E3E6E6;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -15,7 +15,7 @@ body {
 
 /* Header Styling */
 header {
-    background-color: #444;
+    background-color: #252E3D;
     color: white;
     text-align: center;
     padding: 1rem;
@@ -37,7 +37,8 @@ main {
 /* Linker Bereich */
 #left-section {
     flex: 1;
-    background-color: #eaeaea;
+    background-color: #EDF3F5;
+    color: #252E3D;
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -63,7 +64,8 @@ main {
 }
 
 .quantity-btn {
-    background-color: #a06060;
+    background-color: #F8C171;
+    border-radius: 10px;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -72,7 +74,7 @@ main {
 }
 
 .quantity-btn:hover {
-    background-color: #8e4c4c;
+    background-color: #D3A96A;
 }
 
 .quantity-display {
@@ -95,7 +97,7 @@ main {
 /* Rechter Bereich */
 #right-section {
     flex: 2;
-    background-color: #d1d5d8;
+    background-color: #EDF3F5;
     padding: 20px;
     border-radius: 8px;
 }
@@ -122,8 +124,9 @@ main {
 
 /* Bezahl-Button */
 .pay-btn {
-    background-color: #436150;
-    color: white;
+    background-color: #FBDC3C;
+    color: #252E3D;
+    font-weight: bold;
     border: none;
     padding: 15px 30px;
     font-size: 1.2rem;
@@ -133,12 +136,12 @@ main {
 }
 
 .pay-btn:hover {
-    background-color: #374d40;
+    background-color: #F0CD20;
 }
 
 /* Footer Styling */
 footer {
-    background-color: #444;
+    background-color: #252E3D;
     color: white;
     text-align: center;
     padding: 1rem;
