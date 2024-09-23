@@ -279,7 +279,7 @@ footer {
     background-color: white;
     border-radius: 10px;
     padding: 20px;
-    max-width: 50%;
+    max-width: 80%;
     text-align: center;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     position: relative;
@@ -366,7 +366,7 @@ footer {
 }
 
 .payment-icon {
-    font-size: 2rem; /* Größere Symbole */
+    max-width: 80%;
     margin-bottom: 10px;
 }
 

@@ -21,8 +21,8 @@
                     <img src="/frontend/resources/Logo.png" alt="Logo" id="item-preview-image"/>
                 </div>
                 <div id="product-info">
-                    <h2>Item name</h2>
-                    <p>Item number</p>
+                    <h2 id="product-info-itemName">Item name</h2>
+                    <p id="product-info-itemNumber">Item number</p>
                 </div>
                 <div id="quantity-controls">
                     <button class="quantity-btn"><img src="resources/minusButton.svg" alt="-" id="quantity-button-image"></button>
@@ -76,7 +76,7 @@
                 <li>
                     <input type="radio" name="payment" id="apple-pay" value="Apple Pay">
                     <label for="apple-pay" class="card-option">
-                        <span class="payment-icon">🍏</span>
+                        <img src="resources/payment-applepay.png" class="payment-icon">
                         <span class="payment-info">
                             <strong>Apple Pay</strong>
                         </span>
@@ -85,7 +85,7 @@
                 <li>
                     <input type="radio" name="payment" id="google-pay" value="Google Pay">
                     <label for="google-pay" class="card-option">
-                        <span class="payment-icon">⚡</span>
+                        <img src="resources/payment-googlepay.png" class="payment-icon">
                         <span class="payment-info">
                             <strong>Google Pay</strong>
                         </span>
@@ -94,7 +94,7 @@
                 <li>
                     <input type="radio" name="payment" id="debit-credit" value="Debit/Credit">
                     <label for="debit-credit" class="card-option">
-                        <span class="payment-icon">💳</span>
+                        <img src="resources/payment-creditcard.png" class="payment-icon">
                         <span class="payment-info">
                             <strong>Debit/Credit</strong>
                         </span>
@@ -103,7 +103,7 @@
                 <li>
                     <input type="radio" name="payment" id="cash" value="Cash">
                     <label for="cash" class="card-option">
-                        <span class="payment-icon">💵</span>
+                        <img src="resources/payment-cash.png" class="payment-icon">
                         <span class="payment-info">
                             <strong>Cash</strong>
                         </span>
@@ -112,7 +112,7 @@
                 <li>
                     <input type="radio" name="payment" id="giftcard" value="Giftcard">
                     <label for="giftcard" class="card-option">
-                        <span class="payment-icon">💵</span>
+                        <img src="resources/payment-giftcard.png" class="payment-icon">
                         <span class="payment-info">
                             <strong>Giftcard</strong>
                         </span>
