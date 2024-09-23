@@ -11,6 +11,7 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    max-height: 100%;
 }
 
 
@@ -151,10 +152,12 @@ main {
 .price-detail {
     display: grid;
     grid-column: auto auto;
+    width: 60%;
     font-size: 20px;
     grid-column: 3;
     height: 30px;
     border-radius: 8px;
+    justify-self: right;
 }
 
 .price-detail-label {
@@ -163,17 +166,29 @@ main {
 
 .price-detail-amount {
     grid-column: 2;
+    justify-self: right;
 }
 
 #price-detail-divider {
     grid-column: 3;
+    justify-self: right;
     height: 2px;
+    width: 60%;
     border: 0;
     height: 0;
     border-top: 1px solid rgba(0, 0, 0, 0.1);
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
 
+#price-detail-subtotal, #price-detail-subtotal-label  {
+    font-size: large;
+}
+#price-detail-tax, #price-detail-tax-label  {
+    font-size: medium;
+}
+#price-detail-total, #price-detail-total-label  {
+    font-size: larger;
+}
 
 /* Bezahl-Button */
 #payment-button {
@@ -183,21 +198,36 @@ main {
 }
 
 .pay-btn {
+    display: grid;
+    grid-template-columns: auto auto;
     background-color: #FBDC3C;
     color: #252E3D;
     font-weight: 1000;
     border: none;
-    padding: 15px 30px;
+    /*padding: 15px 30px;*/
     font-size: 1.2rem;
     cursor: pointer;
     width: 100%;
     border-radius: 8px;
+    vertical-align: middle;
     transition: background-color .2s, transform .2s cubic-bezier(.22, .61, .36, 1);
 }
 
 .pay-btn:hover {
     background-color: #F0CD20;
     transform: translateY(-2px);
+}
+
+#pay-btn-label {
+    justify-self: left;
+    align-self: center;
+}
+
+#pay-btn-img {
+    justify-self: right;
+    height: 30px;
+    margin: 10px;
+    padding: 0;
 }
 
 footer {
