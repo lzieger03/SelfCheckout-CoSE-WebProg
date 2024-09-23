@@ -3,7 +3,6 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    color: #252E3D;
 }
 
 body {
@@ -53,8 +52,8 @@ main {
 }
 
 #item-preview-image {
-    width: 500px;
-    height: 500px;
+    min-width: 500px;
+    min-height: 500px;
 }
 
 #productOverview-container {
@@ -212,8 +211,8 @@ main {
     color: #252E3D;
     font-weight: 1000;
     border: none;
-    /*padding: 15px 30px;*/
-    font-size: 1.2rem;
+    padding: 15px 0px;
+    font-size: 1.8rem;
     cursor: pointer;
     width: 100%;
     border-radius: 8px;
@@ -233,8 +232,8 @@ main {
 
 #pay-btn-img {
     justify-self: right;
-    height: 30px;
-    margin: 10px;
+    height: 50px;
+    margin: 0 10px;
     padding: 0;
     fill: #252E3D;
 }
