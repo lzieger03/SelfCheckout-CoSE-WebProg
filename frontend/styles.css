@@ -81,17 +81,40 @@ main {
     font-size: 1.5rem;
 }
 
-#other-buttons {
+/*Accessibility Buttons in left section*/
+#accessibility-controls {
     display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     gap: 10px;
     margin-top: 20px;
 }
 
-#other-buttons .button {
-    width: 40px;
-    height: 40px;
-    background-color: #a06060;
-    border-radius: 8px;
+/* CSS */
+.accessibility-button {
+    background-color: #F18805;
+    border-radius: 30px;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    display: inherit;
+    position: relative;
+    text-align: center;
+    padding: 20px;
+    touch-action: manipulation;
+    vertical-align: baseline;
+    transition: all .2s cubic-bezier(.22, .61, .36, 1);
+}
+
+.accessibility-button:hover {
+    background-color: #F39005;
+    transform: translateY(-2px);
+}
+
+.accessibility-button-image {
+    max-width: 100px;
+    max-height: 100px;
+    filter: invert();
 }
 
 /* Rechter Bereich */
@@ -100,25 +123,30 @@ main {
     background-color: white;
     padding: 20px;
     border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 #item-list {
     background-color: #E3E6E6;
-    height: 300px;
+    height: 75%;
     margin-bottom: 20px;
     border-radius: 8px;
 }
 
 #price-info {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-template-rows: auto auto auto;
+    grid-gap: 5px;
     margin-bottom: 20px;
 }
 
 .price-detail {
-    width: 45%;
+    grid-column: 3;
     height: 50px;
-    background-color: #a06060;
+    background-color: grey;
     border-radius: 8px;
 }
 
@@ -133,6 +161,11 @@ main {
     cursor: pointer;
     width: 100%;
     border-radius: 8px;
+    transition: all .2s cubic-bezier(.22, .61, .36, 1);
+}
+
+.pay-btn:hover {
+    transform: translateY(-2px);
 }
 
 .pay-btn:hover {
@@ -142,7 +175,7 @@ main {
 /* Footer Styling */
 footer {
     background-color: #252E3D;
-    height: 7rem;
+    height: 3 rem;
     color: white;
     text-align: center;
     padding: 1rem;

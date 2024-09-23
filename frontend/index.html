@@ -9,7 +9,7 @@
 <body>
     <!-- Header-Bereich -->
     <header>
-        <h1>Self-Checkout System by Lars und Marven</h1>
+        <h1>ScanMate by Lars und Marven</h1>
     </header>
 
     <!-- Hauptbereich für das Layout -->
@@ -28,11 +28,11 @@
                 <span class="quantity-display">1</span>
                 <button class="quantity-btn">+</button>
             </div>
-            <div id="other-buttons">
-                <div class="button"></div>
-                <div class="button"></div>
-                <div class="button"></div>
-                <div class="button"></div>
+            <div id="accessibility-controls">
+                <button class="accessibility-button" ><img src="/frontend/resources/screenReaderButton.png" class="accessibility-button-image"></button>
+                <button class="accessibility-button" ><img src="/frontend/resources/textSizeButton.png" class="accessibility-button-image"></button>
+                <button class="accessibility-button" ><img src="/frontend/resources/helpButton.png" class="accessibility-button-image"></button>
+                <button class="accessibility-button" ><img src="/frontend/resources/infoButton.png" class="accessibility-button-image"></button>
             </div>
         </div>
 
@@ -40,8 +40,18 @@
         <div id="right-section">
             <div id="item-list"></div>
             <div id="price-info">
-                <div class="price-detail"></div>
-                <div class="price-detail"></div>
+                <div class="price-detail">
+                    <p>Sub Total:</p>
+                    <p id="price-detail-SubTotal"></p>
+                </div>
+                <div class="price-detail">
+                    <p>Tax: </p>
+                    <p id="price-detail-Tax"></p>
+                </div>
+                <div class="price-detail">
+                    <p>Total: </p>
+                    <p id="price-detail-Total"></p>
+                </div>
             </div>
             <div id="payment-button">
                 <button class="pay-btn">Pay →</button>
