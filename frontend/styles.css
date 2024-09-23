@@ -13,6 +13,7 @@ body {
     min-height: 100vh;
 }
 
+
 /* Header Styling */
 header {
     background-color: #252E3D;
@@ -25,6 +26,7 @@ header h1 {
     font-size: 2rem;
 }
 
+
 /* Main Layout */
 main {
     display: flex;
@@ -33,6 +35,7 @@ main {
     justify-content: space-between;
     gap: 20px;
 }
+
 
 /* Linker Bereich */
 #left-section {
@@ -89,6 +92,7 @@ main {
     font-size: 1.5rem;
 }
 
+
 /* Accessibility Buttons */
 #accessibility-controls {
     display: flex;
@@ -119,6 +123,7 @@ main {
     filter: invert();
 }
 
+
 /* Rechter Bereich */
 #right-section {
     flex: 2;
@@ -144,11 +149,31 @@ main {
 }
 
 .price-detail {
+    display: grid;
+    grid-column: auto auto;
+    font-size: 20px;
     grid-column: 3;
-    height: 50px;
-    background-color: grey;
+    height: 30px;
     border-radius: 8px;
 }
+
+.price-detail-label {
+    grid-column: 1;
+}
+
+.price-detail-amount {
+    grid-column: 2;
+}
+
+#price-detail-divider {
+    grid-column: 3;
+    height: 2px;
+    border: 0;
+    height: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
 
 /* Bezahl-Button */
 #payment-button {
