@@ -67,6 +67,35 @@
         </div>
     </main>
 
+    <!-- Pop-up-Overlay -->
+    <div id="payment-popup" class="popup-overlay">
+        <div class="popup-content">
+            <span id="close-popup" class="close-btn">&times;</span>
+            <h2>Choose Payment Method</h2>
+            <ul class="payment-methods">
+                <li>
+                    <input type="radio" name="payment" id="apple-pay" value="Apple Pay">
+                    <label for="apple-pay">Apple Pay</label>
+                </li>
+                <li>
+                    <input type="radio" name="payment" id="google-pay" value="Google Pay">
+                    <label for="google-pay">Google Pay</label>
+                </li>
+                <li>
+                    <input type="radio" name="payment" id="debit-credit" value="Debit/Credit">
+                    <label for="debit-credit">Debit/Credit</label>
+                </li>
+                <li>
+                    <input type="radio" name="payment" id="cash" value="Cash">
+                    <label for="cash">Cash</label>
+                </li>
+            </ul>
+            <button id="proceed-button" class="proceed-btn" disabled>Proceed with payment</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
     <!-- Footer-Bereich -->
     <footer>
         <p>© 2024 ScanMate by Lars und Marven</p>
