@@ -279,8 +279,7 @@ footer {
     background-color: white;
     border-radius: 10px;
     padding: 20px;
-    max-width: 400px;
-    width: 90%;
+    max-width: 50%;
     text-align: center;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     position: relative;
@@ -306,9 +305,12 @@ footer {
 }
 
 .payment-methods {
-    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap; /* Falls der Platz nicht ausreicht, brechen die Elemente um */
     padding: 0;
-    margin-bottom: 20px;
+    margin: 0;
+    list-style: none;
 }
 
 .payment-methods li {
@@ -342,17 +344,21 @@ footer {
     background-color: #F0CD20;
 }
 
-/* Stil für die Karten-ähnlichen Radio-Buttons */
+/* Kartenspezifisches Styling */
 .card-option {
     display: flex;
+    flex-direction: column; /* Icon und Info übereinander */
     align-items: center;
-    justify-content: space-between;
-    padding: 15px;
-    border: 2px solid #ccc;  /* Standard-Rahmen */
+    justify-content: center;
+    width: 170px; /* Feste Breite */
+    height: 170px; /* Feste Höhe für quadratische Form */
+    border: 2px solid #ccc;
     border-radius: 10px;
-    margin-bottom: 15px;
+    padding: 15px;
+    margin: 10px;
     cursor: pointer;
     transition: border 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    box-sizing: border-box;
 }
 
 .card-option:hover {
@@ -361,12 +367,12 @@ footer {
 
 .payment-icon {
     font-size: 2rem; /* Größere Symbole */
+    margin-bottom: 10px;
 }
 
 .payment-info {
-    text-align: left;
-    margin-left: 10px;
-    flex-grow: 1;
+    text-align: center;
+    font-size: 1.3rem;
 }
 
 /* Stil für ausgewählten Radio-Button */
