@@ -75,19 +75,38 @@
             <ul class="payment-methods">
                 <li>
                     <input type="radio" name="payment" id="apple-pay" value="Apple Pay">
-                    <label for="apple-pay">Apple Pay</label>
+                    <label for="apple-pay" class="card-option">
+                        <span class="payment-icon">🍏</span>
+                        <span class="payment-info">
+                            <strong>Apple Pay</strong>
+                    </label>
                 </li>
                 <li>
                     <input type="radio" name="payment" id="google-pay" value="Google Pay">
-                    <label for="google-pay">Google Pay</label>
+                    <label for="google-pay" class="card-option">
+                        <span class="payment-icon">⚡</span>
+                        <span class="payment-info">
+                            <strong>Google Pay</strong>
+                        </span>
+                    </label>
                 </li>
                 <li>
                     <input type="radio" name="payment" id="debit-credit" value="Debit/Credit">
-                    <label for="debit-credit">Debit/Credit</label>
+                    <label for="debit-credit" class="card-option">
+                        <span class="payment-icon">💳</span>
+                        <span class="payment-info">
+                            <strong>Debit/Credit</strong>
+                        </span>
+                    </label>
                 </li>
                 <li>
                     <input type="radio" name="payment" id="cash" value="Cash">
-                    <label for="cash">Cash</label>
+                    <label for="cash" class="card-option">
+                        <span class="payment-icon">💵</span>
+                        <span class="payment-info">
+                            <strong>Cash</strong>
+                        </span>
+                    </label>
                 </li>
             </ul>
             <button id="proceed-button" class="proceed-btn" disabled>Proceed with payment</button>

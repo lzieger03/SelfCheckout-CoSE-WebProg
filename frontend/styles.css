@@ -321,7 +321,7 @@ footer {
 }
 
 .proceed-btn {
-    background-color: #FBDC3C;
+    background-color: #CCCCCC;
     color: #252E3D;
     font-weight: bold;
     border: none;
@@ -334,9 +334,48 @@ footer {
 
 .proceed-btn.active {
     cursor: pointer;
-    background-color: #F0CD20;
+    background-color: #FBDC3C;
 }
 
 .proceed-btn:hover.active {
     transform: translateY(-2px);
+    background-color: #F0CD20;
+}
+
+/* Stil für die Karten-ähnlichen Radio-Buttons */
+.card-option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    border: 2px solid #ccc;  /* Standard-Rahmen */
+    border-radius: 10px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    transition: border 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.card-option:hover {
+    border-color: #999;
+}
+
+.payment-icon {
+    font-size: 2rem; /* Größere Symbole */
+}
+
+.payment-info {
+    text-align: left;
+    margin-left: 10px;
+    flex-grow: 1;
+}
+
+/* Stil für ausgewählten Radio-Button */
+input[type="radio"]:checked + .card-option {
+    border-color: blue;  /* Hervorhebung der ausgewählten Option */
+    box-shadow: 0 0 10px rgba(0, 0, 255, 0.3); /* Visueller Fokus */
+}
+
+/* Verstecke den eigentlichen Radio-Button */
+input[type="radio"] {
+    display: none;
 }
