@@ -40,10 +40,19 @@ main {
     background-color: white;
     color: #252E3D;
     padding: 20px;
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto auto;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+}
+
+#productOverview-container {
+    grid-row: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
-    border-radius: 8px;
 }
 
 #product-image img {
@@ -83,9 +92,10 @@ main {
 
 /*Accessibility Buttons in left section*/
 #accessibility-controls {
+    grid-row: 2;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    align-self: flex-end;
     gap: 10px;
     margin-top: 20px;
 }
@@ -112,8 +122,8 @@ main {
 }
 
 .accessibility-button-image {
-    max-width: 100px;
-    max-height: 100px;
+    max-width: 75px;
+    max-height: 75px;
     filter: invert();
 }
 
@@ -125,7 +135,6 @@ main {
     border-radius: 8px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
 }
 
 #item-list {
@@ -151,6 +160,14 @@ main {
 }
 
 /* Bezahl-Button */
+#payment-button{
+    display: flex;
+    flex-direction: row;
+    align-self: flex-end;
+    width: 100%;
+}
+
+
 .pay-btn {
     background-color: #FBDC3C;
     color: #252E3D;
