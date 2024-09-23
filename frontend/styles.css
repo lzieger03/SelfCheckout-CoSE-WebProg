@@ -70,6 +70,8 @@ main {
 
 #product-info {
     text-align: center;
+    color: #252E3D;
+    font-size: 1.8rem;
 }
 
 #quantity-controls {
@@ -82,7 +84,8 @@ main {
 .quantity-btn {
     background-color: #FBDC3C;
     border-radius: 10px;
-    width: 70px;
+    width: 100px;
+    height: 60px;
     color: #252E3D;
     font-weight: 700;
     border: none;
@@ -97,7 +100,13 @@ main {
 }
 
 .quantity-display {
-    font-size: 1.5rem;
+    font-size: 2rem;
+    margin: 0px 50px;
+}
+
+#quantity-button-image{
+    width: 20px;
+    height: 20px;
 }
 
 
@@ -165,6 +174,7 @@ main {
     height: 30px;
     border-radius: 8px;
     justify-self: right;
+    color: #252E3D;
 }
 
 .price-detail-label {
@@ -188,13 +198,13 @@ main {
 }
 
 #price-detail-subtotal, #price-detail-subtotal-label  {
-    font-size: large;
+    font-size: 1.6rem;
 }
 #price-detail-tax, #price-detail-tax-label  {
-    font-size: medium;
+    font-size: 1.4rem;
 }
 #price-detail-total, #price-detail-total-label  {
-    font-size: larger;
+    font-size: 1.8rem;
 }
 
 /* Bezahl-Button */
