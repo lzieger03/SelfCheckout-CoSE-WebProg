@@ -154,10 +154,11 @@ main {
 }
 
 #item-list {
+    display: flex;
+    flex-direction: column;
     background-color: #E3E6E6;
     margin-bottom: 20px;
     border-radius: 8px;
-    overflow-y: auto;
     max-height: 650px;
     min-height: 75%;
 }
@@ -216,21 +217,21 @@ main {
     font-size: 1.8rem;
 }
 
+#barcode-input-container {
+    padding: 20px 20px 10px 20px;
+}
+
 /* Right section - Barcode List */
 #barcode-input {
     font-size: 14px;
-    border-radius: 6px;
+    border-radius: 10px;
     line-height: 1.5;
     padding: 5px 10px;
-    width: 50rem;
-    transition: box-shadow 100ms ease-in, border 100ms ease-in, background-color 100ms ease-in;
+    width: 100%;
     border: 2px solid #f0cd204c;
-    color: rgb(14, 14, 16);
+    color: black;
     background: #ffffff;
-    display: block;
     height: 36px;
-    margin: 10px;
-    position: fixed;
 }
 
 #barcode-input:hover {
@@ -242,6 +243,10 @@ main {
     background: #fff;
 }
 
+#barcode-list-container{
+    overflow-y: auto;
+}
+
 
 /* Stil für das Listenelement */
 #barcode-list li {
@@ -249,9 +254,11 @@ main {
     align-items: center;
     justify-content: space-between;
     padding: 10px;
-    border-bottom: 1px solid #ccc;
-    margin-bottom: 10px;
-    margin-top: 50px
+    margin: 10px 20px;
+}
+
+.selected {
+    border: solid 3px #252E3D;
 }
 
 /* Bildstil */
