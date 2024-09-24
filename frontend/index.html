@@ -10,13 +10,14 @@
 
 <body>
 
-    <!-- Beginn-Popup-Overlay -->
+    <!-- StartPopup-Overlay -->
     <div id="start-popup" class="popup-overlay">
-        <div class="popup-content">
-            <img src="resources/barcode.svg" alt="barcode">
-            <h1>To start, just scan your first item</h1>
+        <div class="start-popup-content">
+            <img src="resources/startpopup.svg" alt="">
         </div>
     </div>
+    
+    
 
     <!-- Header-Bereich -->
     <header>
@@ -90,58 +91,58 @@
     </main>
 
     <!-- Pop-up-Overlay -->
-    <div id="payment-popup" class="popup-overlay">
-        <div class="popup-content">
-            <span id="close-popup" class="close-btn">&times;</span>
+    <div id="payment-popup" class="payment-popup-overlay">
+        <div class="payment-popup-content">
+            <span id="payment-close-popup" class="payment-popup-close-btn">&times;</span>
             <h2>Choose Payment Method</h2>
-            <ul class="payment-methods">
+            <ul class="payment-popup-methods">
                 <li>
                     <input type="radio" name="payment" id="apple-pay" value="Apple Pay">
-                    <label for="apple-pay" class="card-option">
-                        <img src="resources/payment-applepay.png" class="payment-icon">
-                        <span class="payment-info">
+                    <label for="apple-pay" class="payment-popup-card-option">
+                        <img src="resources/payment-applepay.png" class="payment-popup-icon">
+                        <span class="payment-popup-info">
                             <strong>Apple Pay</strong>
                         </span>
                     </label>
                 </li>
                 <li>
                     <input type="radio" name="payment" id="google-pay" value="Google Pay">
-                    <label for="google-pay" class="card-option">
-                        <img src="resources/payment-googlepay.png" class="payment-icon">
-                        <span class="payment-info">
+                    <label for="google-pay" class="payment-popup-card-option">
+                        <img src="resources/payment-googlepay.png" class="payment-popup-icon">
+                        <span class="payment-popup-info">
                             <strong>Google Pay</strong>
                         </span>
                     </label>
                 </li>
                 <li>
                     <input type="radio" name="payment" id="debit-credit" value="Debit/Credit">
-                    <label for="debit-credit" class="card-option">
-                        <img src="resources/payment-creditcard.png" class="payment-icon">
-                        <span class="payment-info">
+                    <label for="debit-credit" class="payment-popup-card-option">
+                        <img src="resources/payment-creditcard.png" class="payment-popup-icon">
+                        <span class="payment-popup-info">
                             <strong>Debit/Credit</strong>
                         </span>
                     </label>
                 </li>
                 <li>
                     <input type="radio" name="payment" id="cash" value="Cash">
-                    <label for="cash" class="card-option">
-                        <img src="resources/payment-cash.png" class="payment-icon">
-                        <span class="payment-info">
+                    <label for="cash" class="payment-popup-card-option">
+                        <img src="resources/payment-cash.png" class="payment-popup-icon">
+                        <span class="payment-popup-info">
                             <strong>Cash</strong>
                         </span>
                     </label>
                 </li>
                 <li>
                     <input type="radio" name="payment" id="giftcard" value="Giftcard">
-                    <label for="giftcard" class="card-option">
-                        <img src="resources/payment-giftcard.png" class="payment-icon">
-                        <span class="payment-info">
+                    <label for="giftcard" class="payment-popup-card-option">
+                        <img src="resources/payment-giftcard.png" class="payment-popup-icon">
+                        <span class="payment-popup-info">
                             <strong>Giftcard</strong>
                         </span>
                     </label>
                 </li>
             </ul>
-            <button id="proceed-button" class="proceed-btn" disabled>Proceed with payment</button>
+            <button id="payment-popup-proceed-button" class="payment-popup-proceed-btn" disabled>Proceed with payment</button>
         </div>
     </div>
 

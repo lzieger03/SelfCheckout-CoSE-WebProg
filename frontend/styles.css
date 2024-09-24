@@ -1,4 +1,4 @@
-/* Allgemeine Layout-Einstellungen */
+/* Allgemeine Layout-Einstellungen -------------------------------------------------------------------  */
 * {
     margin: 0;
     padding: 0;
@@ -16,7 +16,9 @@ body {
 }
 
 
-/* Header Styling */
+
+
+/* Header Styling -------------------------------------------------------------------  */
 header {
     background-color: #252E3D;
     color: white;
@@ -29,7 +31,9 @@ header h1 {
 }
 
 
-/* Main Layout */
+
+
+/* Main Layout -------------------------------------------------------------------  */
 main {
     display: flex;
     flex: 1;
@@ -39,7 +43,10 @@ main {
 }
 
 
-/* Beginn-Popup Overlay */
+
+
+/* Start Popup Overlay ------------------------------------------------------------------- */
+/* Start Popup Overlay */
 #start-popup {
     display: flex;
     position: fixed;
@@ -47,28 +54,33 @@ main {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.8); /* Dunkler Hintergrund */
+    background: rgba(0, 0, 0, 0.8); /* Dark background */
     justify-content: center;
     align-items: center;
     z-index: 1000;
 }
 
-#start-popup .popup-content {
-    background-color: white;
-    border-radius: 10px;
-    padding: 40px;
-    width: 80%;
+/* Popup Content */
+.start-popup-content {
+    display: flex;
+    background-color: #E3E6E6;
+    border-radius: 20px;
     max-width: 80%;
-    height: 80%;
-    max-width: 80%;
-    text-align: center;
-    font-size: 1.5rem;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    max-height: 80%;
+    align-items: center;
+}
+
+.start-popup-content img {
+    height: 100%;
+    width: 100%;
+    border-radius: 20px;
 }
 
 
 
-/* Linker Bereich */
+
+
+/* Linker Bereich  ------------------------------------------------------------------- */
 #left-section {
     flex: 1;
     background-color: white;
@@ -141,7 +153,9 @@ main {
 }
 
 
-/* Accessibility Buttons */
+
+
+/* Accessibility Buttons -------------------------------------------------------------------  */
 #accessibility-controls {
     display: flex;
     gap: 10px;
@@ -172,7 +186,11 @@ main {
 }
 
 
-/* Rechter Bereich */
+
+
+
+
+/* Rechter Bereich  ------------------------------------------------------------------- */
 #right-section {
     flex: 2;
     background-color: white;
@@ -250,6 +268,9 @@ main {
     padding: 20px 20px 10px 20px;
 }
 
+
+
+
 /* Right section - Barcode List */
 #barcode-input {
     font-size: 14px;
@@ -300,6 +321,8 @@ main {
     height: auto;
     margin-right: 15px;
 }
+
+
 
 
 
@@ -409,24 +432,23 @@ footer {
 
 
 
-/* Pop-up Overlay */
-.popup-overlay {
+
+/* Pop-up Overlay  ------------------------------------------------------------------- */
+.payment-popup-overlay {
     display: none;
-    /* Initially hidden */
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
-    /* Slightly dim the background */
     justify-content: center;
     align-items: center;
     z-index: 1000;
 }
 
 /* Pop-up Content */
-.popup-content {
+.payment-popup-content {
     background-color: white;
     border-radius: 10px;
     padding: 20px;
@@ -436,13 +458,13 @@ footer {
     position: relative;
 }
 
-.popup-content h2 {
+.payment-popup-content h2 {
     font-size: 1.5rem;
     margin-bottom: 20px;
 }
 
 /* Close Button Styling */
-.close-btn {
+.payment-popup-close-btn {
     position: absolute;
     top: 10px;
     right: 15px;
@@ -451,30 +473,29 @@ footer {
     color: #333;
 }
 
-.close-btn:hover {
+.payment-popup-close-btn:hover {
     color: #000;
 }
 
-.payment-methods {
+.payment-popup-methods {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    /* Falls der Platz nicht ausreicht, brechen die Elemente um */
     padding: 0;
     margin: 0;
     list-style: none;
 }
 
-.payment-methods li {
+.payment-popup-methods li {
     margin: 10px 0;
     text-align: left;
 }
 
-.payment-methods input {
+.payment-popup-methods input {
     margin-right: 10px;
 }
 
-.proceed-btn {
+.payment-popup-proceed-btn {
     background-color: #CCCCCC;
     color: #252E3D;
     font-weight: bold;
@@ -486,27 +507,24 @@ footer {
     transition: all .2s cubic-bezier(.22, .61, .36, 1);
 }
 
-.proceed-btn.active {
+.payment-popup-proceed-btn.active {
     cursor: pointer;
     background-color: #FBDC3C;
 }
 
-.proceed-btn:hover.active {
+.payment-popup-proceed-btn:hover.active {
     transform: translateY(-2px);
     background-color: #F0CD20;
 }
 
 /* Kartenspezifisches Styling */
-.card-option {
+.payment-popup-card-option {
     display: flex;
     flex-direction: column;
-    /* Icon und Info übereinander */
     align-items: center;
     justify-content: center;
     width: 170px;
-    /* Feste Breite */
     height: 170px;
-    /* Feste Höhe für quadratische Form */
     border: 2px solid #ccc;
     border-radius: 10px;
     padding: 15px;
@@ -516,29 +534,25 @@ footer {
     box-sizing: border-box;
 }
 
-.card-option:hover {
+.payment-popup-card-option:hover {
     border-color: #999;
 }
 
-.payment-icon {
+.payment-popup-icon {
     max-width: 80%;
     margin-bottom: 10px;
 }
 
-.payment-info {
+.payment-popup-info {
     text-align: center;
     font-size: 1.3rem;
 }
 
-/* Stil für ausgewählten Radio-Button */
-input[type="radio"]:checked+.card-option {
+input[type="radio"]:checked+.payment-popup-card-option {
     border-color: #FBDC3C;
-    /* Hervorhebung der ausgewählten Option */
     box-shadow: 0 0 10px rgba(0, 0, 255, 0.3);
-    /* Visueller Fokus */
 }
 
-/* Verstecke den eigentlichen Radio-Button */
 input[type="radio"] {
     display: none;
 }

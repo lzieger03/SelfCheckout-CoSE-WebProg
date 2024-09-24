@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
     const paymentButton = document.getElementById('payment-button');
     const popup = document.getElementById('payment-popup');
-    const closeButton = document.getElementById('close-popup');
-    const proceedButton = document.getElementById('proceed-button');
+    const closeButton = document.getElementById('payment-close-popup');
+    const proceedButton = document.getElementById('payment-popup-proceed-button');
     const paymentMethods = document.querySelectorAll('input[name="payment"]');
 
     // Show the pop-up when the payment button is clicked
