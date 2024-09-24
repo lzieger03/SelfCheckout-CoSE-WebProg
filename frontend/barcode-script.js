@@ -19,26 +19,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Funktion, um den Preis neu zu berechnen (Menge * Einzelpreis)
   function updateTotalPrice(li) {
-      const singlePrice = parseFloat(li.querySelector(".barcode-list-productSinglePrice").textContent.replace('€', '').replace(',', '.'));
+      const singlePrice = parseFloat(li.querySelector(".barcode-list-productSinglePrice").textContent.replace('$', '').replace(',', '.'));
       const quantity = parseInt(li.querySelector(".barcode-list-productQuantity").textContent);
       const totalPrice = (singlePrice * quantity).toFixed(2).replace('.', ',');
-      li.querySelector(".barcode-list-productTotalPrice").textContent = `${totalPrice}€`;
+      li.querySelector(".barcode-list-productTotalPrice").textContent = `${totalPrice}$`;
   }
 
   // Funktion zur Berechnung von Subtotal, Tax und Total
   function calculateTotals() {
       let subtotal = 0;
       document.querySelectorAll(".barcode-item").forEach((li) => {
-          const totalPrice = parseFloat(li.querySelector(".barcode-list-productTotalPrice").textContent.replace('€', '').replace(',', '.'));
+          const totalPrice = parseFloat(li.querySelector(".barcode-list-productTotalPrice").textContent.replace('$', '').replace(',', '.'));
           subtotal += totalPrice;
       });
 
       const tax = (subtotal * TAX_RATE).toFixed(2).replace('.', ',');
       const total = (subtotal * (1 + TAX_RATE)).toFixed(2).replace('.', ',');
 
-      subtotalElement.textContent = `${subtotal.toFixed(2).replace('.', ',')}€`;
-      taxElement.textContent = `${tax}€`;
-      totalElement.textContent = `${total}€`;
+      subtotalElement.textContent = `${subtotal.toFixed(2).replace('.', ',')}$`;
+      taxElement.textContent = `${tax}$`;
+      totalElement.textContent = `${total}$`;
   }
 
   // Funktion, um gescannte Artikelnummer zur Liste hinzuzufügen oder Menge zu erhöhen
@@ -58,12 +58,12 @@ document.addEventListener("DOMContentLoaded", () => {
           const li = document.createElement("li");
           li.className = "barcode-item";
           li.innerHTML = `
-              <img src="resources/products/placeholder.png" alt="product-name" class="barcode-list-productImage" width=70px>
+              <img src="/backend/itemPictures/placeholder.png" alt="product-name" class="barcode-list-productImage" width=70px>
               <p class="barcode-list-productName">Placeholder Apple</p>
               <p class="barcode-list-productBarcode">${barcode}</p>
-              <p class="barcode-list-productSinglePrice">1,99€</p>
+              <p class="barcode-list-productSinglePrice">1,99$</p>
               <p class="barcode-list-productQuantity">1</p>
-              <p class="barcode-list-productTotalPrice">1,99€</p>
+              <p class="barcode-list-productTotalPrice">1,99$</p>
               <button class="delete-btn">Delete</button>
           `;
 
