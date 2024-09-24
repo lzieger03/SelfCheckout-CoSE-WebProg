@@ -13,6 +13,7 @@ body {
     min-height: 100vh;
     max-height: 100%;
     list-style: none;
+    overflow: hidden;
 }
 
 
@@ -302,7 +303,7 @@ main {
 #barcode-list li {
     display: grid;
     grid-template-rows: auto;
-    grid-template-columns: 0.2fr 1fr 2fr 0.5fr 0.5fr 0.5fr 0.2fr;
+    grid-template-columns: 0.2fr 2fr 1fr 0.5fr 0.5fr 0.5fr 0.2fr;
     align-items: center;
     padding: 15px;
     margin: 10px 20px;
@@ -339,6 +340,10 @@ main {
 .barcode-list-productSinglePrice,
 .barcode-list-productTotalPrice {
     font-weight: bold;
+}
+
+.barcode-list-productName {
+    text-align: left;
 }
 
 
