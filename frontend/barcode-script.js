@@ -1,11 +1,28 @@
 document.addEventListener("DOMContentLoaded", () => {
   const barcodeInput = document.getElementById("barcode-input");
   const barcodeList = document.getElementById("barcode-list");
+  const startPopup = document.getElementById("start-popup");
+
   const subtotalElement = document.getElementById("price-detail-subtotal");
   const taxElement = document.getElementById("price-detail-tax");
   const totalElement = document.getElementById("price-detail-total");
 
   const TAX_RATE = 0.19; // Beispielsteuer von 19%
+
+  // Funktion, um das Start-Popup zu schließen
+  function closeStartPopup() {
+    startPopup.style.display = "none";
+  }
+
+  // Event-Listener, um sicherzustellen, dass der Fokus auf dem Eingabefeld bleibt
+  document.addEventListener("click", () => {
+    if (startPopup.style.display !== "none") {
+      barcodeInput.focus(); // Fokussiert immer das Eingabefeld
+    }
+  });
+
+  // Setze den Fokus auf das Eingabefeld, sobald die Seite geladen wird
+  barcodeInput.focus();
 
   // Erlaubt nur Zahlen-Eingaben im Textfeld
   barcodeInput.addEventListener("input", (event) => {
@@ -60,12 +77,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Funktion, um die Liste automatisch nach unten zu scrollen
   function scrollToBottom() {
-    const barcodeListContainer = document.getElementById("barcode-list-container");
+    const barcodeListContainer = document.getElementById(
+      "barcode-list-container"
+    );
     barcodeListContainer.scrollTop = barcodeListContainer.scrollHeight;
   }
 
   // Funktion, um gescannte Artikelnummer zur Liste hinzuzufügen oder Menge zu erhöhen
   function addBarcodeToList(barcode) {
+    // Schließe das Start-Popup nach dem ersten Scan
+    if (barcodeList.children.length === 0) {
+      closeStartPopup();
+    }
+
     const existingItem = findBarcodeInList(barcode);
 
     if (existingItem) {
@@ -83,18 +107,34 @@ document.addEventListener("DOMContentLoaded", () => {
       const li = document.createElement("li");
       li.className = "barcode-item";
       li.innerHTML = `
-          <img src="/backend/itemPictures/placeholder.png" alt="product-name" class="barcode-list-productImage">
-          <p class="barcode-list-productName">Placeholder Apple</p>
-          <p class="barcode-list-productBarcode">${barcode}</p>
-          <p class="barcode-list-productSinglePrice">1,99€</p>
-          <p class="barcode-list-productQuantity">1</p>
-          <p class="barcode-list-productTotalPrice">1,99€</p>
-          <button class="delete-btn">Delete</button>
-      `;
+              <img src="/backend/itemPictures/placeholder.png" alt="product-name" class="barcode-list-productImage">
+              <p class="barcode-list-productName">Placeholder Apple</p>
+              <p class="barcode-list-productBarcode">${barcode}</p>
+              <p class="barcode-list-productSinglePrice">1,99€</p>
+              <p class="barcode-list-productQuantity">1</p>
+              <p class="barcode-list-productTotalPrice">1,99€</p>
+              <button class="delete-btn">Delete</button>
+          `;
 
       // Event-Listener für den Löschbutton
       li.querySelector(".delete-btn").addEventListener("click", () => {
         decreaseQuantity(li);
+      });
+
+      // Event-Listener, um das Listenelement anklickbar zu machen und zu markieren
+      li.addEventListener("click", function () {
+        // Wenn das Listenelement bereits ausgewählt ist, entferne die 'selected'-Klasse (toggle)
+        if (li.classList.contains("selected")) {
+          li.classList.remove("selected");
+        } else {
+          // Entferne die 'selected'-Klasse von allen Listenelementen
+          document
+            .querySelectorAll(".barcode-item")
+            .forEach((item) => item.classList.remove("selected"));
+
+          // Füge die 'selected'-Klasse zum geklickten Element hinzu
+          li.classList.add("selected");
+        }
       });
 
       barcodeList.appendChild(li);

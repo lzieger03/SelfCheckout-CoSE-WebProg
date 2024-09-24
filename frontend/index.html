@@ -1,12 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ScanMate</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
+
+    <!-- Beginn-Popup-Overlay -->
+    <div id="start-popup" class="popup-overlay">
+        <div class="popup-content">
+            <img src="resources/barcode.png" alt="barcode">
+            <h2>To start, just scan your first item</h2>
+        </div>
+    </div>
+
     <!-- Header-Bereich -->
     <header>
         <h1>ScanMate</h1>
@@ -18,23 +29,29 @@
         <div id="left-section">
             <div id="productOverview-container">
                 <div id="product-image">
-                    <img src="/frontend/resources/Logo.png" alt="Logo" id="item-preview-image"/>
+                    <img src="/frontend/resources/Logo.png" alt="Logo" id="item-preview-image" />
                 </div>
                 <div id="product-info">
                     <h2 id="product-info-itemName">Item name</h2>
                     <p id="product-info-itemNumber">Item number</p>
                 </div>
                 <div id="quantity-controls">
-                    <button id="quantity-btn-minus" class="quantity-btn"><img src="resources/minusButton.svg" alt="-" id="quantity-button-image"></button>
+                    <button id="quantity-btn-minus" class="quantity-btn"><img src="resources/minusButton.svg" alt="-"
+                            id="quantity-button-image"></button>
                     <span class="quantity-display">1</span>
-                    <button id="quantity-btn-plus" class="quantity-btn"><img src="resources/plusButton.svg" alt="+" id="quantity-button-image"></button>
+                    <button id="quantity-btn-plus" class="quantity-btn"><img src="resources/plusButton.svg" alt="+"
+                            id="quantity-button-image"></button>
                 </div>
             </div>
             <div id="accessibility-controls">
-                <button class="accessibility-button" ><img src="/frontend/resources/screenReaderButton.svg" class="accessibility-button-image"></button>
-                <button class="accessibility-button" ><img src="/frontend/resources/textSizeButton.svg" class="accessibility-button-image"></button>
-                <button class="accessibility-button" ><img src="/frontend/resources/helpButton_1.svg" class="accessibility-button-image"></button>
-                <button class="accessibility-button" ><img src="/frontend/resources/infoButton_1.svg" class="accessibility-button-image"></button>
+                <button class="accessibility-button"><img src="/frontend/resources/screenReaderButton.svg"
+                        class="accessibility-button-image"></button>
+                <button class="accessibility-button"><img src="/frontend/resources/textSizeButton.svg"
+                        class="accessibility-button-image"></button>
+                <button class="accessibility-button"><img src="/frontend/resources/helpButton_1.svg"
+                        class="accessibility-button-image"></button>
+                <button class="accessibility-button"><img src="/frontend/resources/infoButton_1.svg"
+                        class="accessibility-button-image"></button>
             </div>
         </div>
 
@@ -64,8 +81,8 @@
                 </div>
             </div>
             <div id="payment-button">
-                <button class="pay-btn"> 
-                    <img src="resources/payButton.svg" id="pay-btn-img"> 
+                <button class="pay-btn">
+                    <img src="resources/payButton.svg" id="pay-btn-img">
                     <p id="pay-btn-label">Pay →</p>
                 </button>
             </div>
@@ -136,4 +153,5 @@
         <p>© 2024 ScanMate by Lars und Marven</p>
     </footer>
 </body>
+
 </html>
