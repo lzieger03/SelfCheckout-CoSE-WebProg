@@ -1,6 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
   const barcodeInput = document.getElementById("barcode-input");
   const barcodeList = document.getElementById("barcode-list");
+  const subtotalElement = document.getElementById("price-detail-subtotal");
+  const taxElement = document.getElementById("price-detail-tax");
+  const totalElement = document.getElementById("price-detail-total");
+
+  const TAX_RATE = 0.19; // Beispielsteuer von 19%
 
   // Erlaubt nur Zahlen-Eingaben im Textfeld
   barcodeInput.addEventListener('input', (event) => {
@@ -18,6 +23,22 @@ document.addEventListener("DOMContentLoaded", () => {
       const quantity = parseInt(li.querySelector(".barcode-list-productQuantity").textContent);
       const totalPrice = (singlePrice * quantity).toFixed(2).replace('.', ',');
       li.querySelector(".barcode-list-productTotalPrice").textContent = `${totalPrice}€`;
+  }
+
+  // Funktion zur Berechnung von Subtotal, Tax und Total
+  function calculateTotals() {
+      let subtotal = 0;
+      document.querySelectorAll(".barcode-item").forEach((li) => {
+          const totalPrice = parseFloat(li.querySelector(".barcode-list-productTotalPrice").textContent.replace('€', '').replace(',', '.'));
+          subtotal += totalPrice;
+      });
+
+      const tax = (subtotal * TAX_RATE).toFixed(2).replace('.', ',');
+      const total = (subtotal * (1 + TAX_RATE)).toFixed(2).replace('.', ',');
+
+      subtotalElement.textContent = `${subtotal.toFixed(2).replace('.', ',')}€`;
+      taxElement.textContent = `${tax}€`;
+      totalElement.textContent = `${total}€`;
   }
 
   // Funktion, um gescannte Artikelnummer zur Liste hinzuzufügen oder Menge zu erhöhen
@@ -48,14 +69,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
           // Event-Listener für den Löschbutton
           li.querySelector(".delete-btn").addEventListener("click", () => {
-              li.remove();
-              saveBarcodes(); // Liste nach dem Entfernen speichern
+              decreaseQuantity(li);
           });
 
           barcodeList.appendChild(li);
       }
 
+      calculateTotals(); // Berechne Totals nach jedem Update
       saveBarcodes(); // Liste nach dem Hinzufügen oder Aktualisieren speichern
+  }
+
+  // Funktion, um die Menge zu verringern und Artikel zu löschen, wenn die Menge 0 ist
+  function decreaseQuantity(li) {
+      const quantityElement = li.querySelector(".barcode-list-productQuantity");
+      const newQuantity = parseInt(quantityElement.textContent) - 1;
+
+      if (newQuantity > 0) {
+          quantityElement.textContent = newQuantity;
+          updateTotalPrice(li); // Aktualisiere den Preis nach dem Verringern der Menge
+      } else {
+          li.remove(); // Entferne den Artikel, wenn die Menge 0 ist
+      }
+
+      calculateTotals(); // Berechne Totals nach dem Update
+      saveBarcodes(); // Liste nach dem Entfernen speichern
   }
 
   // Event-Listener für Barcode-Eingaben
