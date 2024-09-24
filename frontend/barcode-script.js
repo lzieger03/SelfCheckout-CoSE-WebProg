@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const li = document.createElement("li");
       li.className = "barcode-item";
       li.innerHTML = `
-          <img src="/backend/itemPictures/placeholder.png" alt="product-name" class="barcode-list-productImage" width=70px>
+          <img src="/backend/itemPictures/placeholder.png" alt="product-name" class="barcode-list-productImage">
           <p class="barcode-list-productName">Placeholder Apple</p>
           <p class="barcode-list-productBarcode">${barcode}</p>
           <p class="barcode-list-productSinglePrice">1,99€</p>
