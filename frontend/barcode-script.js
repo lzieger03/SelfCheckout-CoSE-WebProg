@@ -122,7 +122,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Event-Listener für Barcode-Eingaben
-  barcodeInput.addEventListener("keydown", (event) => {
+  barcodeInput.addEventListener("keyup", (event) => {
     if (event.key === "Enter") {
       event.preventDefault(); // Verhindert das Neuladen der Seite
 
