@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Workaround für Safari: Timer nutzen, um sicherzustellen, dass der Fokus gesetzt wird
     setTimeout(() => {
       barcodeInput.focus();
-    }, 10); // Verzögerung von 10 Millisekunden
+    }, 0); // Verzögerung von 10 Millisekunden
   }
 
   // Setze den Fokus nach Interaktionen
@@ -184,7 +184,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Event-Listener für den Löschbutton
       li.querySelector(".delete-btn").addEventListener("click", () => {
-        decreaseQuantity(li);
+        li.remove();
       });
 
       // Event-Listener, um das Listenelement anklickbar zu machen und auf der linken Seite anzuzeigen
