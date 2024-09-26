@@ -144,8 +144,6 @@ main {
 }
 
 
-
-
 /* Accessibility Buttons -------------------------------------------------------------------  */
 #accessibility-controls {
     display: flex;
@@ -156,7 +154,7 @@ main {
 
 .accessibility-button {
     background-color: #FBDC3C;
-    border-radius: 30px;
+    border-radius: 10px;
     border: none;
     color: white;
     cursor: pointer;
@@ -189,6 +187,7 @@ main {
     border-radius: 8px;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
 }
 
 #item-list {
@@ -337,16 +336,10 @@ main {
 }
 
 
-/* Bezahl-Button */
-#payment-button {
-    display: flex;
-    width: 100%;
-    justify-content: flex-end;
-}
-
 .pay-btn {
-    display: grid;
-    grid-template-columns: auto auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
     background-color: #FBDC3C;
     color: #252E3D;
     font-weight: 1000;
