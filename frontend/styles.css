@@ -196,7 +196,7 @@ main {
     background-color: #E3E6E6;
     margin-bottom: 20px;
     border-radius: 8px;
-    /*max-height: 650px;*/
+    max-height: 650px;
     min-height: 70%;
 }
 
