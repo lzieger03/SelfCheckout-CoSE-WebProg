@@ -68,6 +68,10 @@ document.addEventListener("DOMContentLoaded", () => {
     startPopup.style.display = "none";
   }
 
+  startPopup.addEventListener("click", () => {
+    closeStartPopup();
+  });
+
   // Setze den Fokus auf das Eingabefeld, wenn die Eingabe bearbeitet wird
   barcodeInput.addEventListener("input", () => {
     keepFocusOnInput();
