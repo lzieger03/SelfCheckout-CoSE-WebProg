@@ -284,12 +284,15 @@ main {
 }
 
 #barcode-list-container{
-    overflow-y: auto;
+    padding: 20px;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
 }
 
 
 /* Stil für das Listenelement */
 #barcode-list li {
+    scroll-snap-align: start;
     display: grid;
     grid-template-rows: auto;
     grid-template-columns: 0.2fr 2fr 1fr 0.5fr 0.5fr 0.5fr 0.2fr;
@@ -462,7 +465,7 @@ footer {
 }
 
 .payment-popup-close-btn:hover {
-    color: #000;
+    color: #252E3D;
 }
 
 .payment-popup-methods {
