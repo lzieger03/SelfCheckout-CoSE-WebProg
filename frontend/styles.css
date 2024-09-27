@@ -10,11 +10,12 @@ body {
     background-color: #E3E6E6;
     display: flex;
     flex-direction: column;
-    /* min-height: 100vh;
-    max-height: 100vh; */
-    height: clamp(100vh, 100vh, 100vh);
+    height: 100vh;
     list-style: none;
+    overflow: hidden;
 }
+
+
 
 
 /* Header Styling -------------------------------------------------------------------  */
@@ -39,8 +40,8 @@ main {
     padding: 20px;
     justify-content: space-between;
     gap: 20px;
+    height: calc(100vh - 3rem);
 }
-
 
 
 
@@ -87,6 +88,7 @@ main {
     align-items: center;
     justify-content: center;
     border-radius: 8px;
+    max-height: 100%;
 }
 
 #item-preview-image {
@@ -189,6 +191,7 @@ main {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    max-height: 100%;
 }
 
 #item-list {
@@ -197,7 +200,10 @@ main {
     background-color: #E3E6E6;
     margin-bottom: 20px;
     border-radius: 8px;
-    height: clamp(70%, 70%, 70vh);
+    flex: 1 1 auto;
+    min-height: 20%;
+    max-height: 70%;
+    overflow-y: auto;
 }
 
 #price-info {
@@ -257,7 +263,6 @@ main {
 #barcode-input-container {
     padding: 20px 20px 10px 20px;
 }
-
 
 
 
