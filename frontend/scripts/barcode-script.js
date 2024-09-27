@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
-  //-------------------------------- Storage and Initialization --------------------------------
   // Clear local storage on load
   localStorage.clear();
 
+  //-------------------------------- Storage and Initialization --------------------------------
   const barcodeInput = document.getElementById("barcode-input");
   const barcodeList = document.getElementById("barcode-list");
   const startPopup = document.getElementById("start-popup");
@@ -17,6 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const quantityDisplay = document.querySelector(".quantity-display");
   const productImageElement = document.getElementById("item-preview-image");
   let currentSelectedItem = null; // Store current list item
+  const barcodeItemMap = {}; // Map barcodes to list items
 
   // Focus input when page loads
   barcodeInput.focus();
@@ -36,10 +37,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Prevent focus loss on key press
-  barcodeInput.addEventListener("keydown", () => {
-    keepFocusOnInput();
-  });
+  //-------------------------------- Helper Functions --------------------------------
+  function parsePrice(priceText) {
+    return parseFloat(priceText.replace("$", "").replace(",", "."));
+  }
+
+  function formatPrice(price) {
+    return price.toFixed(2).replace(".", ",") + "$";
+  }
 
   //-------------------------------- Product Display --------------------------------
   // Display item details on the left
@@ -69,66 +74,45 @@ document.addEventListener("DOMContentLoaded", () => {
     startPopup.style.display = "none";
   }
 
-  startPopup.addEventListener("click", () => {
-    closeStartPopup();
-  });
+  startPopup.addEventListener("click", closeStartPopup);
 
   //-------------------------------- Barcode Input Handling --------------------------------
-  // Refocus input on edit
+  // Filter non-numeric input and refocus input
   barcodeInput.addEventListener("input", () => {
+    barcodeInput.value = barcodeInput.value.replace(/[^0-9]/g, "");
     keepFocusOnInput();
   });
 
-  // Filter non-numeric input
-  barcodeInput.addEventListener("input", (event) => {
-    barcodeInput.value = barcodeInput.value.replace(/[^0-9]/g, "");
-  });
-
   //-------------------------------- List and Price Updates --------------------------------
-  // Check if barcode exists in list
-  function findBarcodeInList(barcode) {
-    return [...document.querySelectorAll(".barcode-item")].find(
-      (li) =>
-        li.querySelector(".barcode-list-productBarcode").textContent === barcode
-    );
-  }
-
   // Update total price (qty * unit price)
   function updateTotalPrice(li) {
-    const singlePrice = parseFloat(
-      li
-        .querySelector(".barcode-list-productSinglePrice")
-        .textContent.replace("$", "")
-        .replace(",", ".")
+    const singlePrice = parsePrice(
+      li.querySelector(".barcode-list-productSinglePrice").textContent
     );
     const quantity = parseInt(
       li.querySelector(".barcode-list-productQuantity").textContent
     );
-    const totalPrice = (singlePrice * quantity).toFixed(2).replace(".", ",");
-    li.querySelector(
-      ".barcode-list-productTotalPrice"
-    ).textContent = `${totalPrice}$`;
+    const totalPrice = singlePrice * quantity;
+    li.querySelector(".barcode-list-productTotalPrice").textContent =
+      formatPrice(totalPrice);
   }
 
   // Calculate subtotal, tax, and total
   function calculateTotals() {
     let subtotal = 0;
     document.querySelectorAll(".barcode-item").forEach((li) => {
-      const totalPrice = parseFloat(
-        li
-          .querySelector(".barcode-list-productTotalPrice")
-          .textContent.replace("$", "")
-          .replace(",", ".")
+      const totalPrice = parsePrice(
+        li.querySelector(".barcode-list-productTotalPrice").textContent
       );
       subtotal += totalPrice;
     });
 
-    const tax = (subtotal * TAX_RATE).toFixed(2).replace(".", ",");
-    const total = (subtotal * (1 + TAX_RATE)).toFixed(2).replace(".", ",");
+    const tax = subtotal * TAX_RATE;
+    const total = subtotal + tax;
 
-    subtotalElement.textContent = `${subtotal.toFixed(2).replace(".", ",")}$`;
-    taxElement.textContent = `${tax}$`;
-    totalElement.textContent = `${total}$`;
+    subtotalElement.textContent = formatPrice(subtotal);
+    taxElement.textContent = formatPrice(tax);
+    totalElement.textContent = formatPrice(total);
   }
 
   //-------------------------------- List Manipulation --------------------------------
@@ -150,7 +134,7 @@ document.addEventListener("DOMContentLoaded", () => {
       item.classList.remove("selected");
     });
 
-    const existingItem = findBarcodeInList(barcode);
+    let existingItem = barcodeItemMap[barcode];
 
     if (existingItem) {
       // Increase quantity if item exists
@@ -176,11 +160,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
       li.querySelector(".delete-btn").addEventListener("click", () => {
         li.remove();
+        delete barcodeItemMap[barcode];
+        calculateTotals();
+        saveBarcodes();
+        if (currentSelectedItem === li) {
+          currentSelectedItem = null;
+          itemNameElement.textContent = "Item name";
+          itemNumberElement.textContent = "Item number";
+          quantityDisplay.textContent = "1";
+        }
       });
 
       li.addEventListener("click", function () {
         if (li.classList.contains("selected")) {
           li.classList.remove("selected");
+          currentSelectedItem = null;
           const lastItem = barcodeList.lastElementChild;
           if (lastItem) {
             displayItemOnLeft(lastItem);
@@ -195,6 +189,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       barcodeList.appendChild(li);
+      barcodeItemMap[barcode] = li; // Add to map
       displayItemOnLeft(li);
     }
 
@@ -212,35 +207,42 @@ document.addEventListener("DOMContentLoaded", () => {
         ".barcode-list-productQuantity"
       );
       quantityElement.textContent = parseInt(quantityElement.textContent) + 1;
-      quantityDisplay.textContent = quantityElement.textContent; // refresh 
+      quantityDisplay.textContent = quantityElement.textContent; // refresh
       updateTotalPrice(currentSelectedItem);
       calculateTotals();
       saveBarcodes();
     }
   });
 
-  document.getElementById("quantity-btn-minus").addEventListener("click", () => {
-    if (!currentSelectedItem) return;
-  
-    const quantityElement = currentSelectedItem.querySelector(".barcode-list-productQuantity");
-    const newQuantity = parseInt(quantityElement.textContent) - 1;
-  
-    if (newQuantity > 0) {
-      quantityElement.textContent = newQuantity;
-      quantityDisplay.textContent = newQuantity;
-      updateTotalPrice(currentSelectedItem);
-    } else {
-      currentSelectedItem.remove();
-      currentSelectedItem = null;
-      itemNameElement.textContent = "Item name";
-      itemNumberElement.textContent = "Item number";
-      quantityDisplay.textContent = "1";
-    }
-  
-    calculateTotals();
-    saveBarcodes();
-  });
-  
+  document
+    .getElementById("quantity-btn-minus")
+    .addEventListener("click", () => {
+      if (!currentSelectedItem) return;
+
+      const quantityElement = currentSelectedItem.querySelector(
+        ".barcode-list-productQuantity"
+      );
+      const newQuantity = parseInt(quantityElement.textContent) - 1;
+
+      if (newQuantity > 0) {
+        quantityElement.textContent = newQuantity;
+        quantityDisplay.textContent = newQuantity;
+        updateTotalPrice(currentSelectedItem);
+      } else {
+        const barcode = currentSelectedItem.querySelector(
+          ".barcode-list-productBarcode"
+        ).textContent;
+        currentSelectedItem.remove();
+        delete barcodeItemMap[barcode];
+        currentSelectedItem = null;
+        itemNameElement.textContent = "Item name";
+        itemNumberElement.textContent = "Item number";
+        quantityDisplay.textContent = "1";
+      }
+
+      calculateTotals();
+      saveBarcodes();
+    });
 
   //-------------------------------- Barcode Input Event --------------------------------
   barcodeInput.addEventListener("keyup", (event) => {
