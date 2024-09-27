@@ -201,6 +201,7 @@ main {
     display: grid;
     grid-template-columns: auto auto auto;
     gap: 5px;
+    margin-bottom: 20px;
 
 }
 
@@ -283,9 +284,7 @@ main {
     flex-grow: 1; /* Nutzt den gesamten vertikalen Platz des Containers */
     overflow-y: auto; /* Aktiviert Scrollen innerhalb des Containers */
     padding: 10px 20px; /* Optional: Padding für inneren Abstand */
-    background-color: #E3E6E6; /* Optional: Hintergrundfarbe */
-    border-radius: 8px; /* Optional: runde Ecken für die Liste */
-    border: 1px solid #ddd; /* Optional: Rahmen */
+
 }
 
 #barcode-list {
