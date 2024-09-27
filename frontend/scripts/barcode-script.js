@@ -19,10 +19,11 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentSelectedItem = null; // Store current list item
   const barcodeItemMap = {}; // Map barcodes to list items
 
+  
+  //-------------------------------- Input Focus Management --------------------------------
   // Focus input when page loads
   barcodeInput.focus();
 
-  //-------------------------------- Input Focus Management --------------------------------
   // Keep focus on input continuously
   function keepFocusOnInput() {
     setTimeout(() => {
@@ -147,14 +148,15 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       // Add new barcode item
       const li = document.createElement("li");
+      var price = Math.round(Math.random() * 10.00, 2.0);
       li.className = "barcode-item";
       li.innerHTML = `
         <img src="/backend/itemPictures/${barcode}.png" alt="product-name" class="barcode-list-productImage">
         <p class="barcode-list-productName">Placeholder Apple</p>
         <p class="barcode-list-productBarcode">${barcode}</p>
-        <p class="barcode-list-productSinglePrice">1,99$</p>
+        <p class="barcode-list-productSinglePrice">${price}$</p>
         <p class="barcode-list-productQuantity">1</p>
-        <p class="barcode-list-productTotalPrice">1,99$</p>
+        <p class="barcode-list-productTotalPrice">${price}$</p>
         <button class="delete-btn">Delete</button>
       `;
 
@@ -165,9 +167,9 @@ document.addEventListener("DOMContentLoaded", () => {
         saveBarcodes();
         if (currentSelectedItem === li) {
           currentSelectedItem = null;
-          itemNameElement.textContent = "Item name";
-          itemNumberElement.textContent = "Item number";
-          quantityDisplay.textContent = "1";
+          itemNameElement.textContent = "Start scanning";
+          itemNumberElement.textContent = "your items";
+          quantityDisplay.textContent = "0";
         }
       });
 
