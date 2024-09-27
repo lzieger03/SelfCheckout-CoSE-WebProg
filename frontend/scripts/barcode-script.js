@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // empty local storage on load
+  //-------------------------------- Storage and Initialization --------------------------------
+  // Clear local storage on load
   localStorage.clear();
 
   const barcodeInput = document.getElementById("barcode-input");
@@ -9,38 +10,39 @@ document.addEventListener("DOMContentLoaded", () => {
   const taxElement = document.getElementById("price-detail-tax");
   const totalElement = document.getElementById("price-detail-total");
 
-  const TAX_RATE = 0.19; // Beispielsteuer von 19%
+  const TAX_RATE = 0.0725; // Example tax rate
 
   const itemNameElement = document.getElementById("product-info-itemName");
   const itemNumberElement = document.getElementById("product-info-itemNumber");
   const quantityDisplay = document.querySelector(".quantity-display");
   const productImageElement = document.getElementById("item-preview-image");
-  let currentSelectedItem = null; // Halte das aktuelle Listenelement fest
+  let currentSelectedItem = null; // Store current list item
 
-  // Setze den Fokus auf das Eingabefeld, sobald die Seite geladen wird
+  // Focus input when page loads
   barcodeInput.focus();
 
-  // Funktion, um den Fokus kontinuierlich auf das Eingabefeld zu setzen
+  //-------------------------------- Input Focus Management --------------------------------
+  // Keep focus on input continuously
   function keepFocusOnInput() {
-    // Workaround für Safari: Timer nutzen, um sicherzustellen, dass der Fokus gesetzt wird
     setTimeout(() => {
       barcodeInput.focus();
-    }, 0); // Verzögerung von 10 Millisekunden
+    }, 0); // Delay for Safari workaround
   }
 
-  // Setze den Fokus nach Interaktionen
+  // Refocus input on interactions
   document.addEventListener("click", (event) => {
     if (!barcodeInput.contains(event.target)) {
       keepFocusOnInput();
     }
   });
 
-  // Verhindere, dass der Fokus verloren geht, wenn eine Taste gedrückt wird
+  // Prevent focus loss on key press
   barcodeInput.addEventListener("keydown", () => {
     keepFocusOnInput();
   });
 
-  // Funktion, um das Produkt auf der linken Seite anzuzeigen
+  //-------------------------------- Product Display --------------------------------
+  // Display item details on the left
   function displayItemOnLeft(item) {
     const itemName = item.querySelector(
       ".barcode-list-productName"
@@ -51,19 +53,18 @@ document.addEventListener("DOMContentLoaded", () => {
     const itemQuantity = item.querySelector(
       ".barcode-list-productQuantity"
     ).textContent;
-
-    // Dynamische Zuordnung des Bildes basierend auf der Artikelnummer (Barcode)
-    const itemImageSrc = `/backend/itemPictures/${itemBarcode}.png`; // Bilddatei basierend auf Barcode
+    const itemImageSrc = `/backend/itemPictures/${itemBarcode}.png`; // Image based on barcode
 
     itemNameElement.textContent = itemName;
     itemNumberElement.textContent = itemBarcode;
     quantityDisplay.textContent = itemQuantity;
-    productImageElement.src = itemImageSrc; // Aktualisiere das Bild
+    productImageElement.src = itemImageSrc; // Update image
 
     currentSelectedItem = item;
   }
 
-  // Funktion, um das Start-Popup zu schließen
+  //-------------------------------- Popup Handling --------------------------------
+  // Close start popup
   function closeStartPopup() {
     startPopup.style.display = "none";
   }
@@ -72,22 +73,19 @@ document.addEventListener("DOMContentLoaded", () => {
     closeStartPopup();
   });
 
-  // Setze den Fokus auf das Eingabefeld, wenn die Eingabe bearbeitet wird
+  //-------------------------------- Barcode Input Handling --------------------------------
+  // Refocus input on edit
   barcodeInput.addEventListener("input", () => {
     keepFocusOnInput();
   });
 
-  // Setze den Fokus zurück auf das Eingabefeld, wenn irgendwo auf der Seite geklickt wird
-  document.addEventListener("focusout", () => {
-    keepFocusOnInput();
-  });
-
-  // Erlaubt nur Zahlen-Eingaben im Textfeld
+  // Filter non-numeric input
   barcodeInput.addEventListener("input", (event) => {
-    barcodeInput.value = barcodeInput.value.replace(/[^0-9]/g, ""); // Filtert alle nicht-numerischen Zeichen heraus
+    barcodeInput.value = barcodeInput.value.replace(/[^0-9]/g, "");
   });
 
-  // Funktion, um zu prüfen, ob der Barcode bereits existiert
+  //-------------------------------- List and Price Updates --------------------------------
+  // Check if barcode exists in list
   function findBarcodeInList(barcode) {
     return [...document.querySelectorAll(".barcode-item")].find(
       (li) =>
@@ -95,7 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
     );
   }
 
-  // Funktion, um den Preis neu zu berechnen (Menge * Einzelpreis)
+  // Update total price (qty * unit price)
   function updateTotalPrice(li) {
     const singlePrice = parseFloat(
       li
@@ -112,7 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ).textContent = `${totalPrice}$`;
   }
 
-  // Funktion zur Berechnung von Subtotal, Tax und Total
+  // Calculate subtotal, tax, and total
   function calculateTotals() {
     let subtotal = 0;
     document.querySelectorAll(".barcode-item").forEach((li) => {
@@ -133,7 +131,8 @@ document.addEventListener("DOMContentLoaded", () => {
     totalElement.textContent = `${total}$`;
   }
 
-  // Funktion, um die Liste automatisch nach unten zu scrollen
+  //-------------------------------- List Manipulation --------------------------------
+  // Auto-scroll to bottom
   function scrollToBottom() {
     const barcodeListContainer = document.getElementById(
       "barcode-list-container"
@@ -141,14 +140,12 @@ document.addEventListener("DOMContentLoaded", () => {
     barcodeListContainer.scrollTop = barcodeListContainer.scrollHeight;
   }
 
-  // Funktion, um gescannte Artikelnummer zur Liste hinzuzufügen oder Menge zu erhöhen
+  // Add or update scanned barcode in list
   function addBarcodeToList(barcode) {
-    // Schließe das Start-Popup nach dem ersten Scan
     if (barcodeList.children.length === 0) {
       closeStartPopup();
     }
 
-    // Entferne alle 'selected'-Klassen von bestehenden Listenelementen
     document.querySelectorAll(".barcode-item.selected").forEach((item) => {
       item.classList.remove("selected");
     });
@@ -156,147 +153,108 @@ document.addEventListener("DOMContentLoaded", () => {
     const existingItem = findBarcodeInList(barcode);
 
     if (existingItem) {
-      // Barcode existiert bereits, erhöhe die Menge und aktualisiere den Preis
+      // Increase quantity if item exists
       const quantityElement = existingItem.querySelector(
         ".barcode-list-productQuantity"
       );
-      const newQuantity = parseInt(quantityElement.textContent) + 1;
-      quantityElement.textContent = newQuantity;
-
-      // Aktualisiere den Gesamtpreis
+      quantityElement.textContent = parseInt(quantityElement.textContent) + 1;
       updateTotalPrice(existingItem);
-
-      // Zeige das aktualisierte Produkt auf der linken Seite an
       displayItemOnLeft(existingItem);
     } else {
-      // Barcode existiert noch nicht, füge neuen Eintrag hinzu
+      // Add new barcode item
       const li = document.createElement("li");
       li.className = "barcode-item";
       li.innerHTML = `
-      <img src="/backend/itemPictures/${barcode}.png" alt="product-name" class="barcode-list-productImage">
-      <p class="barcode-list-productName">Placeholder Apple</p>
-      <p class="barcode-list-productBarcode">${barcode}</p>
-      <p class="barcode-list-productSinglePrice">1,99€</p>
-      <p class="barcode-list-productQuantity">1</p>
-      <p class="barcode-list-productTotalPrice">1,99€</p>
-      <button class="delete-btn">Delete</button>
-    `;
+        <img src="/backend/itemPictures/${barcode}.png" alt="product-name" class="barcode-list-productImage">
+        <p class="barcode-list-productName">Placeholder Apple</p>
+        <p class="barcode-list-productBarcode">${barcode}</p>
+        <p class="barcode-list-productSinglePrice">1,99$</p>
+        <p class="barcode-list-productQuantity">1</p>
+        <p class="barcode-list-productTotalPrice">1,99$</p>
+        <button class="delete-btn">Delete</button>
+      `;
 
-      // Event-Listener für den Löschbutton
       li.querySelector(".delete-btn").addEventListener("click", () => {
         li.remove();
       });
 
-      // Event-Listener, um das Listenelement anklickbar zu machen und auf der linken Seite anzuzeigen
       li.addEventListener("click", function () {
-        // Wenn das Listenelement bereits ausgewählt ist, entferne die 'selected'-Klasse (toggle)
         if (li.classList.contains("selected")) {
           li.classList.remove("selected");
-
-          // Prüfe, ob noch ein Element ausgewählt ist
-          const selectedItem = document.querySelector(".barcode-item.selected");
-          if (!selectedItem) {
-            // Wenn kein Element ausgewählt ist, zeige einfach das letzte Element der Liste, ohne es auszuwählen
-            const lastItem = barcodeList.lastElementChild; // Das letzte Listenelement
-            if (lastItem) {
-              displayItemOnLeft(lastItem); // Zeige nur das letzte Element auf der linken Seite an, ohne es auszuwählen
-            }
+          const lastItem = barcodeList.lastElementChild;
+          if (lastItem) {
+            displayItemOnLeft(lastItem);
           }
         } else {
-          // Entferne die 'selected'-Klasse von allen Listenelementen
           document
             .querySelectorAll(".barcode-item")
             .forEach((item) => item.classList.remove("selected"));
-
-          // Füge die 'selected'-Klasse zum geklickten Element hinzu
           li.classList.add("selected");
-
-          displayItemOnLeft(li); // Zeige das geklickte Element auf der linken Seite an
+          displayItemOnLeft(li);
         }
       });
 
       barcodeList.appendChild(li);
-
-      // Zeige das neue Produkt auf der linken Seite an
       displayItemOnLeft(li);
     }
 
-    calculateTotals(); // Berechne Totals nach jedem Update
-    saveBarcodes(); // Liste nach dem Hinzufügen oder Aktualisieren speichern
-    scrollToBottom(); // Automatisch nach unten scrollen
-    keepFocusOnInput(); // Halte den Fokus auf der Eingabezeile
+    calculateTotals();
+    saveBarcodes();
+    scrollToBottom();
+    keepFocusOnInput();
   }
 
-  // Funktion, um die Menge zu verringern und Artikel zu löschen, wenn die Menge 0 ist
-  function decreaseQuantity(li) {
-    const quantityElement = li.querySelector(".barcode-list-productQuantity");
-    const newQuantity = parseInt(quantityElement.textContent) - 1;
-
-    if (newQuantity > 0) {
-      quantityElement.textContent = newQuantity;
-      updateTotalPrice(li); // Aktualisiere den Preis nach dem Verringern der Menge
-    } else {
-      li.remove(); // Entferne den Artikel, wenn die Menge 0 ist
-    }
-
-    calculateTotals(); // Berechne Totals nach dem Update
-    saveBarcodes(); // Liste nach dem Entfernen speichern
-  }
-
-  // Plus und Minus Buttons für das aktuelle Produkt auf der linken Seite
+  //-------------------------------- Quantity Adjustment --------------------------------
+  // Plus and minus buttons for left product
   document.getElementById("quantity-btn-plus").addEventListener("click", () => {
     if (currentSelectedItem) {
       const quantityElement = currentSelectedItem.querySelector(
         ".barcode-list-productQuantity"
       );
       quantityElement.textContent = parseInt(quantityElement.textContent) + 1;
-      quantityDisplay.textContent = quantityElement.textContent; // Aktualisiere die Anzeige auf der linken Seite
+      quantityDisplay.textContent = quantityElement.textContent; // refresh 
       updateTotalPrice(currentSelectedItem);
       calculateTotals();
       saveBarcodes();
     }
   });
 
-  document
-    .getElementById("quantity-btn-minus")
-    .addEventListener("click", () => {
-      if (currentSelectedItem) {
-        const quantityElement = currentSelectedItem.querySelector(
-          ".barcode-list-productQuantity"
-        );
-        const newQuantity = parseInt(quantityElement.textContent) - 1;
-        if (newQuantity > 0) {
-          quantityElement.textContent = newQuantity;
-          quantityDisplay.textContent = quantityElement.textContent; // Aktualisiere die Anzeige auf der linken Seite
-          updateTotalPrice(currentSelectedItem);
-          calculateTotals();
-          saveBarcodes();
-        } else {
-          currentSelectedItem.remove(); // Entferne den Artikel, wenn die Menge 0 ist
-          currentSelectedItem = null; // Setze die Auswahl zurück
-          itemNameElement.textContent = "Item name";
-          itemNumberElement.textContent = "Item number";
-          quantityDisplay.textContent = "1";
-          calculateTotals();
-          saveBarcodes();
-        }
-      }
-    });
+  document.getElementById("quantity-btn-minus").addEventListener("click", () => {
+    if (!currentSelectedItem) return;
+  
+    const quantityElement = currentSelectedItem.querySelector(".barcode-list-productQuantity");
+    const newQuantity = parseInt(quantityElement.textContent) - 1;
+  
+    if (newQuantity > 0) {
+      quantityElement.textContent = newQuantity;
+      quantityDisplay.textContent = newQuantity;
+      updateTotalPrice(currentSelectedItem);
+    } else {
+      currentSelectedItem.remove();
+      currentSelectedItem = null;
+      itemNameElement.textContent = "Item name";
+      itemNumberElement.textContent = "Item number";
+      quantityDisplay.textContent = "1";
+    }
+  
+    calculateTotals();
+    saveBarcodes();
+  });
+  
 
-  // Event-Listener für Barcode-Eingaben
+  //-------------------------------- Barcode Input Event --------------------------------
   barcodeInput.addEventListener("keyup", (event) => {
     if (event.key === "Enter") {
-      event.preventDefault(); // Verhindert das Neuladen der Seite
       const barcode = barcodeInput.value.trim();
-
       if (barcode !== "") {
-        addBarcodeToList(barcode); // Barcode der Liste hinzufügen oder aktualisieren
-        barcodeInput.value = ""; // Eingabefeld leeren
+        addBarcodeToList(barcode);
+        barcodeInput.value = "";
       }
     }
   });
 
-  // Speichern der Barcode-Liste in localStorage
+  //-------------------------------- Storage Handling --------------------------------
+  // Save barcode list to local storage
   function saveBarcodes() {
     const barcodes = [];
     document.querySelectorAll(".barcode-item").forEach((item) => {
@@ -311,7 +269,7 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem("barcodes", JSON.stringify(barcodes));
   }
 
-  // Laden der Barcode-Liste aus localStorage
+  // Load barcode list from local storage
   function loadBarcodes() {
     const storedBarcodes = localStorage.getItem("barcodes");
     if (storedBarcodes) {
@@ -323,6 +281,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Barcode-Liste beim Laden der Seite wiederherstellen
+  // Restore barcode list on page load
   loadBarcodes();
 });
