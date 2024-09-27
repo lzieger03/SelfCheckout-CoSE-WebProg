@@ -12,11 +12,8 @@ body {
     flex-direction: column;
     height: 100vh;
     list-style: none;
-    overflow: hidden;
+    justify-content: space-between;
 }
-
-
-
 
 /* Header Styling -------------------------------------------------------------------  */
 header {
@@ -30,19 +27,15 @@ header h1 {
     font-size: 2rem;
 }
 
-
-
-
 /* Main Layout -------------------------------------------------------------------  */
 main {
     display: flex;
     flex: 1;
     padding: 20px;
-    justify-content: space-between;
     gap: 20px;
-    height: calc(100vh - 3rem);
+    overflow: hidden; /* Verhindert zusätzliches Scrollen des gesamten main */
+    height: calc(100vh - 160px); /* Höhe minus Header und Footer berechnen */
 }
-
 
 
 /* Start Popup Overlay ------------------------------------------------------------------- */
@@ -190,27 +183,25 @@ main {
     border-radius: 8px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    max-height: 100%;
+    height: 100%; /* Passt sich der Höhe von main an */
+    overflow: hidden; /* Verhindert, dass der gesamte Bereich scrollbar wird */
 }
 
 #item-list {
+    flex-grow: 1; /* Nutzt den gesamten verfügbaren Platz innerhalb des rechten Bereichs */
     display: flex;
     flex-direction: column;
     background-color: #E3E6E6;
-    margin-bottom: 20px;
     border-radius: 8px;
-    flex: 1 1 auto;
-    min-height: 20%;
-    max-height: 70%;
-    overflow-y: auto;
+    margin-bottom: 20px;
+    overflow: hidden; /* Keine interne Scrollbars für item-list */
 }
 
 #price-info {
     display: grid;
     grid-template-columns: auto auto auto;
     gap: 5px;
-    margin-bottom: 20px;
+
 }
 
 .price-detail {
@@ -288,12 +279,18 @@ main {
     background: #fff;
 }
 
-#barcode-list-container{
-    padding: 20px;
-    overflow-y: scroll;
-    scroll-snap-type: y mandatory;
+#barcode-list-container {
+    flex-grow: 1; /* Nutzt den gesamten vertikalen Platz des Containers */
+    overflow-y: auto; /* Aktiviert Scrollen innerhalb des Containers */
+    padding: 10px 20px; /* Optional: Padding für inneren Abstand */
+    background-color: #E3E6E6; /* Optional: Hintergrundfarbe */
+    border-radius: 8px; /* Optional: runde Ecken für die Liste */
+    border: 1px solid #ddd; /* Optional: Rahmen */
 }
 
+#barcode-list {
+    overflow-y: scroll;
+}
 
 /* Stil für das Listenelement */
 #barcode-list li {
@@ -422,6 +419,7 @@ footer {
     text-align: center;
     padding: 1rem;
     font-size: 0.9rem;
+
 }
 
 
