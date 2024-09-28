@@ -19,7 +19,6 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentSelectedItem = null; // Store current list item
   const barcodeItemMap = {}; // Map barcodes to list items
 
-  
   //-------------------------------- Input Focus Management --------------------------------
   // Focus input when page loads
   barcodeInput.focus();
@@ -84,6 +83,24 @@ document.addEventListener("DOMContentLoaded", () => {
     keepFocusOnInput();
   });
 
+  //-------------------------------- Barcode API Handling --------------------------------
+  // Function for API-call
+  async function fetchProductByBarcode(barcode) {
+    try {
+      const response = await fetch(
+        `http://localhost:8080/product?id=${barcode}`
+      );
+      if (!response.ok) {
+        throw new Error("Produkt nicht gefunden");
+      }
+      const productData = await response.json();
+      return productData; // Rückgabe der Produktdaten
+    } catch (error) {
+      console.error("Fehler bei der API-Abfrage:", error);
+      return null; // Rückgabe null bei einem Fehler
+    }
+  }
+
   //-------------------------------- List and Price Updates --------------------------------
   // Update total price (qty * unit price)
   function updateTotalPrice(li) {
@@ -126,7 +143,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Add or update scanned barcode in list
-  function addBarcodeToList(barcode) {
+  async function addBarcodeToList(barcode) {
     if (barcodeList.children.length === 0) {
       closeStartPopup();
     }
@@ -138,7 +155,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let existingItem = barcodeItemMap[barcode];
 
     if (existingItem) {
-      // Increase quantity if item exists
+      // Erhöhe die Menge, wenn der Artikel bereits existiert
       const quantityElement = existingItem.querySelector(
         ".barcode-list-productQuantity"
       );
@@ -146,19 +163,26 @@ document.addEventListener("DOMContentLoaded", () => {
       updateTotalPrice(existingItem);
       displayItemOnLeft(existingItem);
     } else {
-      // Add new barcode item
+      // API-Abfrage für das Produkt durchführen
+      const productData = await fetchProductByBarcode(barcode);
+
+      if (!productData) {
+        alert("Produktdaten konnten nicht abgerufen werden.");
+        return;
+      }
+
+      // Neues Barcode-Element erstellen
       const li = document.createElement("li");
-      var price = Math.round(Math.random() * 10.00, 2.0);
       li.className = "barcode-item";
       li.innerHTML = `
-        <img src="/backend/itemPictures/${barcode}.png" alt="product-name" class="barcode-list-productImage">
-        <p class="barcode-list-productName">Placeholder Apple</p>
-        <p class="barcode-list-productBarcode">${barcode}</p>
-        <p class="barcode-list-productSinglePrice">${price}$</p>
-        <p class="barcode-list-productQuantity">1</p>
-        <p class="barcode-list-productTotalPrice">${price}$</p>
-        <button class="delete-btn">Delete</button>
-      `;
+      <img src="/backend/itemPictures/${barcode}.png" alt="product-name" class="barcode-list-productImage">
+      <p class="barcode-list-productName">${productData.name}</p>
+      <p class="barcode-list-productBarcode">${productData.id}</p>
+      <p class="barcode-list-productSinglePrice">${productData.price}$</p>
+      <p class="barcode-list-productQuantity">1</p>
+      <p class="barcode-list-productTotalPrice">${productData.price}$</p>
+      <button class="delete-btn">Delete</button>
+    `;
 
       li.querySelector(".delete-btn").addEventListener("click", () => {
         li.remove();
@@ -191,7 +215,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       barcodeList.appendChild(li);
-      barcodeItemMap[barcode] = li; // Add to map
+      barcodeItemMap[barcode] = li; // Zum Barcode-Map hinzufügen
       displayItemOnLeft(li);
     }
 
