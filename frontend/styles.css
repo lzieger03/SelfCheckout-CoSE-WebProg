@@ -38,10 +38,8 @@ main {
     height: calc(100vh - 160px); /* Höhe minus Header und Footer berechnen */
 }
 
-
-/* Start Popup Overlay ------------------------------------------------------------------- */
-/* Start Popup Overlay */
-#start-popup {
+/* standard Popup Overlay ------------------------------------------------------------------- */
+.popup-overlay {
     display: flex;
     position: fixed;
     top: 0;
@@ -54,8 +52,10 @@ main {
     z-index: 1000;
 }
 
+
+/* Start Popup ------------------------------------------------------------------- */
 /* Popup Content */
-.start-popup-content {
+#start-popup-content {
     display: flex;
     background-color: #E3E6E6;
     border-radius: 20px;
@@ -64,9 +64,29 @@ main {
     align-items: center;
 }
 
-.start-popup-content img {
+#start-popup-content img {
     height: 100%;
     width: 100%;
+    border-radius: 20px;
+}
+
+/* Product Error Popup  ------------------------------------------------------------------- */
+#itemNotFound-popup {
+    display: none;
+}
+
+/* prodErr Popup Content */
+#itemNotFound-popup-content {
+    display: flex;
+    background-color: #E3E6E6;
+    border-radius: 20px;
+    height: 70%;
+    width: fit-content;
+    align-items: center;
+}
+
+#itemNotFound-popup-content img {
+    height: 100%;
     border-radius: 20px;
 }
 
@@ -81,7 +101,7 @@ main {
     grid-template-rows: auto auto;
     align-items: center;
     justify-content: center;
-    border-radius: 8px;
+    border-radius: 10px;
     max-height: 100%;
 }
 
@@ -89,6 +109,7 @@ main {
     height: 40vh;
     width: 40vh;
     margin-bottom: 20px;
+    border-radius: 20px;
 }
 
 #productOverview-container {
@@ -181,7 +202,7 @@ main {
     flex: 2;
     background-color: white;
     padding: 20px;
-    border-radius: 8px;
+    border-radius: 10px;
     display: flex;
     flex-direction: column;
     height: 100%; /* Passt sich der Höhe von main an */
@@ -193,7 +214,7 @@ main {
     display: flex;
     flex-direction: column;
     background-color: #E3E6E6;
-    border-radius: 8px;
+    border-radius: 10px;
     margin-bottom: 20px;
     overflow: hidden; /* Keine interne Scrollbars für item-list */
 }
@@ -213,7 +234,7 @@ main {
     font-size: 20px;
     grid-column: 3;
     height: 30px;
-    border-radius: 8px;
+    border-radius: 10px;
     justify-self: right;
     color: #252E3D;
 }
@@ -292,6 +313,7 @@ main {
     overflow-y: scroll;
 }
 
+
 /* Stil für das Listenelement */
 #barcode-list li {
     scroll-snap-align: start;
@@ -313,8 +335,9 @@ main {
 /* Bildstil */
 .barcode-list-productImage {
     max-width: 70px;
-    height: auto;
+    height: 70px;
     margin-right: 15px;
+    border-radius: 4px;
 }
 
 
@@ -353,7 +376,7 @@ main {
     font-size: 1.8rem;
     cursor: pointer;
     width: 100%;
-    border-radius: 8px;
+    border-radius: 10px;
     vertical-align: middle;
     transition: background-color .2s, transform .2s cubic-bezier(.22, .61, .36, 1);
 }

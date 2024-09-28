@@ -3,9 +3,13 @@ document.addEventListener("DOMContentLoaded", () => {
   localStorage.clear();
 
   //-------------------------------- Storage and Initialization --------------------------------
+  // Popup's
+  const startPopup = document.getElementById("start-popup");
+  const productErrorPopup = document.getElementById("itemNotFound-popup");
+
+  // Barcode
   const barcodeInput = document.getElementById("barcode-input");
   const barcodeList = document.getElementById("barcode-list");
-  const startPopup = document.getElementById("start-popup");
   const subtotalElement = document.getElementById("price-detail-subtotal");
   const taxElement = document.getElementById("price-detail-tax");
   const totalElement = document.getElementById("price-detail-total");
@@ -18,6 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const productImageElement = document.getElementById("item-preview-image");
   let currentSelectedItem = null; // Store current list item
   const barcodeItemMap = {}; // Map barcodes to list items
+
 
   //-------------------------------- Input Focus Management --------------------------------
   // Focus input when page loads
@@ -76,11 +81,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
   startPopup.addEventListener("click", closeStartPopup);
 
+  // Open & close Errop Popup
+  function openErrorPopup() {
+    productErrorPopup.style.display = "flex";
+  }
+
+  function closeErrorPopup() {
+    productErrorPopup.style.display = "none";
+  }
+
+  productErrorPopup.addEventListener("click", closeErrorPopup);
+
   //-------------------------------- Barcode Input Handling --------------------------------
   // Filter non-numeric input and refocus input
   barcodeInput.addEventListener("input", () => {
     barcodeInput.value = barcodeInput.value.replace(/[^0-9]/g, "");
     keepFocusOnInput();
+    closeErrorPopup();
   });
 
   //-------------------------------- Barcode API Handling --------------------------------
@@ -90,10 +107,16 @@ document.addEventListener("DOMContentLoaded", () => {
       const response = await fetch(
         `http://localhost:8080/product?id=${barcode}`
       );
+
       if (!response.ok) {
         throw new Error("Produkt nicht gefunden");
       }
       const productData = await response.json();
+
+      if (productData.id === "1") {
+        throw new Error("Produkt nicht gefunden");
+      }
+
       return productData; // Rückgabe der Produktdaten
     } catch (error) {
       console.error("Fehler bei der API-Abfrage:", error);
@@ -167,7 +190,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const productData = await fetchProductByBarcode(barcode);
 
       if (!productData) {
-        alert("Produktdaten konnten nicht abgerufen werden.");
+        openErrorPopup();
         return;
       }
 

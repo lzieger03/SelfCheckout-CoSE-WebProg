@@ -10,16 +10,22 @@
 
 <body>
 
-    <!-- StartPopup-Overlay -->
+    <!-- StartPopup-Overlay ----------------------------------------------------->
     <div id="start-popup" class="popup-overlay">
-        <div class="start-popup-content">
-            <img src="resources/startPopup.svg" alt="">
+        <div id="start-popup-content">
+            <img src="resources/startPopup.svg" alt="Start by scanning your fist item or tap the screen">
         </div>
     </div>
-    
-    
 
-    <!-- Header-Bereich -->
+    <!-- ItemNotFoundPopup-Overlay ----------------------------------------------------->
+    <div id="itemNotFound-popup" class="popup-overlay">
+        <div id="itemNotFound-popup-content">
+            <img src="resources/prodNotFound.svg" alt="Product Not Found. Tap to continue">
+        </div>
+    </div>
+
+
+    <!-- Header-Bereich ----------------------------------------------------->
     <header>
         <h1>ScanMate</h1>
     </header>
@@ -56,7 +62,7 @@
             </div>
         </div>
 
-        <!-- Rechter Bereich für Artikelübersicht -->
+        <!-- Rechter Bereich für Artikelübersicht ----------------------------------------------------->
         <div id="right-section">
             <div id="item-list">
                 <div id="barcode-input-container">
@@ -90,7 +96,7 @@
         </div>
     </main>
 
-    <!-- Pop-up-Overlay -->
+    <!-- Pop-up-Overlay ----------------------------------------------------->
     <div id="payment-popup" class="payment-popup-overlay">
         <div class="payment-popup-content">
             <span id="payment-close-popup" class="payment-popup-close-btn">&times;</span>
@@ -142,7 +148,8 @@
                     </label>
                 </li>
             </ul>
-            <button id="payment-popup-proceed-button" class="payment-popup-proceed-btn" disabled>Proceed with payment</button>
+            <button id="payment-popup-proceed-button" class="payment-popup-proceed-btn" disabled>Proceed with
+                payment</button>
         </div>
     </div>
 
@@ -153,7 +160,7 @@
     <script src="scripts/barcode/barcode-main.js"></script> -->
     <script src="scripts/payment-script.js"></script>
 
-    <!-- Footer-Bereich -->
+    <!-- Footer-Bereich ----------------------------------------------------->
     <footer>
         <p>© 2024 ScanMate by Lars und Marven</p>
     </footer>
