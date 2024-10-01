@@ -2,6 +2,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // Clear local storage on load
   localStorage.clear();
 
+
+
   //-------------------------------- Storage and Initialization --------------------------------
   // Popup's
   const startPopup = document.getElementById("start-popup");
@@ -24,6 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const barcodeItemMap = {}; // Map barcodes to list items
 
 
+
   //-------------------------------- Input Focus Management --------------------------------
   // Focus input when page loads
   barcodeInput.focus();
@@ -32,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function keepFocusOnInput() {
     setTimeout(() => {
       barcodeInput.focus();
-    }, 0); // Delay for Safari workaround
+    }, 0); // Delay for Safari (workaround)
   }
 
   // Refocus input on interactions
@@ -42,6 +45,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+
+
   //-------------------------------- Helper Functions --------------------------------
   function parsePrice(priceText) {
     return parseFloat(priceText.replace("$", "").replace(",", "."));
@@ -50,6 +55,8 @@ document.addEventListener("DOMContentLoaded", () => {
   function formatPrice(price) {
     return price.toFixed(2).replace(".", ",") + "$";
   }
+
+
 
   //-------------------------------- Product Display --------------------------------
   // Display item details on the left
@@ -73,6 +80,8 @@ document.addEventListener("DOMContentLoaded", () => {
     currentSelectedItem = item;
   }
 
+
+
   //-------------------------------- Popup Handling --------------------------------
   // Close start popup
   function closeStartPopup() {
@@ -92,6 +101,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   productErrorPopup.addEventListener("click", closeErrorPopup);
 
+
+
   //-------------------------------- Barcode Input Handling --------------------------------
   // Filter non-numeric input and refocus input
   barcodeInput.addEventListener("input", () => {
@@ -99,6 +110,8 @@ document.addEventListener("DOMContentLoaded", () => {
     keepFocusOnInput();
     closeErrorPopup();
   });
+
+
 
   //-------------------------------- Barcode API Handling --------------------------------
   // Function for API-call
@@ -109,20 +122,22 @@ document.addEventListener("DOMContentLoaded", () => {
       );
 
       if (!response.ok) {
-        throw new Error("Produkt nicht gefunden");
+        throw new Error("Error with the server response");
       }
       const productData = await response.json();
 
       if (productData.id === "1") {
-        throw new Error("Produkt nicht gefunden");
+        throw new Error("Product doesn't exist");
       }
 
-      return productData; // Rückgabe der Produktdaten
+      return productData; // return productData on success
     } catch (error) {
-      console.error("Fehler bei der API-Abfrage:", error);
-      return null; // Rückgabe null bei einem Fehler
+      console.error("Error at API-Call:", error);
+      return null; // Return null on error
     }
   }
+  
+
 
   //-------------------------------- List and Price Updates --------------------------------
   // Update total price (qty * unit price)
@@ -156,6 +171,8 @@ document.addEventListener("DOMContentLoaded", () => {
     totalElement.textContent = formatPrice(total);
   }
 
+
+
   //-------------------------------- List Manipulation --------------------------------
   // Auto-scroll to bottom
   function scrollToBottom() {
@@ -178,7 +195,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let existingItem = barcodeItemMap[barcode];
 
     if (existingItem) {
-      // Erhöhe die Menge, wenn der Artikel bereits existiert
+      // increase quantity if item already exists in the list
       const quantityElement = existingItem.querySelector(
         ".barcode-list-productQuantity"
       );
@@ -186,7 +203,7 @@ document.addEventListener("DOMContentLoaded", () => {
       updateTotalPrice(existingItem);
       displayItemOnLeft(existingItem);
     } else {
-      // API-Abfrage für das Produkt durchführen
+      // API-Call for Barcode data
       const productData = await fetchProductByBarcode(barcode);
 
       if (!productData) {
@@ -194,7 +211,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      // Neues Barcode-Element erstellen
+      // create new barcode-element
       const li = document.createElement("li");
       li.className = "barcode-item";
       li.innerHTML = `
@@ -238,7 +255,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       barcodeList.appendChild(li);
-      barcodeItemMap[barcode] = li; // Zum Barcode-Map hinzufügen
+      barcodeItemMap[barcode] = li; // put barcode into barcode-map
       displayItemOnLeft(li);
     }
 
@@ -247,6 +264,8 @@ document.addEventListener("DOMContentLoaded", () => {
     scrollToBottom();
     keepFocusOnInput();
   }
+
+
 
   //-------------------------------- Quantity Adjustment --------------------------------
   // Plus and minus buttons for left product
@@ -293,6 +312,8 @@ document.addEventListener("DOMContentLoaded", () => {
       saveBarcodes();
     });
 
+
+
   //-------------------------------- Barcode Input Event --------------------------------
   barcodeInput.addEventListener("keyup", (event) => {
     if (event.key === "Enter") {
@@ -304,6 +325,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+
+  
   //-------------------------------- Storage Handling --------------------------------
   // Save barcode list to local storage
   function saveBarcodes() {
