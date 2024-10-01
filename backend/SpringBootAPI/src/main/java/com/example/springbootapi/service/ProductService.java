@@ -16,12 +16,12 @@ public class ProductService {
 
     private void sqlQuery(){
         try {
-            String url = "jdbc:sqlite:./src/main/java/com/example/springbootapi/db/item_database.db";
-            connection = DriverManager.getConnection(url);
+            String url = "jdbc:sqlite:./src/main/java/com/example/springbootapi/db/item_database.db"; // URL of DB with DB-Dialect
+            connection = DriverManager.getConnection(url); // establish connection to DB
 
             Statement statement = connection.createStatement();
 
-            resultSet = statement.executeQuery("select * from products");
+            resultSet = statement.executeQuery("select * from products"); // sql-call (not optional, because it selects all and puts it into a list)
             while (resultSet.next()){
                 products.add(
                         new Product(
@@ -38,7 +38,7 @@ public class ProductService {
     public Optional getProduct(String id) {
         try {
             sqlQuery();
-            Optional<Product> optionalProduct = Optional.empty();
+            Optional<Product> optionalProduct = Optional.empty(); // Redundant (workaround)
 
             for (Product product:products) {
                 if(product.getId().equals(id)){

@@ -5,25 +5,33 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   //-------------------------------- Storage and Initialization --------------------------------
-  // Popup's
+  // Popup-Items
   const startPopup = document.getElementById("start-popup");
   const productErrorPopup = document.getElementById("itemNotFound-popup");
 
-  // Barcode
+  // Barcode-list/input -Items
   const barcodeInput = document.getElementById("barcode-input");
   const barcodeList = document.getElementById("barcode-list");
+
+  // Price/Total -Items
   const subtotalElement = document.getElementById("price-detail-subtotal");
   const taxElement = document.getElementById("price-detail-tax");
   const totalElement = document.getElementById("price-detail-total");
 
-  const TAX_RATE = 0.0725; // Example tax rate
+  // Example tax rate
+  const TAX_RATE = 0.0725;
 
+  // Left Section - Product Preview
   const itemNameElement = document.getElementById("product-info-itemName");
   const itemNumberElement = document.getElementById("product-info-itemNumber");
   const quantityDisplay = document.querySelector(".quantity-display");
   const productImageElement = document.getElementById("item-preview-image");
-  let currentSelectedItem = null; // Store current list item
-  const barcodeItemMap = {}; // Map barcodes to list items
+  
+  // Store current list item
+  let currentSelectedItem = null; 
+  
+  // Map barcodes to list items
+  const barcodeItemMap = {}; 
 
 
 
@@ -83,6 +91,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   //-------------------------------- Popup Handling --------------------------------
+  // --- Start Popup ---
   // Close start popup
   function closeStartPopup() {
     startPopup.style.display = "none";
@@ -90,6 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   startPopup.addEventListener("click", closeStartPopup);
 
+  // --- Error Popup ---
   // Open & close Errop Popup
   function openErrorPopup() {
     productErrorPopup.style.display = "flex";
@@ -326,7 +336,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
 
-  
+
   //-------------------------------- Storage Handling --------------------------------
   // Save barcode list to local storage
   function saveBarcodes() {

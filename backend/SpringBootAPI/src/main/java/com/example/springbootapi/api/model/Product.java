@@ -1,5 +1,7 @@
 package com.example.springbootapi.api.model;
 
+// Product Class to create a Product-Element to send over API
+
 public class Product {
     private String id;
     private String name;

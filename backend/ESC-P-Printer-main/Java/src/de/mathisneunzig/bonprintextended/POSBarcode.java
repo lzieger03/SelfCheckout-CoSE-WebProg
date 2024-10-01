@@ -10,8 +10,8 @@ public class POSBarcode implements POSComponent {
     private final String data;
     private final List<byte[]> commands = new ArrayList<>();
 
-    public POSBarcode(long data, POS.BarcodeType type) {
-        this.data = String.valueOf(data);
+    public POSBarcode(String data, POS.BarcodeType type) {
+        this.data = data;
         this.type = type;
     }
 
@@ -49,5 +49,9 @@ public class POSBarcode implements POSComponent {
 			e.printStackTrace();
 		}
         return output.toByteArray();
+    }
+
+    public String getData() {
+        return data;
     }
 }

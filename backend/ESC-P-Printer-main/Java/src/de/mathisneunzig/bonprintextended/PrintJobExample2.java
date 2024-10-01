@@ -57,7 +57,7 @@ public class PrintJobExample2 {
                 receipt.addItem(product.getName(), product.getPrice());
 
                 // Create and add a barcode to the receipt
-                POSBarcode barcode = new POSBarcode(Long.parseLong(product.getId()), POS.BarcodeType.CODE128);
+                POSBarcode barcode = new POSBarcode(product.getId(), POS.BarcodeType.CODE128);
                 barcode.setHeight(162);
                 barcode.setWidth(POS.BarWidth.THIN);
                 receipt.addBarcode(barcode);

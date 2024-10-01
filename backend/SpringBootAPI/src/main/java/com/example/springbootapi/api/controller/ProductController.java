@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = "http://127.0.0.1:5500")
+@CrossOrigin(origins = "http://127.0.0.1:5500") // Allow localhost to access API (I think is a workaround)
 public class ProductController {
 
     private final ProductService productService;
@@ -21,12 +21,12 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @GetMapping("/product")
-    public Product getProduct(@RequestParam String id){
+    @GetMapping("/product") // Entrypoint of API https://api.url/product
+    public Product getProduct(@RequestParam String id){ // @RequestParam is the API Parameter e.g.: .../product?id=123
         try {
-            Optional product = productService.getProduct(id);
+            Optional product = productService.getProduct(id); // Optional because product could be empty (workaround)
             if (product.isPresent()){
-                return (Product) product.get();
+                return (Product) product.get(); // Parse Optional to Product if possible (workaround)
             }
         } catch (Exception err) {
             System.out.println("--------/product---------" + err);
