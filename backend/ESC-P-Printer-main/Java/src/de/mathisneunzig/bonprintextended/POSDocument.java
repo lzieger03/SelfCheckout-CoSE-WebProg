@@ -26,6 +26,7 @@ public class POSDocument {
     }
 
     public void addText(String text) {
+
         addComponent(() -> (text + "\n").getBytes());
     }
 

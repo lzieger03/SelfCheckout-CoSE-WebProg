@@ -34,6 +34,7 @@ public class POSReceipt extends POSDocument {
     public void addBarcode(POSBarcode barcode) {
         addComponent(barcode);
         addComponent(() -> (barcode.getData() + "\n").getBytes()); // print productID directly after barcode
+        // addText(barcode.getData()); // <-- same as the above
     }
 
     public void setTotal(double total) {
