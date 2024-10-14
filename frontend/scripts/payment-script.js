@@ -23,11 +23,35 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // You can add functionality for the proceed button here
+    // Add functionality for the proceed button
     proceedButton.addEventListener('click', () => {
         if (!proceedButton.disabled) {
+            const selectedMethod = document.querySelector('input[name="payment"]:checked').value;
             alert('Proceeding with payment...');
-            // Add payment processing logic here
+
+            fetchPostPrint();
+
+            popup.style.display = 'none';
         }
     });
+
+    async function fetchPostPrint() {
+        try {
+          const response = await fetch(
+            `http://localhost:8080/print?products=${localStorage.barcodes}`, 
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+          );
+    
+          if (!response.ok) {
+            throw new Error("Error with the server response");
+          }
+        } catch (error) {
+          console.error("Error at API-Call:", error);
+        }
+      }
 });
