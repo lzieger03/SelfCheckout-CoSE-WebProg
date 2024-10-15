@@ -57,7 +57,7 @@ public class PrintJobExample2 {
 
             sqlQuery();
             for (Product product:products) {
-                receipt.addItem(product.getName(), product.getPrice());
+                receipt.addItem(product.getName(), product.getPrice(),1);
 
                 // Create and add a barcode to the receipt
                 POSBarcode barcode = new POSBarcode(product.getId(), POS.BarcodeType.CODE128);

@@ -23,8 +23,8 @@ public class POSReceipt extends POSDocument {
         addComponent(() -> (phone + "\n").getBytes());
     }
 
-    public void addItem(String itemName, double price) {
-        addComponent(() -> String.format("%-20s %10.2f\n", itemName, price).getBytes());
+    public void addItem(String itemName, double price, int quantity) {
+        addComponent(() -> String.format("i%-20s %10.2f\n", quantity, itemName, price).getBytes());
     }
 
     public void setFooterLine(String footer) {
