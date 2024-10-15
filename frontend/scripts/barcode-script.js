@@ -347,10 +347,16 @@ document.addEventListener("DOMContentLoaded", () => {
       const barcode = item.querySelector(
         ".barcode-list-productBarcode"
       ).textContent;
+      const name = item.querySelector(
+        ".barcode-list-productName"
+      ).textContent;
+      const price = item.querySelector(
+        ".barcode-list-productSinglePrice"
+      ).textContent;
       const quantity = item.querySelector(
         ".barcode-list-productQuantity"
       ).textContent;
-      barcodes.push({ barcode, quantity });
+      barcodes.push({ barcode, name, price, quantity });
     });
     localStorage.setItem("barcodes", JSON.stringify(barcodes));
   }

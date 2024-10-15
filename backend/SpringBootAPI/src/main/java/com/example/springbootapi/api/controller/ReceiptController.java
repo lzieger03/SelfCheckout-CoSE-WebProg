@@ -1,8 +1,6 @@
 package com.example.springbootapi.api.controller;
 
-import com.example.springbootapi.api.model.Product;
-import com.example.springbootapi.api.model.Receipt;
-import com.example.springbootapi.api.model.ReceiptBuilder;
+import com.example.springbootapi.api.model.*;
 import com.example.springbootapi.service.ReceiptService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +8,9 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -19,6 +20,7 @@ import java.util.Map;
 @RestController
 @CrossOrigin(origins = "http://127.0.0.1:5501") //change this to the port of the frontend
 public class ReceiptController {
+    private static final Logger logger = LoggerFactory.getLogger(ReceiptController.class);
     private final ReceiptService receiptService;
 
     @Autowired
@@ -27,32 +29,36 @@ public class ReceiptController {
     }
 
     @PostMapping("/print")
-    public ResponseEntity<Map<String, String>> printReceipt(@RequestBody List<Product> products) {
+    public ResponseEntity<Map<String, String>> printReceipt(@RequestBody List<CartObject> cartObjects) {
         Map<String, String> response = new HashMap<>();
         // Logging the received products
-        products.forEach(product -> System.out.println(product.toString()));
+        cartObjects.forEach(cartObject ->  logger.info(
+            "Received CartObject: id:{} name:{} price:{} quantity:{}",
+                cartObject.getId(),
+                cartObject.getName(),
+                cartObject.getPrice(),
+                cartObject.getQuantity()
+        ));
 
-        // Returning a JSON response instead of a plain string
-        //response.put("message", products.toString());
-        return ResponseEntity.ok(response);
-        /*try {
+        try {
             ReceiptBuilder builder = new ReceiptBuilder();
             builder.setTitle("ScanMate")
                    .setAddress("ScanMate-street 1")
-                   .setPhone("+49 123 4567890");
-
-            for (String product : products) {
-                builder.addProduct(new Product(product, "", 0.0));
-            }
+                   .setPhone("+49 123 4567890")
+                    .addCart(new Cart(cartObjects));
 
             builder.setFooter("Thank you for shopping!");
             Receipt receipt = builder.build();
 
             receiptService.print(receipt);
-            return "Print request successful";
+
+            response.put("message", "print successful");
+            return ResponseEntity.ok(response);
         } catch (Exception e) {
             e.printStackTrace();
-            return "Print request failed";
-        }*/
+
+            response.put("error", e.getMessage());
+            return ResponseEntity.ok(response);
+        }
     }
 }

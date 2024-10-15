@@ -4,7 +4,7 @@ public interface Builder {
     Builder setTitle(String title);
     Builder setAddress(String address);
     Builder setPhone(String phone);
-    Builder addProduct(Product product);
+    Builder addCart(Cart cart);
     Builder setFooter(String footer);
     Receipt build();
 }

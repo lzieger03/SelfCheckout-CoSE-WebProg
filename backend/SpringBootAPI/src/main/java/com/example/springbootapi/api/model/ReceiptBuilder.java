@@ -1,13 +1,10 @@
 package com.example.springbootapi.api.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class ReceiptBuilder implements Builder {
     private String title;
     private String address;
     private String phone;
-    private List<Product> products = new ArrayList<>();
+    private Cart cart;
     private String footer;
 
     @Override
@@ -29,9 +26,9 @@ public class ReceiptBuilder implements Builder {
     }
 
     @Override
-    public Builder addProduct(Product product) {
-        this.products.add(product);
-        return this;
+    public Builder addCart(Cart cart) {
+        this.cart = cart;
+        return null;
     }
 
     @Override
@@ -42,6 +39,6 @@ public class ReceiptBuilder implements Builder {
 
     @Override
     public Receipt build() {
-        return new Receipt(title, address, phone, products, footer);
+        return new Receipt(title, address, phone, cart, footer);
     }
 }

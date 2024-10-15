@@ -40,7 +40,7 @@ public class ReceiptService {
         posReceipt.setTitle(receipt.getTitle());
         posReceipt.setAddress(receipt.getAddress());
         posReceipt.setPhone(receipt.getPhone());
-        receipt.getProducts().forEach(item -> posReceipt.addItem(item.getName(), item.getPrice()));
+        receipt.getCart().getCartObjectList().forEach(item -> posReceipt.addItem(item.getName(), item.getPrice()));
         posReceipt.setFooterLine(receipt.getFooter());
         return posReceipt;
     }

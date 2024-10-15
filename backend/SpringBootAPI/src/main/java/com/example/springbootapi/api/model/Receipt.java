@@ -7,14 +7,14 @@ public class Receipt {
     private String title;
     private String address;
     private String phone;
-    private List<Product> products;
+    private Cart cart;
     private String footer;
 
-    public Receipt(String title, String address, String phone, List<Product> products, String footer) {
+    public Receipt(String title, String address, String phone, Cart cart, String footer) {
         this.title = title;
         this.address = address;
         this.phone = phone;
-        this.products = products;
+        this.cart = cart;
         this.footer = footer;
     }
 
@@ -30,8 +30,8 @@ public class Receipt {
         return phone;
     }
 
-    public List<Product> getProducts() {
-        return products;
+    public Cart getCart() {
+        return cart;
     }
 
     public String getFooter() {
