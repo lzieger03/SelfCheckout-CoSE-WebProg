@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = "http://127.0.0.1:5501") // Allow localhost to access API (I think is a workaround)
+@CrossOrigin(origins = "http://127.0.0.1:5501") //change this to the port of the frontend
 public class ProductController {
 
     private final ProductService productService;

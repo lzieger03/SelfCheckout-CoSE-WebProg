@@ -140,6 +140,7 @@ document.addEventListener("DOMContentLoaded", () => {
         throw new Error("Product doesn't exist");
       }
 
+      console.log(`Info: Product with the ID: ${productData.id}, the name: "${productData.name}" and the price: ${productData.price}$ was added to the cart.`)
       return productData; // return productData on success
     } catch (error) {
       console.error("Error at API-Call:", error);
@@ -245,6 +246,7 @@ document.addEventListener("DOMContentLoaded", () => {
           itemNumberElement.textContent = "your items";
           quantityDisplay.textContent = "0";
         }
+        console.log(`Info: Removed product from the cart.`);
       });
 
       li.addEventListener("click", function () {
