@@ -10,19 +10,12 @@ Welcome to the ScanMate 1.0.0-X "Aurora" project! This is all about making your 
 - **Pay Your Way**: Whether you're a cash person or a card swiper, we've got you covered. The system guides you through the payment process.
 - **Get Your Receipt**: Once you pay, a receipt prints out with all the details—what you bought, how much it cost, and how you paid.
 
-## Who's It For?
-
-We've thought about everyone:
-
-- **Kids**: Big buttons and simple instructions make it easy for the little ones.
-- **Seniors**: Large text and high-contrast themes help those who need a bit more visibility.
-- **Busy Bees**: Quick and efficient for those who just want to get in and out.
 
 ## What's Under the Hood?
 
 - **Frontend**: Built with HTML, CSS, and JavaScript. It's the face of the system where all the action happens.
 - **Backend**: Powered by Java and Spring Boot. This is where the magic happens—handling all the data and logic.
-- **Database**: MySQL keeps track of all the product info, like barcodes, names, and prices.
+- **Database**: A SQLite Database keeps track of all the product info, like barcodes, names, and prices.
 
 ## Project Structure
 
