@@ -2,6 +2,8 @@ package com.example.springbootapi.api.controller;
 
 import com.example.springbootapi.api.model.Product;
 import com.example.springbootapi.service.ProductService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,9 +31,22 @@ public class ProductController {
                 return (Product) product.get(); // Parse Optional to Product if possible (workaround)
             }
         } catch (Exception err) {
-            System.out.println("--------/product---------" + err);
+            logEvents(
+                    this.getClass().getName(),
+                    this.getClass().getEnclosingMethod().getName(),
+                    err
+            );
             return new Product("1", err.getMessage(), 0.0);
         }
         return null;
+    }
+
+    public void logEvents(String className, String methodName, Exception e) {
+        Logger logger = LoggerFactory.getLogger(ProductController.class);
+        logger.info("Error occurred in Class {} in Method {}: {}",
+                className,
+                methodName,
+                e.getMessage()
+        );
     }
 }

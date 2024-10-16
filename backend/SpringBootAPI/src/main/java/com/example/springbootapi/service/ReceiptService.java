@@ -4,6 +4,8 @@ import com.example.springbootapi.api.model.Receipt;
 import com.example.springbootapi.bonprintextended.POSDocument;
 import com.example.springbootapi.bonprintextended.POSPrinter;
 import com.example.springbootapi.bonprintextended.POSReceipt;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.print.PrintService;
@@ -30,8 +32,12 @@ public class ReceiptService {
 
             // Print the receipt using the POSPrinter
             posPrinter.print((POSDocument) posReceipt, (PrintService) receiptService);
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception err) {
+            logEvents(
+                    this.getClass().getName(),
+                    this.getClass().getEnclosingMethod().getName(),
+                    err
+            );
         }
     }
 
@@ -62,5 +68,14 @@ public class ReceiptService {
 
     private String getName() {
         return "OLIVETTI";
+    }
+
+    public void logEvents(String className, String methodName, Exception e) {
+        Logger logger = LoggerFactory.getLogger(ReceiptService.class);
+        logger.info("Error occurred in Class {} in Method {}: {}",
+                className,
+                methodName,
+                e.getMessage()
+        );
     }
 }

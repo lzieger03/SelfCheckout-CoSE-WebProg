@@ -1,6 +1,7 @@
 package com.example.springbootapi.api.controller;
 
 import com.example.springbootapi.api.model.*;
+import com.example.springbootapi.service.ProductService;
 import com.example.springbootapi.service.ReceiptService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -10,12 +11,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 @RestController
 @CrossOrigin(origins = "http://127.0.0.1:5501") //change this to the port of the frontend
@@ -54,11 +53,22 @@ public class ReceiptController {
 
             response.put("message", "print successful");
             return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            e.printStackTrace();
-
-            response.put("error", e.getMessage());
+        } catch (Exception err) {
+            logEvents(
+                    this.getClass().getName(),
+                    this.getClass().getEnclosingMethod().getName(),
+                    err
+            );
+            response.put("error", err.getMessage());
             return ResponseEntity.ok(response);
         }
+    }
+
+    public void logEvents(String className, String methodName, Exception e) {
+        logger.info("Error occurred in Class {} in Method {}: {}",
+                className,
+                methodName,
+                e.getMessage()
+        );
     }
 }
