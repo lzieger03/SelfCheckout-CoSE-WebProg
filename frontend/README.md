@@ -11,8 +11,7 @@ The frontend of the ScanMate project is designed to provide a user-friendly inte
    - Contains sections for product display, barcode input, and payment options.
 
    ```html:./index.html
-   startLine: 1
-   endLine: 173
+   
    ```
 
 2. **CSS (`styles.css`)**:
@@ -20,8 +19,7 @@ The frontend of the ScanMate project is designed to provide a user-friendly inte
    - Includes styles for the header, main layout, and specific sections like the left and right panels.
 
    ```css:./styles.css
-   startLine: 1
-   endLine: 596
+
    ```
 
 3. **JavaScript (`barcode-script-backup.js`)**:
@@ -29,16 +27,14 @@ The frontend of the ScanMate project is designed to provide a user-friendly inte
    - Manages popups and user input, ensuring a smooth user experience.
 
    ```javascript:./scripts/barcode-script.js
-   startLine: 1
-   endLine: 212
+
    ```
 
 4. **JavaScript (`payment-script.js`)**:
    - Handles the logic for payment processing and receipt generation.
   
    ```javascript:./scripts/payment-script.js
-   startLine: 1
-   endLine: 89
+
    ```  
 
 ## Key Features
