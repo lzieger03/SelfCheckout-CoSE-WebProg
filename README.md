@@ -17,30 +17,24 @@ Welcome to the ScanMate 1.0.0-X "Aurora" project! This is all about making your 
 - **Backend**: Powered by Java and Spring Boot. This is where the magic happens—handling all the data and logic.
 - **Database**: A SQLite Database keeps track of all the product info, like barcodes, names, and prices.
 
+
 ## Project Structure
 
-Here's a quick peek at how everything is organized:
+Here's how the project is organized:
 
-1. **Root Directory**: 
-   - Contains the main configuration files like `pom.xml` for Maven and `.gitignore` to keep things tidy.
+1. **Frontend**:
+   - **HTML**: The main interface is defined in `index.html`, which includes various sections for product display, barcode input, and payment options.
+   - **CSS**: Styling is managed in `styles.css`, providing layout and design for the application.
+   - **JavaScript**: Scripts like `barcode-script.js` handle barcode scanning and interaction logic.
 
-2. **Frontend (client)**:
-   - **`src/`**: All the code that makes the user interface tick.
-   - **`components/`**: Reusable bits of UI magic.
-   - **`assets/`**: Images, stylesheets, and other goodies.
-   - **`index.html`**: The main page where it all comes together.
+2. **Backend**:
+   - **Java**: The backend is built using Spring Boot, with configurations like `WebConfig.java` to manage CORS settings.
+   - **Database**: The application uses a SQLite database, `item_database.db`, to store product information.
 
-3. **Backend (server)**:
-   - **`src/`**: The brains of the operation, handling all the logic and data processing.
-   - **`controllers/`**: Manages incoming requests and sends back responses.
-   - **`models/`**: Defines the data structures we work with.
-   - **`services/`**: Where the business logic lives.
+3. **Configuration**:
+   - **Maven**: The project uses Maven for dependency management, as specified in `pom.xml`.
+   - **Git**: The `.gitignore` file ensures that unnecessary files are not tracked in version control.
 
-4. **Shared**:
-   - **`shared/`**: Any code that's used by both the frontend and backend, like utility functions.
-
-5. **DevOps/CI-CD**:
-   - **`.github/workflows/`**: Automates testing and deployment with GitHub Actions.
 
 ## The Big Picture
 
