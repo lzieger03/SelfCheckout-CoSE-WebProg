@@ -10,15 +10,15 @@ The frontend of the ScanMate project is designed to provide a user-friendly inte
    - Defines the main structure of the application, including popups for start, item not found, and empty cart notifications.
    - Contains sections for product display, barcode input, and payment options.
 
-   ```html:./index.html
-   
+   ```html:index.html
+
    ```
 
 2. **CSS (`styles.css`)**:
    - Provides styling for the entire application, ensuring a consistent and visually appealing layout.
    - Includes styles for the header, main layout, and specific sections like the left and right panels.
 
-   ```css:./styles.css
+   ```css:styles.css
 
    ```
 
@@ -26,14 +26,14 @@ The frontend of the ScanMate project is designed to provide a user-friendly inte
    - Handles the logic for barcode scanning and interaction with the backend API.
    - Manages popups and user input, ensuring a smooth user experience.
 
-   ```javascript:./scripts/barcode-script.js
+   ```javascript:scripts/barcode-script.js
 
    ```
 
 4. **JavaScript (`payment-script.js`)**:
    - Handles the logic for payment processing and receipt generation.
   
-   ```javascript:./scripts/payment-script.js
+   ```javascript:scripts/payment-script.js
 
    ```  
 
