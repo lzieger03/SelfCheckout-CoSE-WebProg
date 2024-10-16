@@ -5,6 +5,9 @@ public class ReceiptBuilder implements Builder {
     private String address;
     private String phone;
     private Cart cart;
+    private double subTotal;
+    private double tax;
+    private double total;
     private String footer;
 
     @Override
@@ -28,7 +31,7 @@ public class ReceiptBuilder implements Builder {
     @Override
     public Builder addCart(Cart cart) {
         this.cart = cart;
-        return null;
+        return this;
     }
 
     @Override

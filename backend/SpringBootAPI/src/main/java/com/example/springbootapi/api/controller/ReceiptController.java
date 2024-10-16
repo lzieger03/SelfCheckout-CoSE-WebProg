@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,9 +31,14 @@ public class ReceiptController {
     @PostMapping("/print")
     public ResponseEntity<Map<String, String>> printReceipt(@RequestBody List<CartObject> cartObjects) {
         Map<String, String> response = new HashMap<>();
+
+        String paymentMethod = cartObjects.get(0).getName();
+        cartObjects.remove(0);
+        logger.info("Payment Method used: {}", paymentMethod);
+
         // Logging the received products
-        cartObjects.forEach(cartObject ->  logger.info(
-            "Received CartObject: id:{} name:{} price:{} quantity:{}",
+        cartObjects.forEach(cartObject -> logger.info(
+                "Received CartObject: id:{} name:{} price:{} quantity:{}",
                 cartObject.getId(),
                 cartObject.getName(),
                 cartObject.getPrice(),
@@ -41,10 +47,11 @@ public class ReceiptController {
 
         try {
             ReceiptBuilder builder = new ReceiptBuilder();
+            Cart cart = new Cart(cartObjects, paymentMethod);
             builder.setTitle("ScanMate")
-                   .setAddress("ScanMate-street 1")
-                   .setPhone("+49 123 4567890")
-                    .addCart(new Cart(cartObjects));
+                    .setAddress("ScanMate-street 1")
+                    .setPhone("+49 123 4567890")
+                    .addCart(cart);
 
             builder.setFooter("Thank you for shopping!");
             Receipt receipt = builder.build();
@@ -56,7 +63,7 @@ public class ReceiptController {
         } catch (Exception err) {
             logEvents(
                     this.getClass().getName(),
-                    this.getClass().getEnclosingMethod().getName(),
+                    new Throwable().getStackTrace()[0].getMethodName(),
                     err
             );
             response.put("error", err.getMessage());

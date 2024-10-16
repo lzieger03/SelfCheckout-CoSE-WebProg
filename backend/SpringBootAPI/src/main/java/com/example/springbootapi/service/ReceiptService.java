@@ -1,15 +1,17 @@
 package com.example.springbootapi.service;
 
+import com.example.springbootapi.api.model.Cart;
 import com.example.springbootapi.api.model.Receipt;
-import com.example.springbootapi.bonprintextended.POSDocument;
+import com.example.springbootapi.bonprintextended.POS;
+import com.example.springbootapi.bonprintextended.POSBarcode;
 import com.example.springbootapi.bonprintextended.POSPrinter;
 import com.example.springbootapi.bonprintextended.POSReceipt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import javax.print.PrintService;
-import javax.print.PrintServiceLookup;
+import javax.print.*;
+
 
 @Service
 public class ReceiptService {
@@ -17,10 +19,14 @@ public class ReceiptService {
     public void print(Receipt receipt) {
         try {
             // Find the printer by name
-            ReceiptService receiptService = findPrintService("OLIVETTI PRT80");
+            PrintService printService = findPrintService("OLIVETTI PRT80");
 
-            if (receiptService == null) {
-                System.out.println("Printer not found");
+            if (printService == null) {
+                logEvents(
+                        this.getClass().getSimpleName(),
+                        new Throwable().getStackTrace()[0].getMethodName(),
+                        "Printer not found!"
+                );
                 return;
             }
 
@@ -31,34 +37,40 @@ public class ReceiptService {
             POSReceipt posReceipt = convertToPOSReceipt(receipt);
 
             // Print the receipt using the POSPrinter
-            posPrinter.print((POSDocument) posReceipt, (PrintService) receiptService);
+            posPrinter.print(posReceipt, printService);
         } catch (Exception err) {
             logEvents(
-                    this.getClass().getName(),
-                    this.getClass().getEnclosingMethod().getName(),
-                    err
+                    this.getClass().getSimpleName(),
+                    new Throwable().getStackTrace()[0].getMethodName(),
+                    err.getMessage()
             );
         }
     }
 
     private POSReceipt convertToPOSReceipt(Receipt receipt) {
         POSReceipt posReceipt = new POSReceipt();
+        Cart cart = receipt.getCart();
         posReceipt.setTitle(receipt.getTitle());
         posReceipt.setAddress(receipt.getAddress());
         posReceipt.setPhone(receipt.getPhone());
         receipt.getCart().getCartObjectList().forEach(item ->
                 posReceipt.addItem(
-                        item.getName(),
+                        String.valueOf(item.getName()),
                         item.getPrice(),
                         item.getQuantity()
                 ));
+        posReceipt.addSubTotal(cart.getSubTotalPrice());
+        posReceipt.addTax(cart.getTaxes());
+        posReceipt.addTotal(cart.getTotalPrice());
+        posReceipt.addPaymentMethod(cart.getPaymentMethod());
+        posReceipt.addBarcode(new POSBarcode(cart.getCartId(), POS.BarcodeType.CODE128));
         posReceipt.setFooterLine(receipt.getFooter());
         return posReceipt;
     }
 
-    private ReceiptService findPrintService(String printerName) {
-        ReceiptService[] services = (ReceiptService[]) PrintServiceLookup.lookupPrintServices(null, null);
-        for (ReceiptService service : services) {
+    private PrintService findPrintService(String printerName) {
+        PrintService[] services = PrintServiceLookup.lookupPrintServices(null, null);
+        for (PrintService service : services) {
             if (service.getName().equalsIgnoreCase(printerName)) {
                 return service;
             }
@@ -70,12 +82,12 @@ public class ReceiptService {
         return "OLIVETTI";
     }
 
-    public void logEvents(String className, String methodName, Exception e) {
+    public void logEvents(String className, String methodName, String eMessage) {
         Logger logger = LoggerFactory.getLogger(ReceiptService.class);
         logger.info("Error occurred in Class {} in Method {}: {}",
                 className,
                 methodName,
-                e.getMessage()
+                eMessage
         );
     }
 }

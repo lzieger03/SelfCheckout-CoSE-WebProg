@@ -1,5 +1,7 @@
 package com.example.springbootapi.bonprintextended;
 
+import com.example.springbootapi.api.model.Product;
+
 import javax.print.PrintService;
 import javax.print.PrintServiceLookup;
 import java.sql.Connection;

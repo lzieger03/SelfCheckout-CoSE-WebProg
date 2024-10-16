@@ -36,7 +36,7 @@ public class ProductService {
 //        } catch (Exception err) {
 //                        logEvents(
 //                    this.getClass().getName(),
-//                    this.getClass().getEnclosingMethod().getName(),
+//                    new Throwable().getStackTrace()[0].getMethodName(),
 //                    err
 //            );
 //        }
@@ -58,7 +58,7 @@ public class ProductService {
         } catch (Exception err) {
             logEvents(
                     this.getClass().getName(),
-                    this.getClass().getEnclosingMethod().getName(),
+                    new Throwable().getStackTrace()[0].getMethodName(),
                     err
             );
             return null;
@@ -86,7 +86,7 @@ public class ProductService {
         } catch (Exception err) {
             logEvents(
                     this.getClass().getName(),
-                    this.getClass().getEnclosingMethod().getName(),
+                    new Throwable().getStackTrace()[0].getMethodName(),
                     err
             );
         }

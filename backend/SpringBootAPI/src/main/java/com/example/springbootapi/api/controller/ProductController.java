@@ -33,7 +33,7 @@ public class ProductController {
         } catch (Exception err) {
             logEvents(
                     this.getClass().getName(),
-                    this.getClass().getEnclosingMethod().getName(),
+                    new Throwable().getStackTrace()[0].getMethodName(),
                     err
             );
             return new Product("1", err.getMessage(), 0.0);

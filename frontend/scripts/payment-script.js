@@ -26,7 +26,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Proceed button functionality
   proceedButton.addEventListener("click", () => {
-    if (!proceedButton.disabled) { // Ensure button is enabled
+    if (!proceedButton.disabled) {
+      // Ensure button is enabled
       const selectedMethod = document.querySelector(
         'input[name="payment"]:checked' // Get selected payment method
       ).value;
@@ -40,6 +41,11 @@ document.addEventListener("DOMContentLoaded", () => {
   // Function to send data for printing
   async function fetchPostPrint() {
     try {
+      // Get selected payment method
+      const selectedMethod = document.querySelector(
+        'input[name="payment"]:checked' // Get selected payment method
+      ).value;
+
       // Get products from local storage
       const storedProducts = localStorage.getItem("barcodes");
       const productsArray = JSON.parse(storedProducts) || []; // Parse or use empty array
@@ -48,12 +54,20 @@ document.addEventListener("DOMContentLoaded", () => {
       console.log("productsArray: " + productsArray);
 
       // Prepare data for API request
-      const products = productsArray.map((item) => ({
-        barcode: String(item.barcode),
-        name: item.name,
-        price: parseFloat(item.price), 
-        quantity: Number(item.quantity), // Convert quantity to number
-      }));
+      const products = [
+        {
+          barcode: "", // Assuming no barcode for payment method
+          name: selectedMethod, // Add the selected payment method as the name
+          price: 0, // No price associated with the payment method
+          quantity: 1, // Default quantity for payment method
+        },
+        ...productsArray.map((item) => ({
+          barcode: String(item.barcode),
+          name: item.name,
+          price: parseFloat(item.price),
+          quantity: Number(item.quantity), // Convert quantity to number
+        })),
+      ];
 
       console.log(products);
 
