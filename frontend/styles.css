@@ -90,6 +90,27 @@ main {
     border-radius: 20px;
 }
 
+/* Cart Empty Popup  ------------------------------------------------------------------- */
+#cartEmpty-popup {
+    display: none;
+}
+
+/* cartEmpty Popup Content */
+#cartEmpty-popup-content {
+    display: flex;
+    background-color: #E3E6E6;
+    border-radius: 20px;
+    height: 70%;
+    width: fit-content;
+    align-items: center;
+}
+
+#cartEmpty-popup-content img {
+    height: 100%;
+    border-radius: 20px;
+}
+
+
 
 /* Linker Bereich  ------------------------------------------------------------------- */
 #left-section {

@@ -50,11 +50,14 @@ public class ProductService {
             Statement statement = connection.createStatement();
 
             resultSet = statement.executeQuery("select * from products where ItemNo=" + id); // sql-call (not optional, because it selects all and puts it into a list)
-            return new Product(
-                    resultSet.getString(1),
-                    resultSet.getString(2),
-                    resultSet.getDouble(3)
-            );
+            if(resultSet.getString(1).equals(id)){
+                return new Product(
+                        resultSet.getString(1),
+                        resultSet.getString(2),
+                        resultSet.getDouble(3)
+                );
+            }
+            return null;
         } catch (Exception err) {
             logEvents(
                     this.getClass().getName(),

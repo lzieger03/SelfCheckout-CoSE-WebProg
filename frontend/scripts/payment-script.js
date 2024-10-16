@@ -1,50 +1,73 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Get DOM elements
+  // --- Get DOM elements ---
   const paymentButton = document.getElementById("payment-button");
-  const popup = document.getElementById("payment-popup");
+  const cartEmptyPopup = document.getElementById("cartEmpty-popup");
+  const barcodeInput = document.getElementById("barcode-input");
+  const paymentPopup = document.getElementById("payment-popup");
   const closeButton = document.getElementById("payment-close-popup");
   const proceedButton = document.getElementById("payment-popup-proceed-button");
   const paymentMethods = document.querySelectorAll('input[name="payment"]');
 
-  // Show pop-up on payment button click
+  // --- Check if cart is empty ---
+  function isCartEmpty() {
+    const storedProducts = localStorage.getItem("barcodes");
+    const productsArray = JSON.parse(storedProducts) || [];
+    return productsArray.length === 0; // Returns true if cart is empty
+  }
+
+  // --- Show popups on payment button click ---
   paymentButton.addEventListener("click", () => {
-    popup.style.display = "flex"; // Show pop-up
-  });
-
-  // Close pop-up on close button click
-  closeButton.addEventListener("click", () => {
-    popup.style.display = "none"; // Hide pop-up
-  });
-
-  // Enable proceed button when a payment method is selected
-  paymentMethods.forEach((method) => {
-    method.addEventListener("change", () => {
-      proceedButton.disabled = false; // Enable proceed button
-      proceedButton.classList.add("active"); // Add active styling
-    });
-  });
-
-  // Proceed button functionality
-  proceedButton.addEventListener("click", () => {
-    if (!proceedButton.disabled) {
-      // Ensure button is enabled
-      const selectedMethod = document.querySelector(
-        'input[name="payment"]:checked' // Get selected payment method
-      ).value;
-
-      fetchPostPrint(); // Call function to send data
-
-      popup.style.display = "none"; // Hide pop-up
+    if (isCartEmpty()) {
+      cartEmptyPopup.style.display = "flex"; // Show empty cart popup
+    } else {
+      paymentPopup.style.display = "flex"; // Show payment popup
     }
   });
 
-  // Function to send data for printing
+  // --- Close CartEmpty-popup ---
+  cartEmptyPopup.addEventListener("click", () => {
+    cartEmptyPopup.style.display = "none"; // Hide empty cart popup
+  });
+
+  // --- Hide CartEmpty-popup on barcode input ---
+  barcodeInput.addEventListener("input", () => {
+    cartEmptyPopup.style.display = "none"; // Hide empty cart popup on barcode input
+  });
+
+  // --- Close Payment-popup ---
+  closeButton.addEventListener("click", () => {
+    paymentPopup.style.display = "none"; // Hide payment popup
+  });
+
+  // --- Enable proceed button when payment method selected ---
+  paymentMethods.forEach((method) => {
+    method.addEventListener("change", () => {
+      if (!isCartEmpty()) {
+        proceedButton.disabled = false; // Enable proceed button if cart is not empty
+        proceedButton.classList.add("active"); // Add active styling
+      }
+    });
+  });
+
+  // --- Proceed button functionality ---
+  proceedButton.addEventListener("click", () => {
+    if (!proceedButton.disabled && !isCartEmpty()) {
+      // Ensure button is enabled and cart is not empty
+      const selectedMethod = document.querySelector('input[name="payment"]:checked').value; // Get selected payment method
+
+      fetchPostPrint(); // Call function to send data
+
+      paymentPopup.style.display = "none"; // Hide payment popup
+    } else {
+      alert("Your cart is empty. Please add products before proceeding to payment.");
+    }
+  });
+
+  // --- Send data for printing ---
   async function fetchPostPrint() {
     try {
       // Get selected payment method
-      const selectedMethod = document.querySelector(
-        'input[name="payment"]:checked' // Get selected payment method
-      ).value;
+      const selectedMethod = document.querySelector('input[name="payment"]:checked').value;
 
       // Get products from local storage
       const storedProducts = localStorage.getItem("barcodes");
@@ -95,14 +118,14 @@ document.addEventListener("DOMContentLoaded", () => {
           console.log("Response:", errorDetails); // Log raw text if not JSON
         }
 
-        throw new Error(`${errorMessage}.\nDetails: ${errorDetails}`);
+        throw new Error(`${errorMessage}. \nDetails: ${errorDetails}`);
       }
 
       const data = await response.json();
       console.log("Success:", data);
+      location.reload(); // Reload after successful payment
     } catch (error) {
       console.error("Error at API-Call:", error);
-      alert(`There was an issue processing your request:\n${error.message}`);
     }
   }
 });
