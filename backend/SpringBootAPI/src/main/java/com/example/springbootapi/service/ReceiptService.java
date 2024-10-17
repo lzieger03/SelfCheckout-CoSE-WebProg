@@ -29,8 +29,6 @@ public class ReceiptService {
             POSPrinter posPrinter = new POSPrinter();
             POSReceipt posReceipt = convertToPOSReceipt(receipt);
             posPrinter.print(posReceipt, printService);
-        } catch (PrintException e) {
-            logError("Printing error: " + e.getMessage());
         } catch (Exception e) {
             logError("Unexpected error: " + e.getMessage());
         }
