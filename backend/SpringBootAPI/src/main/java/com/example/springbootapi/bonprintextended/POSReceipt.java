@@ -9,7 +9,8 @@ public class POSReceipt extends POSDocument {
         this.title = title;
         addStyle(POSStyle.BOLD);
         addStyle(POSStyle.BIG);
-        addComponent(() -> (title + "\n").getBytes());
+        addStyle(POSStyle.CENTER);
+        addComponent(() -> (title + "\n\n").getBytes());
         resetStyle();
     }
 
@@ -21,17 +22,19 @@ public class POSReceipt extends POSDocument {
     public void setPhone(String phone) {
         this.phone = phone;
         addComponent(() -> (phone + "\n").getBytes());
+        addFeed(1);
     }
 
     public void addItem(String itemName, double price, int quantity) {
-        addComponent(() -> String.format("%-5d * %-20s $%10.2f\\n", quantity, itemName, price).getBytes());
+        addComponent(() -> String.format("%-2d * %-40s $%5.2f\n", quantity, itemName, price).getBytes());
     }
 
     public void addSubTotal(double subTotal) {
         // Feed a bit before printing the total
         addFeed(2);
         addStyle(POSStyle.BIG);
-        addComponent(() -> String.format("SubTotal: %10.2f\n", subTotal).getBytes());
+        addStyle(POSStyle.RIGHT);
+        addComponent(() -> String.format("SubTotal: $%-15.2f\n", subTotal).getBytes());
         resetStyle(); // Reset after total
     }
 
@@ -39,7 +42,8 @@ public class POSReceipt extends POSDocument {
         // Feed a bit before printing the total
         addFeed(0);
         addStyle(POSStyle.SMALL);
-        addComponent(() -> String.format("Tax: %10.2f\n", tax).getBytes());
+        addStyle(POSStyle.RIGHT);
+        addComponent(() -> String.format("Tax: $%15.2f\n", tax).getBytes());
         resetStyle(); // Reset after total
     }
 
@@ -47,21 +51,28 @@ public class POSReceipt extends POSDocument {
         // Feed a bit before printing the total
         addFeed(0);
         addStyle(POSStyle.BOLD);
-        addComponent(() -> String.format("Total: %10.2f\n", total).getBytes());
+        addStyle(POSStyle.RIGHT);
+        addComponent(() -> String.format("Total: $%15.2f\n", total).getBytes());
         resetStyle(); // Reset after total
     }
 
     public void addPaymentMethod(String paymentMethod) {
-        addComponent(() -> (address + "\n").getBytes());
+        addFeed(2);
+        addComponent((paymentMethod + "\n")::getBytes);
     }
 
     public void addBarcode(POSBarcode barcode) {
+        addFeed(2);
+        barcode.setHeight(162);
+        barcode.setWidth(POS.BarWidth.DEFAULT);
         addComponent(barcode);
         addComponent(() -> (barcode.getData() + "\n").getBytes()); // print productID directly after barcode
         // addText(barcode.getData()); // <-- same as the above
     }
 
     public void setFooterLine(String footer) {
+        addFeed(1);
         addComponent(() -> (footer + "\n\n").getBytes());
+        addFeed(2);
     }
 }
