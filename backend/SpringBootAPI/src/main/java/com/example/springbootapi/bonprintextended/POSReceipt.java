@@ -26,7 +26,7 @@ public class POSReceipt extends POSDocument {
     }
 
     public void addItem(String itemName, double price, int quantity) {
-        addComponent(() -> String.format("%-2d * %-40s $%5.2f\n", quantity, itemName, price).getBytes());
+        addComponent(() -> String.format("%-2d * %-20s $%5.2f\n", quantity, itemName, price).getBytes());
     }
 
     public void addSubTotal(double subTotal) {
@@ -34,7 +34,7 @@ public class POSReceipt extends POSDocument {
         addFeed(2);
         addStyle(POSStyle.BIG);
         addStyle(POSStyle.RIGHT);
-        addComponent(() -> String.format("SubTotal: $%-15.2f\n", subTotal).getBytes());
+        addComponent(() -> String.format("%-15s $%5.2f\n", "Subtotal:", subTotal).getBytes());
         resetStyle(); // Reset after total
     }
 
@@ -43,7 +43,7 @@ public class POSReceipt extends POSDocument {
         addFeed(0);
         addStyle(POSStyle.SMALL);
         addStyle(POSStyle.RIGHT);
-        addComponent(() -> String.format("Tax: $%15.2f\n", tax).getBytes());
+        addComponent(() -> String.format("%-15s $%5.2f\n", "Tax:", tax).getBytes());
         resetStyle(); // Reset after total
     }
 
@@ -52,7 +52,7 @@ public class POSReceipt extends POSDocument {
         addFeed(0);
         addStyle(POSStyle.BOLD);
         addStyle(POSStyle.RIGHT);
-        addComponent(() -> String.format("Total: $%15.2f\n", total).getBytes());
+        addComponent(() -> String.format("%-15s $%5.2f\n", "Total:", total).getBytes());
         resetStyle(); // Reset after total
     }
 
