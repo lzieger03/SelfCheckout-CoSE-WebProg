@@ -5,9 +5,6 @@ public class ReceiptBuilder implements Builder {
     private String address;
     private String phone;
     private Cart cart;
-    private double subTotal;
-    private double tax;
-    private double total;
     private String footer;
 
     @Override
@@ -42,6 +39,9 @@ public class ReceiptBuilder implements Builder {
 
     @Override
     public Receipt build() {
+        if (title == null || address == null || phone == null || cart == null) {
+            throw new IllegalStateException("Title, address, phone, and cart must be set");
+        }
         return new Receipt(title, address, phone, cart, footer);
     }
 }

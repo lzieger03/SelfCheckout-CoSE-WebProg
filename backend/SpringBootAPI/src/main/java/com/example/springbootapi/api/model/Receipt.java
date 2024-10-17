@@ -1,14 +1,13 @@
 package com.example.springbootapi.api.model;
 
-
 import java.util.List;
 
 public class Receipt {
-    private String title;
-    private String address;
-    private String phone;
-    private Cart cart;
-    private String footer;
+    private final String title;
+    private final String address;
+    private final String phone;
+    private final Cart cart;
+    private final String footer;
 
     public Receipt(String title, String address, String phone, Cart cart, String footer) {
         this.title = title;

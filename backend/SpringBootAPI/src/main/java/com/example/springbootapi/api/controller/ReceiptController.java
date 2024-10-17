@@ -4,6 +4,7 @@ import com.example.springbootapi.api.model.*;
 import com.example.springbootapi.service.ProductService;
 import com.example.springbootapi.service.ReceiptService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,6 +33,11 @@ public class ReceiptController {
     public ResponseEntity<Map<String, String>> printReceipt(@RequestBody List<CartObject> cartObjects) {
         Map<String, String> response = new HashMap<>();
 
+        if (cartObjects.isEmpty()) {
+            response.put("error", "Cart is empty");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        }
+
         String paymentMethod = cartObjects.get(0).getName();
         cartObjects.remove(0);
         logger.info("Payment Method used: {}", paymentMethod);
@@ -51,31 +57,22 @@ public class ReceiptController {
             builder.setTitle("ScanMate")
                     .setAddress("ScanMate-street 1")
                     .setPhone("+49 123 4567890")
-                    .addCart(cart);
-
-            builder.setFooter("Thank you for shopping!");
+                    .addCart(cart)
+                    .setFooter("Thank you for shopping!");
             Receipt receipt = builder.build();
 
             receiptService.print(receipt);
 
-            response.put("message", "print successful");
+            response.put("message", "Print successful");
             return ResponseEntity.ok(response);
         } catch (Exception err) {
-            logEvents(
-                    this.getClass().getName(),
-                    new Throwable().getStackTrace()[0].getMethodName(),
-                    err
-            );
+            logError("Error during receipt printing", err);
             response.put("error", err.getMessage());
-            return ResponseEntity.ok(response);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
     }
 
-    public void logEvents(String className, String methodName, Exception e) {
-        logger.info("Error occurred in Class {} in Method {}: {}",
-                className,
-                methodName,
-                e.getMessage()
-        );
+    private void logError(String message, Exception e) {
+        logger.error("{}: {}", message, e.getMessage());
     }
 }

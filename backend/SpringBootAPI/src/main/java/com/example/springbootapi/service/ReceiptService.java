@@ -12,38 +12,27 @@ import org.springframework.stereotype.Service;
 
 import javax.print.*;
 
-
 @Service
 public class ReceiptService {
 
+    private static final Logger logger = LoggerFactory.getLogger(ReceiptService.class);
+
     public void print(Receipt receipt) {
         try {
-            // Find the printer by name
             PrintService printService = findPrintService("OLIVETTI PRT80");
 
             if (printService == null) {
-                logEvents(
-                        this.getClass().getSimpleName(),
-                        new Throwable().getStackTrace()[0].getMethodName(),
-                        "Printer not found!"
-                );
+                logError("Printer not found!");
                 return;
             }
 
-            // Create a new POSPrinter instance
             POSPrinter posPrinter = new POSPrinter();
-
-            // Convert Receipt to POSReceipt
             POSReceipt posReceipt = convertToPOSReceipt(receipt);
-
-            // Print the receipt using the POSPrinter
             posPrinter.print(posReceipt, printService);
-        } catch (Exception err) {
-            logEvents(
-                    this.getClass().getSimpleName(),
-                    new Throwable().getStackTrace()[0].getMethodName(),
-                    err.getMessage()
-            );
+        } catch (PrintException e) {
+            logError("Printing error: " + e.getMessage());
+        } catch (Exception e) {
+            logError("Unexpected error: " + e.getMessage());
         }
     }
 
@@ -53,12 +42,8 @@ public class ReceiptService {
         posReceipt.setTitle(receipt.getTitle());
         posReceipt.setAddress(receipt.getAddress());
         posReceipt.setPhone(receipt.getPhone());
-        receipt.getCart().getCartObjectList().forEach(item ->
-                posReceipt.addItem(
-                        String.valueOf(item.getName()),
-                        item.getPrice(),
-                        item.getQuantity()
-                ));
+        cart.getCartObjectList().forEach(item ->
+                posReceipt.addItem(item.getName(), item.getPrice(), item.getQuantity()));
         posReceipt.addSubTotal(cart.getSubTotalPrice());
         posReceipt.addTax(cart.getTaxes());
         posReceipt.addTotal(cart.getTotalPrice());
@@ -78,16 +63,7 @@ public class ReceiptService {
         return null;
     }
 
-    private String getName() {
-        return "OLIVETTI";
-    }
-
-    public void logEvents(String className, String methodName, String eMessage) {
-        Logger logger = LoggerFactory.getLogger(ReceiptService.class);
-        logger.info("Error occurred in Class {} in Method {}: {}",
-                className,
-                methodName,
-                eMessage
-        );
+    private void logError(String message) {
+        logger.error(message);
     }
 }
