@@ -52,10 +52,13 @@ public class POSLogo implements POSComponent {
 
         // ESC/POS command to start image printing
         // GS v 0
-        byte[] init = new byte[] { POS.Command.GS, 0x76, 0x30, 0x00, 
-                                   (byte) (adjustedWidth % 256), 
-                                   (byte) (adjustedWidth / 256), 
-                                   (byte) height };
+        byte[] init = new byte[] { 
+            POS.Command.GS, 0x76, 0x30, 0x00, 
+            (byte) (adjustedWidth % 256), 
+            (byte) (adjustedWidth / 256), 
+            (byte) (height % 256), // yL
+            (byte) (height / 256)  // yH
+        };
         output.write(init);
 
         for (int y = 0; y < height; y++) {
