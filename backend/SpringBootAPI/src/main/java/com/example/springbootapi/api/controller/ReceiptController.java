@@ -1,9 +1,7 @@
 package com.example.springbootapi.api.controller;
 
-import com.example.springbootapi.api.model.Cart;
-import com.example.springbootapi.api.model.PrintReceiptRequest;
-import com.example.springbootapi.api.model.Receipt;
-import com.example.springbootapi.api.model.ReceiptBuilder;
+import com.example.springbootapi.api.model.receipt.PrintReceiptRequest;
+import com.example.springbootapi.api.model.receipt.Receipt;
 import com.example.springbootapi.service.ReceiptService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +25,11 @@ public class ReceiptController {
     private static final Logger logger = LoggerFactory.getLogger(ReceiptController.class);
     private final ReceiptService receiptService;
 
+    /**
+     * Constructs a new ReceiptController with the specified ReceiptService.
+     *
+     * @param receiptService The ReceiptService to be used for receipt operations.
+     */
     @Autowired
     public ReceiptController(ReceiptService receiptService) {
         this.receiptService = receiptService;
@@ -51,26 +54,8 @@ public class ReceiptController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
 
-        // Logging the received products
-        request.getCartObjects().forEach(cartObject -> logger.info(
-                "Received CartObject: id:{} name:{} price:{} quantity:{}",
-                cartObject.getId(),
-                cartObject.getName(),
-                cartObject.getPrice(),
-                cartObject.getQuantity()
-        ));
-
         try {
-            ReceiptBuilder builder = new ReceiptBuilder();
-            Cart cart = new Cart(request.getCartObjects(), request.getPaymentMethod());
-            builder.setLogo("src/main/resources/static/scanMateLogo.png")
-                   .setTitle("ScanMate")
-                   .setAddress("ScanMate-street 1")
-                   .setPhone("+49 123 4567890")
-                   .addCart(cart)
-                   .setFooter("Thank you for using ScanMate!");
-            Receipt receipt = builder.build();
-
+            Receipt receipt = receiptService.createReceipt(request);
             receiptService.print(receipt);
 
             response.put("message", "Print successful");
@@ -86,7 +71,7 @@ public class ReceiptController {
      * Logs an error message with the provided exception details.
      *
      * @param message The error message to log.
-     * @param e       The exception that caused the error.
+     * @param e The exception that caused the error.
      */
     private void logError(String message, Exception e) {
         logger.error("{}: {}", message, e.getMessage());

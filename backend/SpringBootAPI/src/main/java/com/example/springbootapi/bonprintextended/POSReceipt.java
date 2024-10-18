@@ -18,21 +18,21 @@ public class POSReceipt extends POSDocument {
     public void setTitle(String title) {
         this.title = title;
         addStyle(POSStyle.BOLD, POSStyle.BIG, POSStyle.CENTER);
-        addStyledText(title + "\n\n");
+        addText(title + "\n\n");
         resetStyle();
     }
 
     public void setAddress(String address) {
         this.address = address;
         addStyle(POSStyle.CENTER);
-        addStyledText(address + "\n");
+        addText(address + "\n");
         resetStyle();
     }
 
     public void setPhone(String phone) {
         this.phone = phone;
         addStyle(POSStyle.CENTER);
-        addStyledText(phone + "\n");
+        addText(phone + "\n");
         addFeed(1);
         resetStyle();
     }
@@ -40,7 +40,7 @@ public class POSReceipt extends POSDocument {
     public void addItem(String itemName, double price, int quantity) {
         addStyle(POSStyle.CENTER);
         String itemLine = String.format("%-2d * %-20s $%5.2f\n", quantity, itemName, price);
-        addStyledText(itemLine);
+        addText(itemLine);
         resetStyle();
     }
 
@@ -48,7 +48,7 @@ public class POSReceipt extends POSDocument {
         addFeed(2);
         addStyle(POSStyle.BIG, POSStyle.RIGHT);
         String subTotalLine = String.format("%-15s $%5.2f\n", "Subtotal:", subTotal);
-        addStyledText(subTotalLine);
+        addText(subTotalLine);
         resetStyle();
     }
 
@@ -56,7 +56,7 @@ public class POSReceipt extends POSDocument {
         addFeed(0);
         addStyle(POSStyle.SMALL, POSStyle.RIGHT);
         String taxLine = String.format("%-15s $%5.2f\n", "Tax:", tax);
-        addStyledText(taxLine);
+        addText(taxLine);
         resetStyle();
     }
 
@@ -64,14 +64,14 @@ public class POSReceipt extends POSDocument {
         addFeed(0);
         addStyle(POSStyle.BOLD, POSStyle.RIGHT);
         String totalLine = String.format("%-15s $%5.2f\n", "Total:", total);
-        addStyledText(totalLine);
+        addText(totalLine);
         resetStyle();
     }
 
     public void addPaymentMethod(String paymentMethod) {
         addFeed(1);
         addStyle(POSStyle.RIGHT);
-        addStyledText(paymentMethod + "\n");
+        addText(paymentMethod + "\n");
         resetStyle();
     }
 
@@ -81,16 +81,33 @@ public class POSReceipt extends POSDocument {
         barcode.setHeight(162);
         barcode.setWidth(POS.BarWidth.DEFAULT);
         addComponent(barcode);
-        addStyledText(barcode.getData() + "\n");
+        addText(barcode.getData() + "\n");
         resetStyle();
     }
 
     public void setFooterLine(String footer) {
         addFeed(1);
         addStyle(POSStyle.CENTER);
-        addStyledText(footer + "\n\n");
+        addText(footer + "\n\n");
         addFeed(2);
         resetStyle();
+    }
+
+    public void addSeparator() {
+        addText("----------------------------------------\n");
+    }
+
+    /**
+     * Helper method to add styled text.
+     * @param text Text to add to the Receipt
+     */
+    public void addText(String text) {
+        addComponent(text::getBytes);
+    }
+
+    public void addStyledText(String text, POSStyle... styles) {
+        addStyle(styles);
+        addComponent(text::getBytes);
     }
 
     /**
@@ -102,10 +119,6 @@ public class POSReceipt extends POSDocument {
         }
     }
 
-    /**
-     * Helper method to add styled text.
-     */
-    private void addStyledText(String text) {
-        addComponent(() -> text.getBytes());
-    }
+
+
 }

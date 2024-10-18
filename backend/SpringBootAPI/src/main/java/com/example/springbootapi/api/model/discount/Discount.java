@@ -1,4 +1,4 @@
-package com.example.springbootapi.api.model;
+package com.example.springbootapi.api.model.discount;
 
 public class Discount {
 

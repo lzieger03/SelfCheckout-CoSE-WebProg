@@ -1,11 +1,13 @@
-package com.example.springbootapi.api.model;
+package com.example.springbootapi.api.model.receipt;
 
+import com.example.springbootapi.api.model.receipt.cart.CartObject;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import java.util.List;
 
 /**
- * DTO for capturing receipt printing requests.
+ * Data Transfer Object (DTO) for capturing receipt printing requests.
+ * This class encapsulates the payment method and cart objects required for printing a receipt.
  */
 public class PrintReceiptRequest {
     @NotEmpty(message = "Payment method is required")
@@ -18,6 +20,12 @@ public class PrintReceiptRequest {
     public PrintReceiptRequest() {
     }
 
+    /**
+     * Constructs a new PrintReceiptRequest with the specified payment method and cart objects.
+     *
+     * @param paymentMethod The method of payment used.
+     * @param cartObjects A list of CartObject instances representing items in the cart.
+     */
     public PrintReceiptRequest(String paymentMethod, List<CartObject> cartObjects) {
         this.paymentMethod = paymentMethod;
         this.cartObjects = cartObjects;

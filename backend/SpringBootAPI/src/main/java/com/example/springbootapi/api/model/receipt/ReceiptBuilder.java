@@ -1,5 +1,11 @@
-package com.example.springbootapi.api.model;
+package com.example.springbootapi.api.model.receipt;
 
+import com.example.springbootapi.api.model.receipt.cart.Cart;
+
+/**
+ * Concrete implementation of the Builder interface for constructing Receipt objects.
+ * This class provides methods to set various components of a receipt and build the final Receipt object.
+ */
 public class ReceiptBuilder implements Builder {
     private String logoPath;
     private String title;
@@ -43,6 +49,13 @@ public class ReceiptBuilder implements Builder {
         return this;
     }
 
+    /**
+     * Builds and returns a Receipt object with the configured properties.
+     * Throws an IllegalStateException if any required fields are not set.
+     *
+     * @return A fully constructed Receipt object.
+     * @throws IllegalStateException if title, address, phone, or cart is not set.
+     */
     @Override
     public Receipt build() {
         if (logoPath == null || title == null || address == null || phone == null || cart == null) {

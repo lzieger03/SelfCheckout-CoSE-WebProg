@@ -1,4 +1,4 @@
-package com.example.springbootapi.api.model;
+package com.example.springbootapi.api.model.product;
 
 // Product Class to create a Product-Element to send over API
 
