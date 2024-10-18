@@ -15,9 +15,9 @@ public class Cart implements CartInterface {
     private double taxes;
     private double totalPrice;
 
-    // New fields for discount
+    // Fields for discount
     private String discountCode;
-    private double discountValue;
+    private double discountValue; // Percentage discount (e.g., 10.0 for 10%)
 
     public Cart(List<CartObject> cartObjectList, String paymentMethod) {
         this.cartId = createCartId();
@@ -49,12 +49,10 @@ public class Cart implements CartInterface {
     private double calculateSubTotalPrice() {
         double subTotal = 0;
         for(CartObject cartObject : cartObjectList) {
-            subTotal += cartObject.getPrice() * cartObject.getQuantity();
-        }
-        // Apply discount if available (assuming discountValue is a fixed amount)
-        if(discountValue > 0) {
-            subTotal -= discountValue;
-            if(subTotal < 0) subTotal = 0;
+            double itemTotal = cartObject.getPrice() * cartObject.getQuantity();
+            double discountAmount = (discountValue > 0) ? (itemTotal * (discountValue / 100)) : 0.0;
+            cartObject.setDiscountAmount(discountAmount); // Track discount per item
+            subTotal += (itemTotal - discountAmount);
         }
         return subTotal;
     }
@@ -83,7 +81,7 @@ public class Cart implements CartInterface {
      * Sets the discount code and value, then recalculates prices.
      *
      * @param discountCode The discount code.
-     * @param discountValue The discount value.
+     * @param discountValue The discount value as a percentage.
      */
     @Override
     public void applyDiscount(String discountCode, double discountValue) {

@@ -16,9 +16,9 @@ public class PrintReceiptRequest {
     @NotEmpty(message = "Cart must contain at least one item")
     private List<CartObject> cartObjects;
 
-    // New fields for discount
+    // Fields for discount
     private String discountCode;
-    private double discountValue;
+    private double discountValue; // Percentage discount
 
     public PrintReceiptRequest() {
     }
@@ -29,7 +29,7 @@ public class PrintReceiptRequest {
      * @param paymentMethod The method of payment used.
      * @param cartObjects A list of CartObject instances representing items in the cart.
      * @param discountCode The discount code applied.
-     * @param discountValue The value of the discount.
+     * @param discountValue The value of the discount as a percentage.
      */
     public PrintReceiptRequest(String paymentMethod, List<CartObject> cartObjects, String discountCode, double discountValue) {
         this.paymentMethod = paymentMethod;

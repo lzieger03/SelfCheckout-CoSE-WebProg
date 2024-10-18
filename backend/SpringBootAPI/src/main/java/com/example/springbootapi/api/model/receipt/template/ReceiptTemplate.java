@@ -1,6 +1,7 @@
 package com.example.springbootapi.api.model.receipt.template;
 
 import com.example.springbootapi.api.model.receipt.Receipt;
+import com.example.springbootapi.api.model.receipt.cart.CartInterface;
 import com.example.springbootapi.api.model.receipt.cart.CartObject;
 import com.example.springbootapi.bonprintextended.POS;
 import com.example.springbootapi.bonprintextended.POSBarcode;
@@ -44,20 +45,29 @@ public class ReceiptTemplate {
         receipt.addSeparator();
 
         // Add items
-        for (CartObject item : receiptData.getCart().getCartObjectList()) {
+        CartInterface cart = receiptData.getCart();
+        for (var item : cart.getCartObjectList()) {
             receipt.addItem(item.getName(), item.getPrice(), item.getQuantity());
+            if (item.getDiscountAmount() > 0) {
+                receipt.addDiscountToItem(String.format("Discount on %s:", item.getName()), item.getDiscountAmount());
+            }
         }
 
         receipt.addSeparator();
 
-        // Add subtotal, tax, and total
-        receipt.addSubTotal(receiptData.getCart().getSubTotalPrice());
-        receipt.addTax(receiptData.getCart().getTaxes());
-        receipt.addTotal(receiptData.getCart().getTotalPrice());
+        // Add subtotal
+        receipt.addSubTotal(cart.getSubTotalPrice());
+
+        // Add tax
+        receipt.addTax(cart.getTaxes());
+
+        // Add total
+        receipt.addTotal(cart.getTotalPrice());
 
         // Add payment method
-        receipt.addPaymentMethod(receiptData.getCart().getPaymentMethod());
+        receipt.addPaymentMethod(cart.getPaymentMethod());
 
+        // Add separator
         receipt.addSeparator();
 
         // Add barcode

@@ -38,15 +38,28 @@ public class POSReceipt extends POSDocument {
     }
 
     public void addItem(String itemName, double price, int quantity) {
-        addStyle(POSStyle.CENTER);
-        String itemLine = String.format("%-2d * %-20s $%5.2f\n", quantity, itemName, price);
+        addStyle(POSStyle.LEFT);
+        String itemLine = String.format("%d x %-20s $%5.2f\n", quantity, itemName, price);
         addText(itemLine);
         resetStyle();
     }
 
+    /**
+     * Adds a discount line under an item.
+     *
+     * @param discountDescription Description of the discount.
+     * @param discountAmount Amount discounted.
+     */
+    public void addDiscountToItem(String discountDescription, double discountAmount) {
+        addStyle(POSStyle.SMALL, POSStyle.LEFT);
+        String discountLine = String.format("%s -$%5.2f\n", discountDescription, discountAmount);
+        addText(discountLine);
+        resetStyle();
+    }
+
     public void addSubTotal(double subTotal) {
-        addFeed(2);
-        addStyle(POSStyle.BIG, POSStyle.RIGHT);
+        addFeed(1);
+        addStyle(POSStyle.BOLD, POSStyle.RIGHT);
         String subTotalLine = String.format("%-15s $%5.2f\n", "Subtotal:", subTotal);
         addText(subTotalLine);
         resetStyle();
@@ -58,16 +71,6 @@ public class POSReceipt extends POSDocument {
         String taxLine = String.format("%-15s $%5.2f\n", "Tax:", tax);
         addText(taxLine);
         resetStyle();
-    }
-
-    public void addDiscount(String discountCode, double discountValue) {
-        if (discountValue > 0) {
-            addFeed(0);
-            addStyle(POSStyle.SMALL, POSStyle.RIGHT);
-            String discountLine = String.format("Discount (%s): -$%5.2f\n", discountCode, discountValue);
-            addText(discountLine);
-            resetStyle();
-        }
     }
 
     public void addTotal(double total) {

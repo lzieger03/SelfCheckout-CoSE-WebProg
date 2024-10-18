@@ -8,6 +8,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const proceedButton = document.getElementById("payment-popup-proceed-button");
   const paymentMethods = document.querySelectorAll('input[name="payment"]');
 
+  const togglePromoCode = document.getElementById("toggle-promo-code");
+  const promoCodeInput = document.getElementById("promo-code-input");
+  const promoCodeField = document.getElementById("promo-code");
+  const applyPromoCode = document.getElementById("apply-promo-code");
+
   // --- Check if cart is empty ---
   const isCartEmpty = () => {
     const storedProducts = localStorage.getItem("barcodes");
@@ -68,7 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
         paymentMethod: selectedMethod,
         cartObjects: products,
         discountCode: discountCode,    // Include discount code
-        discountValue: discountValue   // Include discount value
+        discountValue: discountValue   // Include discount value (percentage)
       };
 
       const response = await fetch("http://localhost:8080/print", {
@@ -99,11 +104,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // --- Promo Code Functionality ---
-  const togglePromoCode = document.getElementById("toggle-promo-code");
-  const promoCodeInput = document.getElementById("promo-code-input");
-  const promoCodeField = document.getElementById("promo-code");
-  const applyPromoCode = document.getElementById("apply-promo-code");
-
   let discountCode = null;
   let discountValue = 0;
 

@@ -25,6 +25,30 @@ public class ReceiptService {
     private static final Logger logger = LoggerFactory.getLogger(ReceiptService.class);
 
     /**
+     * Creates a Receipt object from a PrintReceiptRequest.
+     *
+     * @param request The PrintReceiptRequest containing the necessary data.
+     * @return A constructed Receipt object.
+     */
+    public Receipt createReceipt(PrintReceiptRequest request) {
+        ReceiptBuilder builder = new ReceiptBuilder();
+        CartInterface cart = new Cart(request.getCartObjects(), request.getPaymentMethod()) {
+        };
+
+        if (request.getDiscountCode() != null && !request.getDiscountCode().isEmpty() && request.getDiscountValue() > 0) {
+            cart = new DiscountCartDecorator(cart, request.getDiscountCode(), request.getDiscountValue());
+        }
+
+        return builder.setLogo("src/main/resources/static/scanMateLogo.png")
+                      .setTitle("ScanMate")
+                      .setAddress("ScanMate-street 1")
+                      .setPhone("+49 123 4567890")
+                      .addCart(cart)
+                      .setFooter("Thank you for using ScanMate!")
+                      .build();
+    }
+
+    /**
      * Converts a Receipt model into a POSReceipt object suitable for printing.
      *
      * @param receipt The Receipt object containing all necessary data.
@@ -54,28 +78,5 @@ public class ReceiptService {
      */
     private void logError(String message) {
         logger.error(message);
-    }
-
-    /**
-     * Creates a Receipt object from a PrintReceiptRequest.
-     *
-     * @param request The PrintReceiptRequest containing the necessary data.
-     * @return A constructed Receipt object.
-     */
-    public Receipt createReceipt(PrintReceiptRequest request) {
-        ReceiptBuilder builder = new ReceiptBuilder();
-        CartInterface cart = new Cart(request.getCartObjects(), request.getPaymentMethod());
-
-        if (request.getDiscountCode() != null && !request.getDiscountCode().isEmpty() && request.getDiscountValue() > 0) {
-            cart = new DiscountCartDecorator(cart, request.getDiscountCode(), request.getDiscountValue());
-        }
-
-        return builder.setLogo("src/main/resources/static/scanMateLogo.png")
-                      .setTitle("ScanMate")
-                      .setAddress("ScanMate-street 1")
-                      .setPhone("+49 123 4567890")
-                      .addCart(cart)
-                      .setFooter("Thank you for using ScanMate!")
-                      .build();
     }
 }

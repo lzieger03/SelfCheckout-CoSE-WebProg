@@ -19,13 +19,17 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentSelectedItem = null;
   const barcodeItemMap = {};
 
+  const promoCodeInput = document.getElementById("promo-code-input");
+
   //-------------------------------- Input Focus Management --------------------------------
   const focusBarcodeInput = () => barcodeInput.focus();
   focusBarcodeInput(); // Focus barcode input on load
 
   document.addEventListener("click", (event) => {
     if (!barcodeInput.contains(event.target)) {
-      focusBarcodeInput(); // Refocus input if clicking outside
+      if (!promoCodeInput.contains(event.target)){
+        focusBarcodeInput(); // Refocus input if clicking outside
+      }
     }
   });
 

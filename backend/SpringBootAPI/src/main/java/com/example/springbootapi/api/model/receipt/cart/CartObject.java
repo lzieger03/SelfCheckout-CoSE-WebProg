@@ -3,9 +3,7 @@ package com.example.springbootapi.api.model.receipt.cart;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * Represents an object in the shopping cart.
- * This class encapsulates the details of a single item in the cart,
- * including its ID, name, price, and quantity.
+ * Represents an individual item in the shopping cart.
  */
 public class CartObject {
     private String id;
@@ -13,9 +11,9 @@ public class CartObject {
     private double price;
     private int quantity;
 
-    /**
-     * Default constructor for CartObject.
-     */
+    // Field to track discount per item
+    private double discountAmount;
+
     public CartObject() {
     }
 
@@ -32,6 +30,7 @@ public class CartObject {
         this.name = name;
         this.price = price;
         this.quantity = quantity;
+        this.discountAmount = 0.0;
     }
 
     /**
@@ -112,5 +111,13 @@ public class CartObject {
     @JsonProperty("quantity")
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public void setDiscountAmount(double discountAmount) {
+        this.discountAmount = discountAmount;
+    }
+
+    public double getDiscountAmount() {
+        return discountAmount;
     }
 }
