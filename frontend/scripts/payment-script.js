@@ -86,4 +86,30 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error("Error at API-Call:", error);
     }
   }
+
+  // --- Promo Code Functionality ---
+  const togglePromoCode = document.getElementById("toggle-promo-code");
+  const promoCodeInput = document.getElementById("promo-code-input");
+  const promoCodeField = document.getElementById("promo-code");
+  const applyPromoCode = document.getElementById("apply-promo-code");
+
+  togglePromoCode.addEventListener("click", () => {
+    promoCodeInput.style.display = promoCodeInput.style.display === "none" ? "block" : "none";
+    togglePromoCode.textContent = promoCodeInput.style.display === "none" ? "Have a promo code? ^" : "Have a promo code? v";
+  });
+
+  applyPromoCode.addEventListener("click", () => {
+    const promoCode = promoCodeField.value.trim();
+    if (promoCode) {
+      // Here you would typically validate the promo code with your backend
+      // For this example, we'll just log it to the console
+      console.log(`Promo code applied: ${promoCode}`);
+      alert(`Promo code "${promoCode}" applied!`);
+      promoCodeField.value = "";
+      promoCodeInput.style.display = "none";
+      togglePromoCode.textContent = "Have a promo code? ^";
+    } else {
+      alert("Please enter a valid promo code.");
+    }
+  });
 });
