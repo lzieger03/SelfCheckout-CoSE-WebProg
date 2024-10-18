@@ -1,11 +1,11 @@
 package com.example.springbootapi.bonprintextended;
 
-import java.awt.Graphics2D;
+import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import javax.imageio.ImageIO;
 
 public class POSLogo implements POSComponent {
     private final byte[] logoData;
@@ -68,7 +68,7 @@ public class POSLogo implements POSComponent {
                         int pixel = image.getRGB(pixelX, y);
                         // In a binary image, pixel is either 0xFFFFFF (white) or 0x000000 (black)
                         if (pixel == 0x000000) { // Black pixel
-                            b |= (1 << (7 - bit));
+                            b |= (byte) (1 << (7 - bit));
                         }
                     }
                 }

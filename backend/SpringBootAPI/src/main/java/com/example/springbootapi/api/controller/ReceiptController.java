@@ -68,7 +68,7 @@ public class ReceiptController {
                    .setAddress("ScanMate-street 1")
                    .setPhone("+49 123 4567890")
                    .addCart(cart)
-                   .setFooter("Thank you for shopping at ScanMate!");
+                   .setFooter("Thank you for using ScanMate!");
             Receipt receipt = builder.build();
 
             receiptService.print(receipt);
