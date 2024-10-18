@@ -1,6 +1,8 @@
 package com.example.springbootapi.api.model.receipt;
 
 import com.example.springbootapi.api.model.receipt.cart.Cart;
+import com.example.springbootapi.api.model.receipt.cart.CartInterface;
+import lombok.Setter;
 
 /**
  * Represents a receipt with all necessary information for printing.
@@ -12,7 +14,8 @@ public class Receipt {
     private final String title;
     private final String address;
     private final String phone;
-    private final Cart cart;
+    @Setter
+    private CartInterface cart;
     private final String footer;
 
     /**
@@ -25,7 +28,7 @@ public class Receipt {
      * @param cart The Cart object containing items and payment information.
      * @param footer A footer message for the receipt.
      */
-    public Receipt(String logoPath, String title, String address, String phone, Cart cart, String footer) {
+    public Receipt(String logoPath, String title, String address, String phone, CartInterface cart, String footer) {
         this.logoPath = logoPath;
         this.title = title;
         this.address = address;
@@ -50,7 +53,7 @@ public class Receipt {
         return phone;
     }
 
-    public Cart getCart() {
+    public CartInterface getCart() {
         return cart;
     }
 

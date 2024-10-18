@@ -1,6 +1,6 @@
 package com.example.springbootapi.api.model.receipt;
 
-import com.example.springbootapi.api.model.receipt.cart.Cart;
+import com.example.springbootapi.api.model.receipt.cart.CartInterface;
 
 /**
  * Builder interface for constructing Receipt objects.
@@ -45,7 +45,7 @@ public interface Builder {
      * @param cart The Cart object containing items and payment information.
      * @return The Builder instance for method chaining.
      */
-    Builder addCart(Cart cart);
+    Builder addCart(CartInterface cart);
 
     /**
      * Sets the footer message for the receipt.

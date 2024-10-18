@@ -6,8 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import java.util.List;
 
 /**
- * Data Transfer Object (DTO) for capturing receipt printing requests.
- * This class encapsulates the payment method and cart objects required for printing a receipt.
+ * DTO for capturing receipt printing requests.
  */
 public class PrintReceiptRequest {
     @NotEmpty(message = "Payment method is required")
@@ -17,6 +16,10 @@ public class PrintReceiptRequest {
     @NotEmpty(message = "Cart must contain at least one item")
     private List<CartObject> cartObjects;
 
+    // New fields for discount
+    private String discountCode;
+    private double discountValue;
+
     public PrintReceiptRequest() {
     }
 
@@ -25,10 +28,14 @@ public class PrintReceiptRequest {
      *
      * @param paymentMethod The method of payment used.
      * @param cartObjects A list of CartObject instances representing items in the cart.
+     * @param discountCode The discount code applied.
+     * @param discountValue The value of the discount.
      */
-    public PrintReceiptRequest(String paymentMethod, List<CartObject> cartObjects) {
+    public PrintReceiptRequest(String paymentMethod, List<CartObject> cartObjects, String discountCode, double discountValue) {
         this.paymentMethod = paymentMethod;
         this.cartObjects = cartObjects;
+        this.discountCode = discountCode;
+        this.discountValue = discountValue;
     }
 
     public String getPaymentMethod() {
@@ -45,5 +52,21 @@ public class PrintReceiptRequest {
 
     public void setCartObjects(List<CartObject> cartObjects) {
         this.cartObjects = cartObjects;
+    }
+
+    public String getDiscountCode() {
+        return discountCode;
+    }
+
+    public void setDiscountCode(String discountCode) {
+        this.discountCode = discountCode;
+    }
+
+    public double getDiscountValue() {
+        return discountValue;
+    }
+
+    public void setDiscountValue(double discountValue) {
+        this.discountValue = discountValue;
     }
 }

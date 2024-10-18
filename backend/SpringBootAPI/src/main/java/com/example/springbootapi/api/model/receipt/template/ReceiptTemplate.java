@@ -17,7 +17,7 @@ public class ReceiptTemplate {
     /**
      * Creates a POSReceipt from the given Receipt data.
      *
-     * @param receipt The POSReceipt object to populate.
+     * @param receipt     The POSReceipt object to populate.
      * @param receiptData The Receipt object containing the data to be added.
      */
     public static void createReceipt(POSReceipt receipt, Receipt receiptData) {
@@ -27,8 +27,10 @@ public class ReceiptTemplate {
         // Add title (company name)
         receipt.setTitle(receiptData.getTitle());
 
-        // Add address and phone
+        // Add address
         receipt.setAddress(receiptData.getAddress());
+
+        // Add phone
         receipt.setPhone(receiptData.getPhone());
 
         // Add separator

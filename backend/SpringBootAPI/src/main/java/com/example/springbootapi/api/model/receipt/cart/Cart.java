@@ -4,9 +4,10 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Represents a shopping cart containing cart objects, payment information, and price calculations.
+ * Represents a shopping cart with items and payment information.
+ * Handles calculation of subtotal, taxes, and total price, including any discounts.
  */
-public class Cart {
+public class Cart implements CartInterface {
     private String cartId;
     private List<CartObject> cartObjectList;
     private String paymentMethod;
@@ -14,19 +15,19 @@ public class Cart {
     private double taxes;
     private double totalPrice;
 
-    /**
-     * Constructs a new Cart with the given cart objects and payment method.
-     *
-     * @param cartObjectList The list of CartObject items in the cart.
-     * @param paymentMethod The method of payment used for this cart.
-     */
+    // New fields for discount
+    private String discountCode;
+    private double discountValue;
+
     public Cart(List<CartObject> cartObjectList, String paymentMethod) {
         this.cartId = createCartId();
         this.cartObjectList = cartObjectList;
         this.paymentMethod = paymentMethod;
-        subTotalPrice = calculateSubTotalPrice();
-        taxes = subTotalPrice * 0.19;
-        totalPrice = subTotalPrice + taxes;
+        this.discountCode = "";
+        this.discountValue = 0.0;
+        this.subTotalPrice = calculateSubTotalPrice();
+        this.taxes = calculateTaxes();
+        this.totalPrice = calculateTotalPrice();
     }
 
     /**
@@ -41,69 +42,105 @@ public class Cart {
     }
 
     /**
-     * Calculates the subtotal price of all items in the cart.
+     * Calculates the subtotal price of all items in the cart, applying any discounts.
      *
      * @return The subtotal price.
      */
     private double calculateSubTotalPrice() {
         double subTotal = 0;
         for(CartObject cartObject : cartObjectList) {
-            subTotal += cartObject.getPrice();
+            subTotal += cartObject.getPrice() * cartObject.getQuantity();
+        }
+        // Apply discount if available (assuming discountValue is a fixed amount)
+        if(discountValue > 0) {
+            subTotal -= discountValue;
+            if(subTotal < 0) subTotal = 0;
         }
         return subTotal;
     }
 
     /**
-     * Gets the unique cart ID.
+     * Calculates the taxes based on the subtotal price.
      *
-     * @return The cart ID.
+     * @return The tax amount.
      */
+    private double calculateTaxes() {
+        // Assuming a tax rate of 10%
+        double taxRate = 0.10;
+        return subTotalPrice * taxRate;
+    }
+
+    /**
+     * Calculates the total price including taxes.
+     *
+     * @return The total price.
+     */
+    private double calculateTotalPrice() {
+        return subTotalPrice + taxes;
+    }
+
+    /**
+     * Sets the discount code and value, then recalculates prices.
+     *
+     * @param discountCode The discount code.
+     * @param discountValue The discount value.
+     */
+    @Override
+    public void applyDiscount(String discountCode, double discountValue) {
+        this.discountCode = discountCode;
+        this.discountValue = discountValue;
+        this.subTotalPrice = calculateSubTotalPrice();
+        this.taxes = calculateTaxes();
+        this.totalPrice = calculateTotalPrice();
+    }
+
+    // Getters and Setters
+
+    @Override
     public String getCartId() {
         return cartId;
     }
 
-    /**
-     * Gets the list of cart objects in this cart.
-     *
-     * @return The list of CartObject items.
-     */
+    @Override
     public List<CartObject> getCartObjectList() {
         return cartObjectList;
     }
 
-    /**
-     * Gets the payment method used for this cart.
-     *
-     * @return The payment method.
-     */
+    @Override
     public String getPaymentMethod() {
         return paymentMethod;
     }
 
-    /**
-     * Gets the subtotal price of all items in
-     *
-     * @return The subtotal price.
-     */
+    @Override
     public double getSubTotalPrice() {
         return subTotalPrice;
     }
 
-    /**
-     * Gets the calculated taxes for this cart.
-     *
-     * @return The tax amount.
-     */
+    @Override
     public double getTaxes() {
         return taxes;
     }
 
-    /**
-     * Gets the total price of all items in the cart.
-     *
-     * @return The total price.
-     */
+    @Override
     public double getTotalPrice() {
         return totalPrice;
+    }
+
+    @Override
+    public String getDiscountCode() {
+        return discountCode;
+    }
+
+    @Override
+    public double getDiscountValue() {
+        return discountValue;
+    }
+
+    public void setDiscountCode(String discountCode) {
+        this.discountCode = discountCode;
+    }
+
+    public void setDiscountValue(double discountValue) {
+        this.discountValue = discountValue;
     }
 }

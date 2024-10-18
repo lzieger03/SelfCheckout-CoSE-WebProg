@@ -1,6 +1,6 @@
 package com.example.springbootapi.api.model.receipt;
 
-import com.example.springbootapi.api.model.receipt.cart.Cart;
+import com.example.springbootapi.api.model.receipt.cart.CartInterface;
 
 /**
  * Concrete implementation of the Builder interface for constructing Receipt objects.
@@ -11,7 +11,7 @@ public class ReceiptBuilder implements Builder {
     private String title;
     private String address;
     private String phone;
-    private Cart cart;
+    private CartInterface cart;
     private String footer;
 
     public Builder setLogo(String logoPath) {
@@ -37,8 +37,7 @@ public class ReceiptBuilder implements Builder {
         return this;
     }
 
-    @Override
-    public Builder addCart(Cart cart) {
+    public Builder addCart(CartInterface cart) {
         this.cart = cart;
         return this;
     }

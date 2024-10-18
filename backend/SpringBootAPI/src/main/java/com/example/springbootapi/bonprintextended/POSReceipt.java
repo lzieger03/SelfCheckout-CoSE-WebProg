@@ -60,6 +60,16 @@ public class POSReceipt extends POSDocument {
         resetStyle();
     }
 
+    public void addDiscount(String discountCode, double discountValue) {
+        if (discountValue > 0) {
+            addFeed(0);
+            addStyle(POSStyle.SMALL, POSStyle.RIGHT);
+            String discountLine = String.format("Discount (%s): -$%5.2f\n", discountCode, discountValue);
+            addText(discountLine);
+            resetStyle();
+        }
+    }
+
     public void addTotal(double total) {
         addFeed(0);
         addStyle(POSStyle.BOLD, POSStyle.RIGHT);
@@ -118,7 +128,4 @@ public class POSReceipt extends POSDocument {
             super.addStyle(style);
         }
     }
-
-
-
 }

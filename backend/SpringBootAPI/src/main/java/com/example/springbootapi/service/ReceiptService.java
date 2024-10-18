@@ -4,6 +4,8 @@ import com.example.springbootapi.api.model.receipt.PrintReceiptRequest;
 import com.example.springbootapi.api.model.receipt.Receipt;
 import com.example.springbootapi.api.model.receipt.ReceiptBuilder;
 import com.example.springbootapi.api.model.receipt.cart.Cart;
+import com.example.springbootapi.api.model.receipt.cart.CartInterface;
+import com.example.springbootapi.api.model.receipt.cart.DiscountCartDecorator;
 import com.example.springbootapi.api.model.receipt.template.ReceiptTemplate;
 import com.example.springbootapi.bonprintextended.POSPrinter;
 import com.example.springbootapi.bonprintextended.POSReceipt;
@@ -62,7 +64,12 @@ public class ReceiptService {
      */
     public Receipt createReceipt(PrintReceiptRequest request) {
         ReceiptBuilder builder = new ReceiptBuilder();
-        Cart cart = new Cart(request.getCartObjects(), request.getPaymentMethod());
+        CartInterface cart = new Cart(request.getCartObjects(), request.getPaymentMethod());
+
+        if (request.getDiscountCode() != null && !request.getDiscountCode().isEmpty() && request.getDiscountValue() > 0) {
+            cart = new DiscountCartDecorator(cart, request.getDiscountCode(), request.getDiscountValue());
+        }
+
         return builder.setLogo("src/main/resources/static/scanMateLogo.png")
                       .setTitle("ScanMate")
                       .setAddress("ScanMate-street 1")
