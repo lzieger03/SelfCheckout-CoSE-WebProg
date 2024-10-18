@@ -1,20 +1,25 @@
 package com.example.springbootapi.api.model;
 
-import java.util.List;
 
 public class Receipt {
+    private final String logoPath;
     private final String title;
     private final String address;
     private final String phone;
     private final Cart cart;
     private final String footer;
 
-    public Receipt(String title, String address, String phone, Cart cart, String footer) {
+    public Receipt(String logoPath, String title, String address, String phone, Cart cart, String footer) {
+        this.logoPath = logoPath;
         this.title = title;
         this.address = address;
         this.phone = phone;
         this.cart = cart;
         this.footer = footer;
+    }
+
+    public String getLogoPath() {
+        return logoPath;
     }
 
     public String getTitle() {
