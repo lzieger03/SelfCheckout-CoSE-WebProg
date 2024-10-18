@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ea63105c-66e4-4c12-b31d-e6da699069de" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../SpringBootAPI/src/main/java/com/example/springbootapi/api/controller/ReceiptController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SpringBootAPI/src/main/java/com/example/springbootapi/api/controller/ReceiptController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SpringBootAPI/src/main/java/com/example/springbootapi/api/controller/scanMateLogo.png" beforeDir="false" afterPath="$PROJECT_DIR$/../SpringBootAPI/src/main/resources/static/scanMateLogo.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
