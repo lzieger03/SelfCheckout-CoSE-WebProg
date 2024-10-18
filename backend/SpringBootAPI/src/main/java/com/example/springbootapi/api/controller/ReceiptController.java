@@ -63,7 +63,7 @@ public class ReceiptController {
         try {
             ReceiptBuilder builder = new ReceiptBuilder();
             Cart cart = new Cart(request.getCartObjects(), request.getPaymentMethod());
-            builder.setLogo("src/main/resources/static/logo.png")
+            builder.setLogo("src/main/resources/static/scanMateLogo.png")
                    .setTitle("ScanMate")
                    .setAddress("ScanMate-street 1")
                    .setPhone("+49 123 4567890")
