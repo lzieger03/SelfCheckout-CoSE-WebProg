@@ -1,11 +1,17 @@
 package com.example.springbootapi.api.model;
 
 public class ReceiptBuilder implements Builder {
+    private String logoPath;
     private String title;
     private String address;
     private String phone;
     private Cart cart;
     private String footer;
+
+    public Builder setLogo(String logoPath) {
+        this.logoPath = logoPath;
+        return this;
+    }
 
     @Override
     public Builder setTitle(String title) {

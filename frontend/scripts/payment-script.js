@@ -51,22 +51,23 @@ document.addEventListener("DOMContentLoaded", () => {
       const selectedMethod = document.querySelector('input[name="payment"]:checked').value;
       const storedProducts = localStorage.getItem("barcodes");
       const productsArray = JSON.parse(storedProducts) || [];
-
       // Prepare data for API request
-      const products = [
-        { barcode: "", name: selectedMethod, price: 0, quantity: 1 },
-        ...productsArray.map((item) => ({
-          barcode: String(item.barcode),
-          name: item.name,
-          price: parseFloat(item.price),
-          quantity: Number(item.quantity),
-        })),
-      ];
+      const products = productsArray.map((item) => ({
+        id: String(item.barcode),
+        name: item.name,
+        price: parseFloat(item.price),
+        quantity: Number(item.quantity),
+      }));
+
+      const payload = {
+        paymentMethod: selectedMethod,
+        cartObjects: products
+      };
 
       const response = await fetch("http://localhost:8080/print", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(products),
+        body: JSON.stringify(payload)
       });
 
       if (!response.ok) {

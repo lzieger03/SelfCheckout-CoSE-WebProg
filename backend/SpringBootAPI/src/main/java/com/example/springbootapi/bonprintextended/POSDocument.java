@@ -3,33 +3,76 @@ package com.example.springbootapi.bonprintextended;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a POS document composed of multiple POSComponents. Manages the
+ * assembly of receipt elements such as text, barcodes, QR codes, and images.
+ */
 public class POSDocument {
     private List<POSComponent> components = new ArrayList<>();
     private List<POSStyle> currentStyles = new ArrayList<>();
 
+    /**
+     * Adds a POSComponent to the document.
+     *
+     * @param component The POSComponent to add.
+     */
     public void addComponent(POSComponent component) {
         components.add(component);
     }
 
+    /**
+     * Adds a specified number of line feeds to the document.
+     *
+     * @param lines The number of line feeds to add.
+     */
     public void addFeed(int lines) {
         for (int i = 0; i < lines; i++) {
             addComponent(() -> "\n".getBytes());
         }
     }
 
+    /**
+     * Adds a barcode component to the document.
+     *
+     * @param barcode The POSBarcode to add.
+     */
     public void addBarcode(POSBarcode barcode) {
         addComponent(barcode);
     }
 
+    /**
+     * Adds a QR code component to the document.
+     *
+     * @param qrcode The POSQRCode to add.
+     */
     public void addQRCode(POSQRCode qrcode) {
         addComponent(qrcode);
     }
 
-    public void addText(String text) {
+    /**
+     * Adds logo to the document.
+     *
+     * @param logo The logo to add.
+     */
 
+    public void addLogo(POSLogo logo) {
+        addComponent(logo);
+    }
+
+    /**
+     * Adds plain text to the document.
+     *
+     * @param text The text to add.
+     */
+    public void addText(String text) {
         addComponent(() -> (text + "\n").getBytes());
     }
 
+    /**
+     * Adds a heading with specific styles to the document.
+     *
+     * @param heading The heading text to add.
+     */
     public void addHeading(String heading) {
         addStyle(POSStyle.BOLD);
         addStyle(POSStyle.BIG);
@@ -37,6 +80,11 @@ public class POSDocument {
         resetStyle();
     }
 
+    /**
+     * Sets multiple styles for subsequent components.
+     *
+     * @param style POSStyle to apply.
+     */
     public void addStyle(POSStyle style) {
         currentStyles.add(style);
         // Logic to apply the correct ESC/P command based on the style
@@ -68,6 +116,9 @@ public class POSDocument {
         }
     }
 
+    /**
+     * Resets the current styles to their default state.
+     */
     public void resetStyle() {
         // Clear the styles and send commands to reset them
         for (POSStyle style : currentStyles) {
@@ -100,7 +151,11 @@ public class POSDocument {
         addComponent(() -> POS.Command.ESC_CUT);  // Add the cut command to the document's components
     }
 
-    // New method to convert all components into a byte array for printing
+    /**
+     * Retrieves the complete byte array representing the entire document.
+     *
+     * @return A byte array combining all components of the document.
+     */
     public byte[] toBytes() {
         List<Byte> byteList = new ArrayList<>();
 

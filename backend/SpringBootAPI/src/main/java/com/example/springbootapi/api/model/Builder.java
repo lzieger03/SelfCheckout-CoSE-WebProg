@@ -1,6 +1,7 @@
 package com.example.springbootapi.api.model;
 
 public interface Builder {
+    Builder setLogo(String logoPath);
     Builder setTitle(String title);
     Builder setAddress(String address);
     Builder setPhone(String phone);

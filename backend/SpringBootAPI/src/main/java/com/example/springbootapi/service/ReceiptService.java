@@ -12,11 +12,21 @@ import org.springframework.stereotype.Service;
 
 import javax.print.*;
 
+/**
+ * Service class responsible for handling receipt-related operations, including
+ * converting receipt data to POSReceipt objects and finding print services.
+ */
 @Service
 public class ReceiptService {
 
     private static final Logger logger = LoggerFactory.getLogger(ReceiptService.class);
 
+    /**
+     * Converts a Receipt model into a POSReceipt object suitable for printing.
+     *
+     * @param receipt The Receipt object containing all necessary data.
+     * @return A POSReceipt object ready for printing.
+     */
     public void print(Receipt receipt) {
         try {
             PrintService printService = findPrintService("OLIVETTI PRT80");
@@ -51,6 +61,12 @@ public class ReceiptService {
         return posReceipt;
     }
 
+    /**
+     * Finds a print service (printer) by its name.
+     *
+     * @param printerName The name of the printer to find.
+     * @return The PrintService if found; otherwise, null.
+     */
     private PrintService findPrintService(String printerName) {
         PrintService[] services = PrintServiceLookup.lookupPrintServices(null, null);
         for (PrintService service : services) {
