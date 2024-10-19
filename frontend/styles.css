@@ -58,6 +58,7 @@ main {
     justify-content: center;
     border-radius: 10px;
     max-height: 100%;
+    max-width: 40vw;
 }
 
 #productOverview-container {
@@ -67,8 +68,8 @@ main {
 }
 
 #product-image img {
-    height: 40vh;
-    width: 40vh;
+    max-height: 40vh;
+    max-width: 40vh;
     margin-bottom: 20px;
     border-radius: 20px;
 }
@@ -329,6 +330,9 @@ main {
     margin-bottom: 20px;
 }
 
+/* -------------------------------------------------------------------
+   Coupon Button
+------------------------------------------------------------------- */
 .coupon-button-container {
     grid-column: 1;
     grid-row: 1/5;
@@ -341,14 +345,14 @@ main {
 .coupon-btn {
     background-color: #FBDC3C;
     border-radius: 10px;
+    color: #252E3D;
     width: 300px;
     height: 80px;
-    color: #252E3D;
     font-weight: 800;
     border: none;
     padding: 10px 20px;
     cursor: pointer;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
     display: flex;
     align-items: center;
@@ -372,7 +376,7 @@ main {
 
 #coupon-button-label {
     margin: 0;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
 }
 
 /* -------------------------------------------------------------------
@@ -562,6 +566,47 @@ main {
     background-color: #ff4842b4;
 }
 
+/* -------------------------------------------------------------------  
+   Help and Info Popups
+------------------------------------------------------------------- */
+#info-popup {
+    display: none;
+}
+
+#help-popup {
+    display: none;
+}   
+
+#help-popup-content,
+#info-popup-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    width: fit-content;
+    height: fit-content;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+#help-popup-close-btn,
+#info-popup-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #333;
+}
+
+#help-popup-content p {
+    font-size: 1.2rem;
+    margin: 10px 0;
+}
+
 
 /* -------------------------------------------------------------------
    Payment Popup
@@ -695,4 +740,103 @@ footer {
     text-align: center;
     padding: 1rem;
     font-size: 0.9rem;
+}
+
+/* -------------------------------------------------------------------
+   Responsive Design    
+------------------------------------------------------------------- */  
+@media (max-width: 1500px) {
+    /* size down accessibility controls and make them more compact, button size with image */
+    #accessibility-controls {
+        font-size: 0.8rem;
+        gap: 5px;
+        padding: 5px;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .accessibility-button {
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .accessibility-button-image {
+        width: 35px;
+        height: 35px;
+    }
+
+    /* size down product image, info, and quantity controls with button size and font size  and image size */
+    #product-image {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #item-preview-image {
+        width: 80%;
+        height: 80%;
+        max-width: 80%;
+        max-height: 80%;
+    }
+
+    .quantity-btn {
+        width: 50px;
+        height: 50px;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #quantity-button-image {
+        width: 15px;
+        height: 15px;
+    }
+
+    #product-info-itemName {
+        font-size: 1.2rem;
+    }
+
+    #product-info-itemNumber {
+        font-size: 1rem;
+    }
+
+    /* size down coupon button with image size and font size */
+    #coupon-btn {
+        width: 100px;
+        height: 50px;
+    }
+
+    #coupon-btn-img {
+        display: none;
+    }   
+
+    #coupon-button-label {
+        font-size: 0.8rem;
+    }
+
+    #coupon-input {
+        font-size: 0.8rem;
+    }
+
+    #coupon-apply-btn {
+        font-size: 0.5rem;
+        width: 50px;
+        height: 50px;
+    }
+
+    #coupon-cancel-btn {
+        font-size: 0.5rem;
+        width: 50px;
+        height: 50px;
+    }
+
+    #coupon-popup-content {
+        width: 50%;
+        height: 50%;
+    }
+
 }

@@ -11,7 +11,7 @@
 <body>
     <!-- Header-Section ----------------------------------------------------->
     <header>
-        <h1>ScanMate</h1>
+        <h1 id="now-playing-div" aria-live="polite">ScanMate</h1>
     </header>
 
     <!-- Main-Section ----------------------------------------------------->
@@ -36,13 +36,13 @@
             </div>
             <!-- Accessibility Controls - These buttons are intentionally not linked to any functionality! -->
             <div id="accessibility-controls">
-                <button class="accessibility-button"><img src="/frontend/resources/screenReaderButton.svg"
+                <button class="accessibility-button" id="screenReader-btn"><img src="/frontend/resources/screenReaderButton.svg"
                         class="accessibility-button-image"></button>
-                <button class="accessibility-button"><img src="/frontend/resources/textSizeButton.svg"
+                <button class="accessibility-button" id="textSize-btn"><img src="/frontend/resources/textSizeButton.svg"
                         class="accessibility-button-image"></button>
-                <button class="accessibility-button"><img src="/frontend/resources/helpButton_1.svg"
+                <button class="accessibility-button" id="help-btn"><img src="/frontend/resources/helpButton_1.svg"
                         class="accessibility-button-image"></button>
-                <button class="accessibility-button"><img src="/frontend/resources/infoButton_1.svg"
+                <button class="accessibility-button" id="info-btn"><img src="/frontend/resources/infoButton_1.svg"
                         class="accessibility-button-image"></button>
             </div>
         </div>
@@ -185,12 +185,48 @@
                 </li>
             </ul>
             <button id="payment-popup-proceed-button" class="payment-popup-proceed-btn" disabled>Proceed
-                withpayment</button>
-            <button id="payment-popup-cancel-button" class="payment-popup-cancel-btn">Cancel</button>
+                with payment</button>
+        </div>
+    </div>
+
+    <!-- Accessability Popup-Section ----------------------------------------------------->
+    <!-- HelpPopup-Overlay ------------------------------------------------->
+    <div id="help-popup" class="popup-overlay">
+        <div id="help-popup-content">
+            <span id="help-popup-close-btn" class="help-popup-close-btn">&times;</span>
+            <h1>Help</h1>
+            <br><h3>Scan Items</h3>
+            <p>Scan items by entering the barcode or scanning the barcode with the barcode scanner.</p>
+            <hr><br>
+            <h3>Add Items to Cart</h3>
+            <p>Add items to the cart by tapping the "+" button to increase the quantity.</p>
+            <p>Remove items from the cart by tapping the "-" button to decrease the quantity.</p>
+            <hr><br>
+            <h3>Add a Coupon</h3>
+            <p>Add a coupon by tapping the "Add Coupon" button and entering the coupon code.</p>
+            <p>Apply the coupon by tapping the "Apply" button.</p>
+            <p>Cancel the coupon by tapping the "Cancel" button.</p>
+            <hr><br>
+            <h3>Proceed to Payment</h3>
+            <p>Proceed to payment by tapping the "Pay →" button.</p>
+            <p>Cancel the payment by tapping the "x" button in the top right corner.</p>
+            <p>Choose your payment method by tapping the desired payment method.</p>
+            <p>Proceed with the payment by tapping the "Proceed with payment" button.</p>
+        </div>
+    </div>
+
+    <!-- InfoPopup-Overlay ------------------------------------------------->
+    <div id="info-popup" class="popup-overlay">
+        <div id="info-popup-content">
+            <span id="info-popup-close-btn" class="info-popup-close-btn">&times;</span>
+            <h2>Info</h2>
+            <p>ScanMate is a barcode scanner app that allows you to scan items and add them to your cart.</p>
+            <p>You can then proceed to payment with your chosen payment method.</p> 
         </div>
     </div>
 
     <script src="scripts/barcode-script.js"></script>
     <script src="scripts/payment-script.js"></script>
+    <script src="scripts/accessibility-script.js"></script>
 </body>
 </html>
