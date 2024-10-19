@@ -52,9 +52,11 @@ We're a dynamic duo of student developers, Marven Drechsel and Lars Zieger, work
 
 In a nutshell, ScanMate 1.0.0-X "Aurora" is about creating a checkout experience that's fast, friendly, and accessible to everyone. Whether you're a developer looking to learn or a shopper wanting a better checkout, this project has something for you.
 
-## Disclaimer
 
-### General 
+
+# Disclaimer
+
+## General 
 This project is a learning exercise and is not intended for production use. It is a proof of concept and may not be fully functional or secure for real-world applications.
 
 ### Security
@@ -77,4 +79,9 @@ The receipt system is not secured and does not use a remote receipt printer. It 
 
 ### Accessibility
 The accessibility features are not fully implemented and do not provide full accessibility support. This is a known limitation, but will not be implemented in this version.
+
+
+## Further Information
+
+For further information, please view [Disclaimer.md](Disclaimer.md) and [Legal.md](Legal.md) or contact the project team.
 
