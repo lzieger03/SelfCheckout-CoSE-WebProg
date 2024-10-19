@@ -10,8 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const paymentPopupSubtotal = document.getElementById("payment-popup-subtotal");
   const paymentPopupTax = document.getElementById("payment-popup-tax");
   const paymentPopupTotal = document.getElementById("payment-popup-total");
-  const couponButton = document.getElementById("coupon-btn");
-
+  const couponPopup = document.getElementById("coupon-popup");
 
   // --- Check if cart is empty ---
   const isCartEmpty = () => {
@@ -23,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
   paymentButton.addEventListener("click", () => {
     cartEmptyPopup.style.display = isCartEmpty() ? "flex" : "none";
     paymentPopup.style.display = isCartEmpty() ? "none" : "flex";
-    couponButton.style.display = isCartEmpty() ? "none" : "flex";
+    couponPopup.style.display = isCartEmpty() ? "none" : "flex";
     updatePaymentPopup();
   });
 

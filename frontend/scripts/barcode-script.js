@@ -26,6 +26,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const couponCancelButton = document.getElementById("coupon-cancel-btn");  
   const couponInput = document.getElementById("coupon-input");
 
+  // Admin login initialization
+  const adminLoginPopup = document.getElementById("admin-login-popup");
+
   //-------------------------------- Input Focus Management --------------------------------
   const focusBarcodeInput = () => barcodeInput.focus();
   focusBarcodeInput(); // Focus barcode input on load
@@ -34,6 +37,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!barcodeInput.contains(event.target)) {
       if (couponPopup.style.display === "flex") {
         couponInput.focus(); // Focus coupon input if coupon popup is open
+      } else if (adminLoginPopup.style.display === "flex") {
+        //focus nothing
       } else {
         focusBarcodeInput(); // Refocus input if clicking outside
       }

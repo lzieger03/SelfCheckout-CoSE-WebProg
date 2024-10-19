@@ -5,13 +5,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ScanMate</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="./styles/main-styles.css">
+    <link rel="stylesheet" href="./styles/popup-styles.css">
 </head>
 
 <body>
     <!-- Header-Section ----------------------------------------------------->
     <header>
         <h1 id="now-playing-div" aria-live="polite">ScanMate</h1>
+        <!-- login button with icon for the admin login page -->
+        <div id="admin-login-container">
+            <button id="admin-login-btn">
+                <p id="admin-login-btn-label">Admin login</p>
+                <img src="resources/adminButton.svg" id="admin-login-btn-img" alt="admin-login-button">
+            </button>
+        </div>
     </header>
 
     <!-- Main-Section ----------------------------------------------------->
@@ -225,8 +233,25 @@
         </div>
     </div>
 
+
+    <!-- AdminLoginPopup-Overlay ------------------------------------------------->
+    <div id="admin-login-popup" class="popup-overlay">
+        <div id="admin-login-popup-content">
+            <span id="admin-login-popup-close-btn" class="admin-login-popup-close-btn">&times;</span>
+            <h2 id="admin-login-popup-title">Admin Login</h2>
+            <p id="admin-login-popup-text">Enter your admin credentials to login.</p>
+            <div id="admin-login-popup-input-container">
+                <input type="text" id="admin-login-popup-login-input" class="admin-login-popup-input" placeholder="Username">
+                <input type="password" id="admin-login-popup-password-input" class="admin-login-popup-input" placeholder="Password">
+            </div>
+            <button id="admin-login-popup-login-btn">Login</button>
+        </div>
+    </div>
+
+
     <script src="scripts/barcode-script.js"></script>
     <script src="scripts/payment-script.js"></script>
     <script src="scripts/accessibility-script.js"></script>
+    <script src="scripts/admin-main-script.js"></script>
 </body>
 </html>
