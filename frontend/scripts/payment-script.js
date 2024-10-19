@@ -7,11 +7,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const closeButton = document.getElementById("payment-close-popup");
   const proceedButton = document.getElementById("payment-popup-proceed-button");
   const paymentMethods = document.querySelectorAll('input[name="payment"]');
+  const paymentPopupSubtotal = document.getElementById("payment-popup-subtotal");
+  const paymentPopupTax = document.getElementById("payment-popup-tax");
+  const paymentPopupTotal = document.getElementById("payment-popup-total");
+  const couponButton = document.getElementById("coupon-btn");
 
-  const togglePromoCode = document.getElementById("toggle-promo-code");
-  const promoCodeInput = document.getElementById("promo-code-input");
-  const promoCodeField = document.getElementById("promo-code");
-  const applyPromoCode = document.getElementById("apply-promo-code");
 
   // --- Check if cart is empty ---
   const isCartEmpty = () => {
@@ -23,7 +23,20 @@ document.addEventListener("DOMContentLoaded", () => {
   paymentButton.addEventListener("click", () => {
     cartEmptyPopup.style.display = isCartEmpty() ? "flex" : "none";
     paymentPopup.style.display = isCartEmpty() ? "none" : "flex";
+    couponButton.style.display = isCartEmpty() ? "none" : "flex";
+    updatePaymentPopup();
   });
+
+  // --- Update payment popup ---
+  function updatePaymentPopup() {
+    const subtotal = localStorage.getItem("subtotal") || 0.0;
+    const tax = localStorage.getItem("tax") || 0.0;
+    const total = localStorage.getItem("total") || 0.0;
+
+    paymentPopupSubtotal.textContent = `Subtotal: ${subtotal}$`;
+    paymentPopupTax.textContent = `Tax: ${tax}$`;
+    paymentPopupTotal.textContent = `Total: ${total}$`;
+  }
 
   // --- Close popups ---
   cartEmptyPopup.addEventListener("click", () => (cartEmptyPopup.style.display = "none"));
@@ -102,41 +115,4 @@ document.addEventListener("DOMContentLoaded", () => {
       alert(`Error: ${error.message}`);
     }
   }
-
-  // --- Promo Code Functionality ---
-  let discountCode = null;
-  let discountValue = 0;
-
-  togglePromoCode.addEventListener("click", () => {
-    promoCodeInput.style.display = promoCodeInput.style.display === "none" ? "block" : "none";
-    togglePromoCode.textContent = promoCodeInput.style.display === "none" ? "Have a promo code? ^" : "Have a promo code? v";
-  });
-
-  applyPromoCode.addEventListener("click", async () => {
-    const promoCode = promoCodeField.value.trim();
-    if (promoCode) {
-      try {
-        const response = await fetch(`http://localhost:8080/discount?code=${encodeURIComponent(promoCode)}`);
-        if (!response.ok) {
-          throw new Error("Invalid promo code.");
-        }
-        const discount = await response.json();
-        console.log(`Promo code applied: ${discount.code} with value ${discount.value}`);
-        alert(`Promo code "${discount.code}" applied! Discount Value: ${discount.value}`);
-        
-        // Store discount information locally (you can also manage this state differently)
-        localStorage.setItem("discountCode", discount.code);
-        localStorage.setItem("discountValue", discount.value);
-
-        promoCodeField.value = "";
-        promoCodeInput.style.display = "none";
-        togglePromoCode.textContent = "Have a promo code? ^";
-      } catch (error) {
-        console.error("Invalid promo code:", error);
-        alert("Invalid promo code. Please try again.");
-      }
-    } else {
-      alert("Please enter a valid promo code.");
-    }
-  });
 });

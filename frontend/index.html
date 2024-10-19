@@ -9,30 +9,6 @@
 </head>
 
 <body>
-
-    <!-- StartPopup-Overlay ----------------------------------------------------->
-    <div id="start-popup" class="popup-overlay">
-        <div id="start-popup-content">
-            <img src="resources/startPopup.svg" alt="Start by scanning your fist item or tap the screen">
-        </div>
-    </div>
-
-    <!-- ItemNotFoundPopup-Overlay ----------------------------------------------------->
-    <div id="itemNotFound-popup" class="popup-overlay">
-        <div id="itemNotFound-popup-content">
-            <img src="resources/prodNotFound.svg" alt="Product Not Found. Tap to continue">
-        </div>
-    </div>
-
-    <!-- ItemNotFoundPopup-Overlay ----------------------------------------------------->
-    <div id="cartEmpty-popup" class="popup-overlay">
-        <div id="cartEmpty-popup-content">
-            <img src="resources/popup-cartEmpty.svg"
-                alt="Your cart is empty. Please add products before proceeding to payment. Tap to continue">
-        </div>
-    </div>
-
-
     <!-- Header-Bereich ----------------------------------------------------->
     <header>
         <h1>ScanMate</h1>
@@ -81,12 +57,18 @@
                 </div>
             </div>
             <div id="price-info">
+                <div class="coupon-button-container">
+                    <button class="coupon-btn" id="coupon-btn">
+                        <img src="resources/couponButton2.svg" id="coupon-btn-img">
+                        <p id="coupon-button-label">Add Coupon</p>
+                    </button>
+                </div>
                 <div class="price-detail">
                     <p id="price-detail-subtotal-label" class="price-detail-label">Sub Total:</p>
                     <p id="price-detail-subtotal" class="price-detail-amount">0.00$</p>
                 </div>
                 <div class="price-detail">
-                    <p id="price-detail-tax-label" class="price-detail-label">Tax: </p>
+                    <p id="price-detail-tax-label" class="price-detail-label">Tax <small>(7.5%)</small>: </p>
                     <p id="price-detail-tax" class="price-detail-amount">0.00$</p>
                 </div>
                 <hr id="price-detail-divider">
@@ -104,11 +86,49 @@
         </div>
     </main>
 
+
+    <!-- StartPopup-Overlay ----------------------------------------------------->
+    <div id="start-popup" class="popup-overlay">
+        <div id="start-popup-content">
+            <img src="resources/startPopup.svg" alt="Start by scanning your fist item or tap the screen">
+        </div>
+    </div>
+
+    <!-- ItemNotFoundPopup-Overlay ----------------------------------------------------->
+    <div id="itemNotFound-popup" class="popup-overlay">
+        <div id="itemNotFound-popup-content">
+            <img src="resources/prodNotFound.svg" alt="Product Not Found. Tap to continue">
+        </div>
+    </div>
+
+    <!-- CartEmptyPopup-Overlay ----------------------------------------------------->
+    <div id="cartEmpty-popup" class="popup-overlay">
+        <div id="cartEmpty-popup-content">
+            <img src="resources/popup-cartEmpty.svg"
+                alt="Your cart is empty. Please add products before proceeding to payment. Tap to continue">
+        </div>
+    </div>
+
+    <!-- CouponPopup-Overlay ----------------------------------------------------->
+    <div id="coupon-popup" class="popup-overlay">
+        <div id="coupon-popup-content">
+            <p>Enter Coupon Code</p>
+            <input type="text" name="coupon-input" id="coupon-input">
+            <div id="coupon-btn-container">
+                <button id="coupon-apply-btn" class="coupon-btn">Apply</button>
+                <button id="coupon-cancel-btn" class="coupon-btn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Pop-up-Overlay ----------------------------------------------------->
     <div id="payment-popup" class="payment-popup-overlay">
         <div class="payment-popup-content">
             <span id="payment-close-popup" class="payment-popup-close-btn">&times;</span>
             <h2>Choose Payment Method</h2>
+            <p id="payment-popup-subtotal">Subtotal: 0.00$</p>
+            <p id="payment-popup-tax">Tax: 0.00$</p>
+            <p id="payment-popup-total">Total: 0.00$</p>
             <ul class="payment-popup-methods">
                 <li>
                     <input type="radio" name="payment" id="apple-pay" value="Apple Pay">
@@ -156,15 +176,8 @@
                     </label>
                 </li>
             </ul>
-            <div id="promo-code-container">
-                <button id="toggle-promo-code">Have a promo code? ^</button>
-                <div id="promo-code-input" style="display: none;">
-                    <input type="text" id="promo-code" placeholder="Enter code">
-                    <button id="apply-promo-code">Apply</button>
-                </div>
-            </div>
-            <button id="payment-popup-proceed-button" class="payment-popup-proceed-btn" disabled>Proceed with
-                payment</button>
+            <button id="payment-popup-proceed-button" class="payment-popup-proceed-btn" disabled>Proceed withpayment</button>
+            <button id="payment-popup-cancel-button" class="payment-popup-cancel-btn">Cancel</button>
         </div>
     </div>
 

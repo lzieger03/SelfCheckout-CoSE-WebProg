@@ -1,4 +1,6 @@
-/* Allgemeine Layout-Einstellungen -------------------------------------------------------------------  */
+/* -------------------------------------------------------------------
+   General Styles
+------------------------------------------------------------------- */
 * {
     margin: 0;
     padding: 0;
@@ -16,7 +18,9 @@ body {
     overflow: hidden;
 }
 
-/* Header Styling -------------------------------------------------------------------  */
+/* -------------------------------------------------------------------
+   Header Styling
+------------------------------------------------------------------- */
 header {
     background-color: #252E3D;
     color: white;
@@ -28,91 +32,21 @@ header h1 {
     font-size: 2rem;
 }
 
-/* Main Layout -------------------------------------------------------------------  */
+/* -------------------------------------------------------------------
+   Main Layout
+------------------------------------------------------------------- */
 main {
     display: flex;
     flex: 1;
     padding: 20px;
     gap: 20px;
-    overflow: hidden; /* Verhindert zusätzliches Scrollen des gesamten main */
-    height: calc(100vh - 160px); /* Höhe minus Header und Footer berechnen */
+    overflow: hidden; /* Prevents additional scrolling of the entire main */
+    height: calc(100vh - 160px); /* Calculate height minus Header and Footer */
 }
 
-/* standard Popup Overlay ------------------------------------------------------------------- */
-.popup-overlay {
-    display: flex;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8); /* Dark background */
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-}
-
-
-/* Start Popup ------------------------------------------------------------------- */
-/* Popup Content */
-#start-popup-content {
-    display: flex;
-    background-color: #E3E6E6;
-    border-radius: 20px;
-    max-width: 85%;
-    max-height: 85%;
-    align-items: center;
-}
-
-#start-popup-content img {
-    height: 100%;
-    width: 100%;
-    border-radius: 20px;
-}
-
-/* Product Error Popup  ------------------------------------------------------------------- */
-#itemNotFound-popup {
-    display: none;
-}
-
-/* prodErr Popup Content */
-#itemNotFound-popup-content {
-    display: flex;
-    background-color: #E3E6E6;
-    border-radius: 20px;
-    height: 70%;
-    width: fit-content;
-    align-items: center;
-}
-
-#itemNotFound-popup-content img {
-    height: 100%;
-    border-radius: 20px;
-}
-
-/* Cart Empty Popup  ------------------------------------------------------------------- */
-#cartEmpty-popup {
-    display: none;
-}
-
-/* cartEmpty Popup Content */
-#cartEmpty-popup-content {
-    display: flex;
-    background-color: #E3E6E6;
-    border-radius: 20px;
-    height: 70%;
-    width: fit-content;
-    align-items: center;
-}
-
-#cartEmpty-popup-content img {
-    height: 100%;
-    border-radius: 20px;
-}
-
-
-
-/* Linker Bereich  ------------------------------------------------------------------- */
+/* -------------------------------------------------------------------
+   Left Section
+------------------------------------------------------------------- */
 #left-section {
     flex: 1;
     background-color: white;
@@ -126,19 +60,18 @@ main {
     max-height: 100%;
 }
 
-#item-preview-image {
-    height: 40vh;
-    width: 40vh;
-    margin-bottom: 20px;
-    border-radius: 20px;
-}
-
 #productOverview-container {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
+#product-image img {
+    height: 40vh;
+    width: 40vh;
+    margin-bottom: 20px;
+    border-radius: 20px;
+}
 
 #product-info {
     text-align: center;
@@ -164,7 +97,7 @@ main {
     padding: 10px 20px;
     cursor: pointer;
     font-size: 1.2rem;
-    transition: background-color .2s ease-in-out;
+    transition: background-color 0.2s ease-in-out;
 }
 
 .quantity-btn:hover {
@@ -173,7 +106,7 @@ main {
 
 .quantity-display {
     font-size: 2rem;
-    margin: 0px 50px;
+    margin: 0 50px;
 }
 
 #quantity-button-image {
@@ -182,8 +115,9 @@ main {
     vertical-align: middle;
 }
 
-
-/* Accessibility Buttons -------------------------------------------------------------------  */
+/* -------------------------------------------------------------------
+   Accessibility Controls
+------------------------------------------------------------------- */
 #accessibility-controls {
     display: flex;
     gap: 10px;
@@ -199,7 +133,7 @@ main {
     cursor: pointer;
     text-align: center;
     padding: 20px;
-    transition: background-color .2s, transform .2s cubic-bezier(.22, .61, .36, 1);
+    transition: background-color 0.2s, transform 0.2s cubic-bezier(.22, .61, .36, 1);
 }
 
 .accessibility-button:hover {
@@ -213,12 +147,9 @@ main {
     fill: #252E3D;
 }
 
-
-
-
-
-
-/* Rechter Bereich  ------------------------------------------------------------------- */
+/* -------------------------------------------------------------------
+   Right Section
+------------------------------------------------------------------- */
 #right-section {
     flex: 2;
     background-color: white;
@@ -226,32 +157,231 @@ main {
     border-radius: 10px;
     display: flex;
     flex-direction: column;
-    height: 100%; /* Passt sich der Höhe von main an */
-    overflow: hidden; /* Verhindert, dass der gesamte Bereich scrollbar wird */
+    height: 100%; /* Adapts to the height of main */
+    overflow: hidden; /* Prevents the entire area from becoming scrollable */
 }
 
 #item-list {
-    flex-grow: 1; /* Nutzt den gesamten verfügbaren Platz innerhalb des rechten Bereichs */
+    flex-grow: 1; /* Utilizes the entire available space within the right section */
     display: flex;
     flex-direction: column;
     background-color: #E3E6E6;
     border-radius: 10px;
     margin-bottom: 20px;
-    overflow: hidden; /* Keine interne Scrollbars für item-list */
+    overflow: hidden; /* No internal scrollbars for item-list */
 }
 
+#barcode-input-container {
+    padding: 20px 20px 10px 20px;
+}
+
+#barcode-input {
+    font-size: 14px;
+    border-radius: 10px;
+    line-height: 1.5;
+    padding: 5px 10px;
+    width: 100%;
+    border: 2px solid #f0cd204c;
+    color: black;
+    background: #ffffff;
+    height: 36px;
+    transition: border-color 0.2s;
+}
+
+#barcode-input:hover {
+    border-color: #f0cd204c;
+}
+
+#barcode-input:focus {
+    border-color: #FBDC3C;
+    background: #fff;
+}
+
+#barcode-list-container {
+    flex-grow: 1; /* Utilizes the entire vertical space of the container */
+    overflow-y: auto; /* Enables scrolling within the container */
+    padding: 10px 20px; /* Optional: Padding for inner spacing */
+}
+
+#barcode-list {
+    overflow-y: scroll;
+}
+
+#barcode-list li {
+    scroll-snap-align: start;
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: 0.2fr 2fr 1fr 0.5fr 0.5fr 0.5fr 0.2fr;
+    align-items: center;
+    padding: 15px;
+    margin: 10px 20px;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.selected {
+    border: solid 4px #F0CD20;
+}
+
+.barcode-list-productImage {
+    max-width: 70px;
+    height: 70px;
+    margin-right: 15px;
+    border-radius: 4px;
+}
+
+.barcode-list-productName,
+.barcode-list-productSinglePrice,
+.barcode-list-productQuantity,
+.barcode-list-productTotalPrice {
+    margin: 0 10px;
+    text-align: center;
+}
+
+.barcode-list-productSinglePrice,
+.barcode-list-productTotalPrice {
+    font-weight: bold;
+}
+
+.barcode-list-productName {
+    text-align: left;
+}
+
+.pay-btn {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color: #FBDC3C;
+    color: #252E3D;
+    font-weight: 1000;
+    border: none;
+    padding: 15px 0px;
+    font-size: 1.8rem;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 10px;
+    vertical-align: middle;
+    transition: background-color 0.2s, transform 0.2s cubic-bezier(.22, .61, .36, 1);
+}
+
+.pay-btn:hover {
+    background-color: #F0CD20;
+    transform: translateY(-2px);
+}
+
+#pay-btn-label {
+    justify-self: left;
+    align-self: center;
+}
+
+#pay-btn-img {
+    justify-self: right;
+    height: 50px;
+    margin: 0 10px;
+    padding: 0;
+    fill: #252E3D;
+}
+
+.delete-btn {
+    background: #FF4742;
+    border: 1px solid #FF4742;
+    border-radius: 6px;
+    box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font-family: nunito, roboto, proxima-nova, "proxima nova", sans-serif;
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 16px;
+    min-height: 40px;
+    outline: 0;
+    padding: 12px 14px;
+    text-align: center;
+    text-rendering: geometricprecision;
+    text-transform: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: middle;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.delete-btn:hover,
+.delete-btn:active {
+    background-color: initial;
+    background-position: 0 0;
+    color: #FF4742;
+}
+
+.delete-btn:active {
+    opacity: 0.5;
+}
+
+/* -------------------------------------------------------------------
+   Price Information
+------------------------------------------------------------------- */
 #price-info {
     display: grid;
     grid-template-columns: auto auto auto;
     gap: 5px;
     margin-bottom: 20px;
-
 }
 
+.coupon-button-container {
+    grid-column: 1;
+    grid-row: 1/5;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    align-self: end; /* Aligns the button to the bottom of the grid cell */
+}
+
+.coupon-btn {
+    background-color: #FBDC3C;
+    border-radius: 10px;
+    width: 300px;
+    height: 80px;
+    color: #252E3D;
+    font-weight: 800;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.coupon-btn:hover {
+    background-color: #F0CD20;
+    transform: translateY(-2px);
+}
+
+.coupon-btn:active {
+    transform: translateY(0px);
+}
+
+#coupon-btn-img {
+    width: 50px;
+    height: 50px;
+    margin-right: 25px;
+}
+
+#coupon-button-label {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+/* -------------------------------------------------------------------
+   Price Details
+------------------------------------------------------------------- */
 .price-detail {
     display: grid;
-    grid-column: auto auto;
-    width: 60%;
+    grid-template-columns: auto auto;
+    width: 100%;
     font-size: 20px;
     grid-column: 3;
     height: 30px;
@@ -273,9 +403,8 @@ main {
     grid-column: 3;
     justify-self: right;
     height: 2px;
-    width: 60%;
+    width: 110%;
     border: 0;
-    height: 0;
     border-top: 1px solid rgba(0, 0, 0, 0.1);
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
@@ -295,183 +424,148 @@ main {
     font-size: 1.8rem;
 }
 
-#barcode-input-container {
-    padding: 20px 20px 10px 20px;
+/* -------------------------------------------------------------------
+   Pop-up Overlays
+------------------------------------------------------------------- */
+.popup-overlay {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8); /* Dark background */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
 }
 
+/* Start Popup */
+#start-popup-content {
+    display: flex;
+    background-color: #E3E6E6;
+    border-radius: 20px;
+    max-width: 85%;
+    max-height: 85%;
+    align-items: center;
+}
 
-
-/* Right section - Barcode List */
-#barcode-input {
-    font-size: 14px;
-    border-radius: 10px;
-    line-height: 1.5;
-    padding: 5px 10px;
+#start-popup-content img {
+    height: 100%;
     width: 100%;
+    border-radius: 20px;
+}
+
+/* Item Not Found Popup */
+#itemNotFound-popup {
+    display: none;
+}
+
+#itemNotFound-popup-content {
+    display: flex;
+    background-color: #E3E6E6;
+    border-radius: 20px;
+    height: 70%;
+    width: fit-content;
+    align-items: center;
+}
+
+#itemNotFound-popup-content img {
+    height: 100%;
+    border-radius: 20px;
+}
+
+/* Cart Empty Popup */
+#cartEmpty-popup {
+    display: none;
+}
+
+#cartEmpty-popup-content {
+    display: flex;
+    background-color: #E3E6E6;
+    border-radius: 20px;
+    height: 70%;
+    width: fit-content;
+    align-items: center;
+}
+
+#cartEmpty-popup-content img {
+    height: 100%;
+    border-radius: 20px;
+}
+
+/* Coupon Popup */
+#coupon-popup {
+    display: none;
+    align-items: center;
+    justify-content: center;
+} 
+
+#coupon-popup-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #E3E6E6;
+    border-radius: 20px;
+    height: 30%;
+    width: 30%;
+    padding: 20px;
+}
+
+#coupon-popup-content p {
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin: 0;
+    text-align: center;
+}   
+
+#coupon-input {
+    font-size: 1.4rem;
+    border-radius: 10px;
+    line-height: 2;
+    padding: 5px 10px;
+    margin: 10px 0;
+    width: 80%;
     border: 2px solid #f0cd204c;
     color: black;
     background: #ffffff;
     height: 36px;
+    transition: border-color 0.2s;
+    text-align: center;
 }
 
-#barcode-input:hover {
-    border-color: #f0cd204c;
-}
-
-#barcode-input:focus {
-    border-color: #FBDC3C;
-    background: #fff;
-}
-
-#barcode-list-container {
-    flex-grow: 1; /* Nutzt den gesamten vertikalen Platz des Containers */
-    overflow-y: auto; /* Aktiviert Scrollen innerhalb des Containers */
-    padding: 10px 20px; /* Optional: Padding für inneren Abstand */
-
-}
-
-#barcode-list {
-    overflow-y: scroll;
-}
-
-
-/* Stil für das Listenelement */
-#barcode-list li {
-    scroll-snap-align: start;
+#coupon-btn-container {
     display: grid;
-    grid-template-rows: auto;
-    grid-template-columns: 0.2fr 2fr 1fr 0.5fr 0.5fr 0.5fr 0.2fr;
-    align-items: center;
-    padding: 15px;
-    margin: 10px 20px;
-    background-color: white;
-    border-radius: 10px;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 10px;
 }
 
-.selected {
-    border: solid 4px #F0CD20;
-}
-
-
-/* Bildstil */
-.barcode-list-productImage {
-    max-width: 70px;
-    height: 70px;
-    margin-right: 15px;
-    border-radius: 4px;
-}
-
-
-
-
-
-/* Stil für die Produktinformationen */
-.barcode-list-productName,
-.barcode-list-productSinglePrice,
-.barcode-list-productQuantity,
-.barcode-list-productTotalPrice {
-    margin: 0 10px;
-    text-align: center;
-}
-
-/* Zusätzlicher Stil für Preise */
-.barcode-list-productSinglePrice,
-.barcode-list-productTotalPrice {
-    font-weight: bold;
-}
-
-.barcode-list-productName {
-    text-align: left;
-}
-
-
-.pay-btn {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    background-color: #FBDC3C;
-    color: #252E3D;
-    font-weight: 1000;
-    border: none;
-    padding: 15px 0px;
-    font-size: 1.8rem;
-    cursor: pointer;
-    width: 100%;
-    border-radius: 10px;
-    vertical-align: middle;
-    transition: background-color .2s, transform .2s cubic-bezier(.22, .61, .36, 1);
-}
-
-.pay-btn:hover {
-    background-color: #F0CD20;
-    transform: translateY(-2px);
-}
-
-#pay-btn-label {
-    justify-self: left;
-    align-self: center;
-}
-
-#pay-btn-img {
-    justify-self: right;
-    height: 50px;
-    margin: 0 10px;
+#coupon-popup-content button {  
+    width: 200px;
+    font-size: 1.2rem;
+    margin: 0;
     padding: 0;
-    fill: #252E3D;
+    border-radius: 10px;
 }
 
-/* Delete Button from item list*/
-.delete-btn {
-  background: #FF4742;
-  border: 1px solid #FF4742;
-  border-radius: 6px;
-  box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
-  box-sizing: border-box;
-  color: #FFFFFF;
-  cursor: pointer;
-  display: inline-block;
-  font-family: nunito,roboto,proxima-nova,"proxima nova",sans-serif;
-  font-size: 16px;
-  font-weight: 800;
-  line-height: 16px;
-  min-height: 40px;
-  outline: 0;
-  padding: 12px 14px;
-  text-align: center;
-  text-rendering: geometricprecision;
-  text-transform: none;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  vertical-align: middle;
+#coupon-cancel-btn {
+    background-color: #FF4742;
 }
 
-.delete-btn:hover,
-.delete-btn:active {
-  background-color: initial;
-  background-position: 0 0;
-  color: #FF4742;
+#coupon-apply-btn:hover {
+    background-color: #F0CD20;
 }
 
-.delete-btn:active {
-  opacity: .5;
-}
-
-footer {
-    background-color: #252E3D;
-    color: white;
-    text-align: center;
-    padding: 1rem;
-    font-size: 0.9rem;
-
+#coupon-cancel-btn:hover {
+    background-color: #ff4842b4;
 }
 
 
-
-
-
-
-/* Pop-up Overlay  ------------------------------------------------------------------- */
+/* -------------------------------------------------------------------
+   Payment Popup
+------------------------------------------------------------------- */
 .payment-popup-overlay {
     display: none;
     position: fixed;
@@ -485,7 +579,6 @@ footer {
     z-index: 1000;
 }
 
-/* Pop-up Content */
 .payment-popup-content {
     background-color: white;
     border-radius: 10px;
@@ -501,7 +594,6 @@ footer {
     margin-bottom: 20px;
 }
 
-/* Close Button Styling */
 .payment-popup-close-btn {
     position: absolute;
     top: 10px;
@@ -533,29 +625,6 @@ footer {
     margin-right: 10px;
 }
 
-.payment-popup-proceed-btn {
-    background-color: #CCCCCC;
-    color: #252E3D;
-    font-weight: bold;
-    border: none;
-    padding: 10px 20px;
-    font-size: 1.1rem;
-    border-radius: 8px;
-    cursor: not-allowed;
-    transition: all .2s cubic-bezier(.22, .61, .36, 1);
-}
-
-.payment-popup-proceed-btn.active {
-    cursor: pointer;
-    background-color: #FBDC3C;
-}
-
-.payment-popup-proceed-btn:hover.active {
-    transform: translateY(-2px);
-    background-color: #F0CD20;
-}
-
-/* Kartenspezifisches Styling */
 .payment-popup-card-option {
     display: flex;
     flex-direction: column;
@@ -586,7 +655,7 @@ footer {
     font-size: 1.3rem;
 }
 
-input[type="radio"]:checked+.payment-popup-card-option {
+input[type="radio"]:checked + .payment-popup-card-option {
     border-color: #FBDC3C;
     box-shadow: 0 0 10px rgba(0, 0, 255, 0.3);
 }
@@ -595,49 +664,35 @@ input[type="radio"] {
     display: none;
 }
 
-/* -------- Promo Code Styling ---------------------------------------------- */
-#promo-code-container {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-#toggle-promo-code {
-    background: none;
+.payment-popup-proceed-btn {
+    background-color: #CCCCCC;
+    color: #252E3D;
+    font-weight: bold;
     border: none;
-    margin-bottom: 20px;
-    color: #0066c0;
+    padding: 10px 20px;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    cursor: not-allowed;
+    transition: all 0.2s cubic-bezier(.22, .61, .36, 1);
+}
+
+.payment-popup-proceed-btn.active {
     cursor: pointer;
-    font-size: 1.4rem;
-    padding: 0;
-    text-align: left;
-}
-
-#toggle-promo-code:hover {
-    text-decoration: underline;
-}
-
-#promo-code-input {
-    height: 1.4rem;
-    margin-bottom: 20px;
-}
-
-#promo-code {
-    padding: 5px;
-    width: 50%;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-#apply-promo-code {
-    padding: 5px 10px;
     background-color: #FBDC3C;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.2s;
 }
 
-#apply-promo-code:hover {
+.payment-popup-proceed-btn:hover.active {
+    transform: translateY(-2px);
     background-color: #F0CD20;
+}
+
+/* -------------------------------------------------------------------
+   Footer Styling
+------------------------------------------------------------------- */
+footer {
+    background-color: #252E3D;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.9rem;
 }

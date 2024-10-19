@@ -13,8 +13,6 @@ class SpringBootApiApplicationTests {
     @Test
     @DisplayName("Context Loads Successfully")
     void contextLoads() {
-        // Dieser Test überprüft, ob der Anwendungskontext ohne Fehler geladen wird
     }
 
-    // Weitere Integrationstests können hier hinzugefügt werden
 }

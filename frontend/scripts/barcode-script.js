@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Clear local storage on load
-  localStorage.clear();
+    // Clear local storage on load
+    localStorage.clear();
 
   //-------------------------------- Storage and Initialization --------------------------------
   const startPopup = document.getElementById("start-popup");
@@ -19,7 +19,12 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentSelectedItem = null;
   const barcodeItemMap = {};
 
-  const promoCodeInput = document.getElementById("promo-code-input");
+  // Coupon initialization  
+  const couponButton = document.getElementById("coupon-btn");
+  const couponPopup = document.getElementById("coupon-popup");
+  const couponApplyButton = document.getElementById("coupon-apply-btn");
+  const couponCancelButton = document.getElementById("coupon-cancel-btn");  
+  const couponInput = document.getElementById("coupon-input");
 
   //-------------------------------- Input Focus Management --------------------------------
   const focusBarcodeInput = () => barcodeInput.focus();
@@ -27,28 +32,43 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.addEventListener("click", (event) => {
     if (!barcodeInput.contains(event.target)) {
-      if (!promoCodeInput.contains(event.target)){
+      if (couponPopup.style.display === "flex") {
+        couponInput.focus(); // Focus coupon input if coupon popup is open
+      } else {
         focusBarcodeInput(); // Refocus input if clicking outside
       }
     }
   });
 
   //-------------------------------- Helper Functions --------------------------------
-  const parsePrice = (priceText) => parseFloat(priceText.replace("$", "").replace(",", "."));
+  const parsePrice = (priceText) =>
+    parseFloat(priceText.replace("$", "").replace(",", "."));
   const formatPrice = (price) => price.toFixed(2).replace(".", ",") + "$";
 
   //-------------------------------- Product Display --------------------------------
   function displayItemOnLeft(item) {
-    itemNameElement.textContent = item.querySelector(".barcode-list-productName").textContent;
-    itemNumberElement.textContent = item.querySelector(".barcode-list-productBarcode").textContent;
-    quantityDisplay.textContent = item.querySelector(".barcode-list-productQuantity").textContent;
+    itemNameElement.textContent = item.querySelector(
+      ".barcode-list-productName"
+    ).textContent;
+    itemNumberElement.textContent = item.querySelector(
+      ".barcode-list-productBarcode"
+    ).textContent;
+    quantityDisplay.textContent = item.querySelector(
+      ".barcode-list-productQuantity"
+    ).textContent;
     productImageElement.src = `/backend/itemPictures/${itemNumberElement.textContent}.png`;
     currentSelectedItem = item;
   }
 
   //-------------------------------- Popup Handling --------------------------------
-  startPopup.addEventListener("click", () => (startPopup.style.display = "none")); // Close start popup
-  productErrorPopup.addEventListener("click", () => (productErrorPopup.style.display = "none")); // Close error popup
+  startPopup.addEventListener(
+    "click",
+    () => (startPopup.style.display = "none")
+  ); // Close start popup
+  productErrorPopup.addEventListener(
+    "click",
+    () => (productErrorPopup.style.display = "none")
+  ); // Close error popup
   const openErrorPopup = () => (productErrorPopup.style.display = "flex"); // Show error popup
 
   //-------------------------------- Barcode Input Handling --------------------------------
@@ -60,13 +80,17 @@ document.addEventListener("DOMContentLoaded", () => {
   //-------------------------------- Barcode API Handling --------------------------------
   async function fetchProductByBarcode(barcode) {
     try {
-      const response = await fetch(`http://localhost:8080/product?id=${barcode}`);
+      const response = await fetch(
+        `http://localhost:8080/product?id=${barcode}`
+      );
       if (!response.ok) throw new Error("Error with the server response");
 
       const productData = await response.json();
       if (productData.id === "1") throw new Error("Product doesn't exist");
 
-      console.log(`Info: Product with ID: ${productData.id}, name: "${productData.name}", price: ${productData.price}$ added to cart.`);
+      console.log(
+        `Info: Product with ID: ${productData.id}, name: "${productData.name}", price: ${productData.price}$ added to cart.`
+      );
       return productData;
     } catch (error) {
       console.error("Error at API-Call:", error);
@@ -75,35 +99,71 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   //-------------------------------- List and Price Updates --------------------------------
+  const discountValue = localStorage.getItem("discountValue") || 0.0;
   function updateTotalPrice(li) {
-    const singlePrice = parsePrice(li.querySelector(".barcode-list-productSinglePrice").textContent);
-    const quantity = parseInt(li.querySelector(".barcode-list-productQuantity").textContent);
-    li.querySelector(".barcode-list-productTotalPrice").textContent = formatPrice(singlePrice * quantity); // Update total price
+    const singlePrice = parsePrice(
+      li.querySelector(".barcode-list-productSinglePrice").textContent
+    );
+    const quantity = parseInt(
+      li.querySelector(".barcode-list-productQuantity").textContent
+    );
+    if (discountValue > 0) {
+        li.querySelector(".barcode-list-productTotalPrice").textContent =
+        formatPrice(singlePrice * quantity * (1 - (discountValue / 100))); // Update total price
+    console.log(
+        `Info: Total price updated to ${
+          singlePrice * quantity * (1 - (discountValue / 100))
+        }`
+      );
+    } else {
+      li.querySelector(".barcode-list-productTotalPrice").textContent =
+        formatPrice(singlePrice * quantity); // Update total price
+    }
   }
 
   function calculateTotals() {
+    const discountValue = parseFloat(localStorage.getItem("discountValue"));
     let subtotal = 0;
     document.querySelectorAll(".barcode-item").forEach((li) => {
-      subtotal += parsePrice(li.querySelector(".barcode-list-productTotalPrice").textContent); // Calculate subtotal
+      if (discountValue > 0) {
+        subtotal +=
+          parsePrice(
+          li.querySelector(".barcode-list-productTotalPrice").textContent
+        ) *
+        (1 - (discountValue / 100)); // Calculate subtotal
+      } else {
+        subtotal +=
+          parsePrice(
+          li.querySelector(".barcode-list-productTotalPrice").textContent
+        ); // Calculate subtotal
+      }
+      console.log(`Info: Subtotal updated to ${subtotal}`);
     });
 
-    const tax = subtotal * TAX_RATE;
-    const total = subtotal + tax;
+    const tax = Math.round(subtotal * TAX_RATE * 100) / 100;
+    const total = Math.round((subtotal + tax) * 100) / 100;
 
     subtotalElement.textContent = formatPrice(subtotal);
     taxElement.textContent = formatPrice(tax);
     totalElement.textContent = formatPrice(total); // Update subtotal, tax, and total
+    localStorage.setItem("subtotal", subtotal.toFixed(2));
+    localStorage.setItem("tax", tax.toFixed(2));
+    localStorage.setItem("total", total.toFixed(2));
   }
 
   //-------------------------------- List Manipulation --------------------------------
   async function addBarcodeToList(barcode) {
     if (barcodeList.children.length === 0) startPopup.style.display = "none"; // Hide start popup on first item
 
-    document.querySelectorAll(".barcode-item.selected").forEach((item) => item.classList.remove("selected"));
+    document
+      .querySelectorAll(".barcode-item.selected")
+      .forEach((item) => item.classList.remove("selected"));
     let existingItem = barcodeItemMap[barcode];
 
     if (existingItem) {
-      const quantityElement = existingItem.querySelector(".barcode-list-productQuantity");
+      const quantityElement = existingItem.querySelector(
+        ".barcode-list-productQuantity"
+      );
       quantityElement.textContent = parseInt(quantityElement.textContent) + 1; // Increment quantity
       updateTotalPrice(existingItem);
       displayItemOnLeft(existingItem);
@@ -117,16 +177,24 @@ document.addEventListener("DOMContentLoaded", () => {
         <img src="/backend/itemPictures/${barcode}.png" alt="product-name" class="barcode-list-productImage">
         <p class="barcode-list-productName">${productData.name}</p>
         <p class="barcode-list-productBarcode">${productData.id}</p>
-        <p class="barcode-list-productSinglePrice">${productData.price}$</p>
+        <p class="barcode-list-productSinglePrice">${productData.price.toFixed(
+          2
+        )}$</p>
         <p class="barcode-list-productQuantity">1</p>
-        <p class="barcode-list-productTotalPrice">${productData.price}$</p>
+        <p class="barcode-list-productTotalPrice">${productData.price.toFixed(
+          2
+        )}$</p>
         <button class="delete-btn">Delete</button>
       `;
 
-      li.querySelector(".delete-btn").addEventListener("click", () => removeBarcodeItem(li, barcode)); // Delete button handler
+      li.querySelector(".delete-btn").addEventListener("click", () =>
+        removeBarcodeItem(li, barcode)
+      ); // Delete button handler
 
       li.addEventListener("click", () => {
-        document.querySelectorAll(".barcode-item").forEach((item) => item.classList.remove("selected"));
+        document
+          .querySelectorAll(".barcode-item")
+          .forEach((item) => item.classList.remove("selected"));
         li.classList.add("selected"); // Highlight selected item
         displayItemOnLeft(li);
       });
@@ -159,7 +227,9 @@ document.addEventListener("DOMContentLoaded", () => {
   //-------------------------------- Quantity Adjustment --------------------------------
   const adjustQuantity = (amount) => {
     if (currentSelectedItem) {
-      const quantityElement = currentSelectedItem.querySelector(".barcode-list-productQuantity");
+      const quantityElement = currentSelectedItem.querySelector(
+        ".barcode-list-productQuantity"
+      );
       const newQuantity = parseInt(quantityElement.textContent) + amount;
 
       if (newQuantity > 0) {
@@ -167,7 +237,9 @@ document.addEventListener("DOMContentLoaded", () => {
         quantityDisplay.textContent = newQuantity;
         updateTotalPrice(currentSelectedItem);
       } else {
-        const barcode = currentSelectedItem.querySelector(".barcode-list-productBarcode").textContent;
+        const barcode = currentSelectedItem.querySelector(
+          ".barcode-list-productBarcode"
+        ).textContent;
         removeBarcodeItem(currentSelectedItem, barcode);
       }
 
@@ -176,8 +248,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  document.getElementById("quantity-btn-plus").addEventListener("click", () => adjustQuantity(1)); // Increment quantity
-  document.getElementById("quantity-btn-minus").addEventListener("click", () => adjustQuantity(-1)); // Decrement quantity
+  document
+    .getElementById("quantity-btn-plus")
+    .addEventListener("click", () => adjustQuantity(1)); // Increment quantity
+  document
+    .getElementById("quantity-btn-minus")
+    .addEventListener("click", () => adjustQuantity(-1)); // Decrement quantity
 
   //-------------------------------- Barcode Input Event --------------------------------
   barcodeInput.addEventListener("keyup", (event) => {
@@ -190,14 +266,76 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  //-------------------------------- Coupon Code Functionality -------------------------------- 
+  couponButton.addEventListener("click", () => {
+    couponPopup.style.display = "flex";
+    couponInput.focus();
+  });
+
+  couponCancelButton.addEventListener("click", () => {
+    couponInput.value = "";
+    couponPopup.style.display = "none";
+    focusBarcodeInput();
+  });
+
+
+  couponApplyButton.addEventListener("click", async () => {
+    await applyCoupon();
+  });
+
+  couponInput.addEventListener("keyup", async (event) => {
+    if (event.key === "Enter") {
+      await applyCoupon();
+    }
+  }); 
+
+  async function applyCoupon() {
+    const couponCode = couponInput.value.trim();
+    if (couponCode) {
+      try {
+        const response = await fetch(`http://localhost:8080/discount?code=${encodeURIComponent(couponCode)}`);
+        if (!response.ok) {
+          throw new Error("Invalid promo code.");
+        }
+        const discount = await response.json();
+        console.log(`Coupon code applied: ${discount.code} with value ${discount.value}`);
+        
+        // Store discount information locally (you can also manage this state differently)
+        localStorage.setItem("discountCode", discount.code);
+        localStorage.setItem("discountValue", discount.value);
+
+        couponInput.value = "";
+        couponPopup.style.display = "none";
+
+        // Update total price after discount is applied
+        const listItems = document.querySelectorAll(".barcode-item");
+        for (const item of listItems) {
+          updateTotalPrice(item); 
+        }
+        calculateTotals();
+        saveBarcodes();
+        focusBarcodeInput();
+      } catch (error) {
+        console.error("Invalid promo code:", error);
+        alert("Invalid promo code. Please try again.");
+      }
+    } else {
+      alert("Please enter a valid promo code.");
+    }
+  };
+
   //-------------------------------- Storage Handling --------------------------------
   function saveBarcodes() {
-    const barcodes = Array.from(document.querySelectorAll(".barcode-item")).map((item) => ({
-      barcode: item.querySelector(".barcode-list-productBarcode").textContent,
-      name: item.querySelector(".barcode-list-productName").textContent,
-      price: item.querySelector(".barcode-list-productSinglePrice").textContent,
-      quantity: item.querySelector(".barcode-list-productQuantity").textContent,
-    }));
+    const barcodes = Array.from(document.querySelectorAll(".barcode-item")).map(
+      (item) => ({
+        barcode: item.querySelector(".barcode-list-productBarcode").textContent,
+        name: item.querySelector(".barcode-list-productName").textContent,
+        price: item.querySelector(".barcode-list-productSinglePrice")
+          .textContent,
+        quantity: item.querySelector(".barcode-list-productQuantity")
+          .textContent,
+      })
+    );
     localStorage.setItem("barcodes", JSON.stringify(barcodes)); // Save to local storage
   }
 
@@ -211,6 +349,5 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
   }
-
   loadBarcodes();
 });
