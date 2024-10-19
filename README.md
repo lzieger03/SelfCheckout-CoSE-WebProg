@@ -51,3 +51,30 @@ We're a dynamic duo of student developers, Marven Drechsel and Lars Zieger, work
 ## Wrap-Up
 
 In a nutshell, ScanMate 1.0.0-X "Aurora" is about creating a checkout experience that's fast, friendly, and accessible to everyone. Whether you're a developer looking to learn or a shopper wanting a better checkout, this project has something for you.
+
+## Disclaimer
+
+### General 
+This project is a learning exercise and is not intended for production use. It is a proof of concept and may not be fully functional or secure for real-world applications.
+
+### Security
+The backend is not secured and does not use HTTPS. It is intended for local use only.
+
+### Database
+The database is not backed up and does not use a remote database. It is intended for local use only.
+
+### Discounts
+The discount system is not secured and does not use a remote discount database. It is intended for local use only.
+
+### Barcodes
+The barcode system is not secured and does not use a remote barcode database. It is intended for local use only.
+
+### Payment
+The payment system is not secured and does not use a remote payment processor. It is intended for local use only.
+
+### Receipts
+The receipt system is not secured and does not use a remote receipt printer. It is intended for local use only.
+
+### Accessibility
+The accessibility features are not fully implemented and do not provide full accessibility support. This is a known limitation, but will not be implemented in this version.
+

@@ -9,14 +9,14 @@
 </head>
 
 <body>
-    <!-- Header-Bereich ----------------------------------------------------->
+    <!-- Header-Section ----------------------------------------------------->
     <header>
         <h1>ScanMate</h1>
     </header>
 
-    <!-- Hauptbereich für das Layout -->
+    <!-- Main-Section ----------------------------------------------------->
     <main>
-        <!-- Linker Bereich mit Bild und Produktinformation -->
+        <!-- Left Section with Image and Product Information -->
         <div id="left-section">
             <div id="productOverview-container">
                 <div id="product-image">
@@ -34,6 +34,7 @@
                             id="quantity-button-image"></button>
                 </div>
             </div>
+            <!-- Accessibility Controls - These buttons are intentionally not linked to any functionality! -->
             <div id="accessibility-controls">
                 <button class="accessibility-button"><img src="/frontend/resources/screenReaderButton.svg"
                         class="accessibility-button-image"></button>
@@ -46,7 +47,7 @@
             </div>
         </div>
 
-        <!-- Rechter Bereich für Artikelübersicht ----------------------------------------------------->
+        <!-- Right Section for Item List ----------------------------------------------------->
         <div id="right-section">
             <div id="item-list">
                 <div id="barcode-input-container">
@@ -86,7 +87,14 @@
         </div>
     </main>
 
+    <!-- Footer-Section ----------------------------------------------------->
+    <footer>
+        <p>© 2024 ScanMate Ltd. | Version 1.0.0-X "Aurora" | Developed by Lars & Marven. All rights reserved.</p>
+    </footer>
 
+
+
+    <!-- Popup Overlays ----------------------------------------------------------------------------------------->
     <!-- StartPopup-Overlay ----------------------------------------------------->
     <div id="start-popup" class="popup-overlay">
         <div id="start-popup-content">
@@ -94,14 +102,14 @@
         </div>
     </div>
 
-    <!-- ItemNotFoundPopup-Overlay ----------------------------------------------------->
+    <!-- ItemNotFoundPopup-Overlay ---------------------------------------------->
     <div id="itemNotFound-popup" class="popup-overlay">
         <div id="itemNotFound-popup-content">
             <img src="resources/prodNotFound.svg" alt="Product Not Found. Tap to continue">
         </div>
     </div>
 
-    <!-- CartEmptyPopup-Overlay ----------------------------------------------------->
+    <!-- CartEmptyPopup-Overlay ------------------------------------------------->
     <div id="cartEmpty-popup" class="popup-overlay">
         <div id="cartEmpty-popup-content">
             <img src="resources/popup-cartEmpty.svg"
@@ -109,7 +117,7 @@
         </div>
     </div>
 
-    <!-- CouponPopup-Overlay ----------------------------------------------------->
+    <!-- CouponPopup-Overlay ---------------------------------------------------->
     <div id="coupon-popup" class="popup-overlay">
         <div id="coupon-popup-content">
             <p>Enter Coupon Code</p>
@@ -121,7 +129,7 @@
         </div>
     </div>
 
-    <!-- Pop-up-Overlay ----------------------------------------------------->
+    <!-- PaymentPopup-Overlay --------------------------------------------------->
     <div id="payment-popup" class="payment-popup-overlay">
         <div class="payment-popup-content">
             <span id="payment-close-popup" class="payment-popup-close-btn">&times;</span>
@@ -176,18 +184,13 @@
                     </label>
                 </li>
             </ul>
-            <button id="payment-popup-proceed-button" class="payment-popup-proceed-btn" disabled>Proceed withpayment</button>
+            <button id="payment-popup-proceed-button" class="payment-popup-proceed-btn" disabled>Proceed
+                withpayment</button>
             <button id="payment-popup-cancel-button" class="payment-popup-cancel-btn">Cancel</button>
         </div>
     </div>
 
     <script src="scripts/barcode-script.js"></script>
     <script src="scripts/payment-script.js"></script>
-
-    <!-- Footer-Bereich ----------------------------------------------------->
-    <footer>
-        <p>© 2024 ScanMate Ltd. | Version 1.0.0-X "Aurora" | Developed by Lars & Marven. All rights reserved.</p>
-    </footer>
 </body>
-
 </html>
