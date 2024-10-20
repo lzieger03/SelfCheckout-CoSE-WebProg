@@ -37,31 +37,31 @@
                     <!-- Product rows will be populated here dynamically -->
                 </tbody>
             </table>
-        </section>
 
-        <!-- Add/Edit Product Popup -->
-        <div id="product-popup" class="popup-overlay">
-            <div class="popup-content">
-                <span class="popup-close-btn" id="product-popup-close">&times;</span>
-                <h2 id="product-popup-title">Add New Product</h2>
-                <form id="product-form">
-                    <div id="product-popup-image-container">
-                        <img src="/backend/itemPictures/default.png" alt="product-image" id="product-popup-image">
-                    </div>
+            <!-- Popup Overlay -->
+            <div id="product-popup" class="popup-overlay">
+                <div class="popup-content">
+                    <span id="product-popup-close" class="close-button">&times;</span>
+                    <h2 id="product-popup-title">Add New Product</h2>
+                    <form id="product-form">
+                        <img id="product-popup-image" src="" alt="Product Image Preview" width="100" height="100">
+                        <label for="product-id">Product ID:</label>
+                        <input type="text" id="product-id" name="product-id" required>
 
-                    <label for="product-id">Product ID:</label>
-                    <input type="text" id="product-id" name="product-id" required>
+                        <label for="product-name">Name:</label>
+                        <input type="text" id="product-name" name="product-name" required>
 
-                    <label for="product-name">Name:</label>
-                    <input type="text" id="product-name" name="product-name" required>
+                        <label for="product-price">Price ($):</label>
+                        <input type="number" id="product-price" name="product-price" step="0.01" required>
 
-                    <label for="product-price">Price ($):</label>
-                    <input type="number" id="product-price" name="product-price" step="0.01" required>
+                        <label for="product-image">Image:</label>
+                        <input type="file" id="product-popup-image-upload" name="product-image" accept="image/*">
 
-                    <button type="submit" id="save-product-btn">Save</button>
-                </form>
+                        <button type="submit" id="save-product-btn">Save</button>
+                    </form>
+                </div>
             </div>
-        </div>
+        </section>
     </main>
 
     <!-- Footer-Section ----------------------------------------------------->

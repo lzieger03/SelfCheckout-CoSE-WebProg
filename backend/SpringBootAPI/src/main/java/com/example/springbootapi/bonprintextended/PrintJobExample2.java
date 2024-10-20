@@ -32,7 +32,8 @@ public class PrintJobExample2 {
                         new Product(
                                 resultSet.getString(1),
                                 resultSet.getString(2),
-                                resultSet.getDouble(3)
+                                resultSet.getDouble(3),
+                                resultSet.getBytes(4)
                         ));
             }
         } catch (Exception err) {

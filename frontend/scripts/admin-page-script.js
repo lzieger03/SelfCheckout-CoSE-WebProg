@@ -7,6 +7,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const productTableBody = document.querySelector("#product-table tbody");
     const productPopupTitle = document.getElementById("product-popup-title");
 
+    const productPopupImage = document.getElementById("product-popup-image");
+    const productPopupImageUpload = document.getElementById("product-popup-image-upload");
+
     let isEditMode = false;
     let editProductId = null;
 
@@ -39,7 +42,16 @@ document.addEventListener("DOMContentLoaded", () => {
             const tr = document.createElement("tr");
 
             const tdImg = document.createElement("td");
-            tdImg.innerHTML = `<img src="/backend/itemPictures/${product.id}.png" alt="${product.name}">`;
+            if (product.id) { // Ensure the product has an ID
+                const img = document.createElement("img");
+                img.src = `http://localhost:8080/product/image?id=${product.id}`;
+                img.alt = product.name;
+                img.width = 50;
+                img.height = 50;
+                tdImg.appendChild(img);
+            } else {
+                tdImg.textContent = "No Image";
+            }
             tr.appendChild(tdImg);
 
             const tdId = document.createElement("td");
@@ -59,7 +71,10 @@ document.addEventListener("DOMContentLoaded", () => {
             const editBtn = document.createElement("button");
             editBtn.textContent = "Edit";
             editBtn.classList.add("action-btn-edit", "action-btn");
-            editBtn.addEventListener("click", () => openEditProductPopup(product.id));
+            editBtn.addEventListener("click", () => {
+                isEditMode = true;
+                openEditProductPopup(product.id);
+            });
             tdActions.appendChild(editBtn);
 
             const deleteBtn = document.createElement("button");
@@ -85,10 +100,38 @@ document.addEventListener("DOMContentLoaded", () => {
     // Open Add Product Popup
     addProductBtn.addEventListener("click", () => {
         isEditMode = false;
-        editProductId = null;
         productPopupTitle.textContent = "Add New Product";
         productForm.reset();
         productPopup.style.display = "flex";
+
+        //create a product id thats 13 digits long only numbers, unique and set it to the input field
+        const productId = Math.floor(Math.random() * 1e13).toString().padStart(13, '0');
+        document.getElementById("product-id").value = productId;
+
+        //disable the id input field and grey it out
+        document.getElementById("product-id").disabled = true;
+        document.getElementById("product-id").style.backgroundColor = "#ccc";
+
+        // Clear the file input
+        productPopupImageUpload.value = "";
+        productPopupImage.src = "";
+        productPopupImage.alt = "";
+
+        // Add event listener for image upload
+        productPopupImageUpload.addEventListener("change", (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    productPopupImage.src = e.target.result;
+                    productPopupImage.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            } else {
+                productPopupImage.src = "";
+                productPopupImage.style.display = 'none';
+            }
+        });
     });
 
     // Close Popup
@@ -105,22 +148,36 @@ document.addEventListener("DOMContentLoaded", () => {
         const id = document.getElementById("product-id").value.trim();
         const name = document.getElementById("product-name").value.trim();
         const price = parseFloat(document.getElementById("product-price").value);
+        const imageFile = document.getElementById("product-popup-image-upload").files[0];
+
+        if (!id || !name || isNaN(price)) {
+            alert("Please fill in all required fields.");
+            return;
+        }
+
+        const formData = new FormData();
+        const productData = { id, name, price };
+        formData.append("product", new Blob([JSON.stringify(productData)], { type: "application/json" }));
+
+        // Append the image file only if a new image is selected
+        if (imageFile) {
+            formData.append("image", imageFile);
+        }
 
         if (isEditMode) {
             // Update Product
             try {
-                const response = await fetch(`http://localhost:8080/product`, {
+                const response = await fetch(`http://localhost:8080/updateproduct`, {
                     method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ id, name, price })
+                    body: formData
                 });
                 if (response.ok) {
                     alert("Product updated successfully!");
+                    productPopup.style.display = "none";
+                    initializeProducts();
                 } else {
-                    const errorData = await response.text();
-                    alert(`Failed to update product: ${errorData}`);
+                    const errorData = await response.json();
+                    alert(`Failed to update product: ${errorData.error}`);
                 }
             } catch (error) {
                 console.error(error);
@@ -129,44 +186,79 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
             // Add New Product
             try {
-                const response = await fetch(`http://localhost:8080/product`, {
+                const response = await fetch(`http://localhost:8080/addproduct`, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ id, name, price })
+                    body: formData
                 });
                 if (response.ok) {
                     alert("Product added successfully!");
+                    productPopup.style.display = "none";
+                    initializeProducts();
                 } else {
-                    const errorData = await response.text();
-                    alert(`Failed to add product: ${errorData}`);
+                    const errorData = await response.json();
+                    alert(`Failed to add product: ${errorData.error}`);
                 }
             } catch (error) {
                 console.error(error);
                 alert("Error adding product.");
             }
         }
-
-        // Refresh product list
-        await initializeProducts();
+        // Refresh product list and close the popup
         productPopup.style.display = "none";
+        await initializeProducts();
     });
+    
 
     /**
-     * Opens the Edit Product Popup with pre-filled data.
+     * Opens the edit product popup with pre-filled data.
      * @param {string} productId - The ID of the product to edit.
      */
     async function openEditProductPopup(productId) {
-        isEditMode = true;
-        editProductId = productId;
         const product = await getProductById(productId);
         if (product) {
+            isEditMode = true;
+            editProductId = product.id;
             productPopupTitle.textContent = "Edit Product";
-            document.getElementById("product-popup-image").src = `/backend/itemPictures/${product.id}.png`;
+
+            // Populate form fields with existing product data
             document.getElementById("product-id").value = product.id;
             document.getElementById("product-name").value = product.name;
             document.getElementById("product-price").value = product.price;
+
+            // Disable the ID input field and grey it out
+            const productIdInput = document.getElementById("product-id");
+            productIdInput.disabled = true;
+            productIdInput.style.backgroundColor = "#ccc";
+
+            // Display the existing image if available
+            if (product.id) { // Ensures the product has an ID
+                productPopupImage.src = `http://localhost:8080/product/image?id=${product.id}`;
+                productPopupImage.alt = product.name;
+                productPopupImage.width = 50;
+                productPopupImage.height = 50;
+            } else {
+                productPopupImage.src = "";
+            }
+
+            // Clear the file input to allow optional image upload
+            productPopupImageUpload.value = "";
+
+            // Add a new event listener for image uploads
+            productPopupImageUpload.addEventListener("change", (event) => {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        productPopupImage.src = e.target.result;
+                        productPopupImage.style.display = 'block'; // Ensure the image is visible
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    productPopupImage.src = "";
+                    productPopupImage.style.display = 'none';
+                }
+            });
+
             productPopup.style.display = "flex";
         }
     }
@@ -196,9 +288,10 @@ document.addEventListener("DOMContentLoaded", () => {
      * @param {string} productId - The ID of the product to delete.
      */
     async function deleteProduct(productId) {
-        if (confirm("Are you sure you want to delete this product?")) {
-            try {
-                const response = await fetch(`http://localhost:8080/product?id=${productId}`, {
+        try {
+            if (confirm("Are you sure you want to delete this product?")) {
+                try {
+                const response = await fetch(`http://localhost:8080/deleteproduct?id=${productId}`, {
                     method: 'DELETE'
                 });
                 if (response.ok) {
@@ -211,8 +304,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             } catch (error) {
                 console.error(error);
-                alert("Error deleting product.");
+                    alert("Error deleting product.");
             }
+            }
+        } catch (error) {
+            console.error(error);
+            alert("Error deleting product.");
         }
     }
 
