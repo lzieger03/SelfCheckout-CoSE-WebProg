@@ -1,0 +1,232 @@
+/* -------------------------------------------------------------------
+   Admin Styles
+------------------------------------------------------------------- */
+
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+header {
+    background-color: #252E3D;
+    color: white;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.8rem;
+}
+
+#admin-controls {
+    display: flex;
+    align-items: center;
+}
+
+#logout-button {
+    background-color: #FF4742;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+#logout-button:hover {
+    background-color: #e63a3a;
+}
+
+/* Main Layout */
+main {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow-y: auto;
+}
+
+section#product-management {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+section#product-management h2 {
+    margin-bottom: 10px;
+}
+
+.action-btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 15px;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.action-btn:hover {
+    background-color: #45a049;
+}
+
+/* Product Table */
+#product-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#product-table img {
+    width: 50px;
+    height: 50px;
+}   
+
+#product-table th,
+#product-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+}
+
+#product-table th {
+    background-color: #f2f2f2;
+}
+
+#product-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.action-btn-edit {
+    background-color: #2196F3;
+}
+
+.action-btn-edit:hover {
+    background-color: #0b7dda;
+}
+
+.action-btn-delete {
+    background-color: #f44336;
+}
+
+.action-btn-delete:hover {
+    background-color: #da190b;
+}
+
+/* Popup Styles */
+.popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.popup-content {
+    background-color: #fff;
+    padding: 20px 30px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 400px;
+    position: relative;
+}
+
+.popup-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #333;
+}
+
+.popup-content h2 {
+    margin-top: 0;
+}
+
+#product-popup {
+    display: none;
+}       
+
+#product-popup-image-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+#product-popup-image {
+    width: 150px;
+    height: 150px;
+}
+
+#product-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#product-form label {
+    font-weight: bold;
+}
+
+#product-form input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#save-product-btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+#save-product-btn:hover {
+    background-color: #45a049;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    #product-table th,
+    #product-table td {
+        padding: 8px;
+    }
+
+    .action-btn {
+        padding: 8px 12px;
+    }
+
+    .popup-content {
+        padding: 15px 20px;
+    }
+
+    #save-product-btn {
+        padding: 8px;
+    }
+}

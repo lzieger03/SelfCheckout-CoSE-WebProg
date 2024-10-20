@@ -1,0 +1,74 @@
+<!-- Admin page, only accessible by admin, shows all products and allows for editing -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - ScanMate</title>
+    <link rel="stylesheet" href="./styles/admin-page-styles.css">
+    <link rel="stylesheet" href="./styles/popup-styles.css">
+</head>
+<body>
+    <!-- Header-Section ----------------------------------------------------->
+    <header>
+        <h1>Admin Dashboard</h1>
+        <div id="admin-controls">
+            <button id="logout-button">Logout</button>
+        </div>
+    </header>
+
+    <!-- Main-Section ----------------------------------------------------->
+    <main>
+        <!-- Product Management -->
+        <section id="product-management">
+            <h2>Manage Products</h2>
+            <button id="add-product-btn" class="action-btn">Add New Product</button>
+            <table id="product-table">
+                <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Product ID</th>
+                        <th>Name</th>
+                        <th>Price ($)</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Product rows will be populated here dynamically -->
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Add/Edit Product Popup -->
+        <div id="product-popup" class="popup-overlay">
+            <div class="popup-content">
+                <span class="popup-close-btn" id="product-popup-close">&times;</span>
+                <h2 id="product-popup-title">Add New Product</h2>
+                <form id="product-form">
+                    <div id="product-popup-image-container">
+                        <img src="/backend/itemPictures/default.png" alt="product-image" id="product-popup-image">
+                    </div>
+
+                    <label for="product-id">Product ID:</label>
+                    <input type="text" id="product-id" name="product-id" required>
+
+                    <label for="product-name">Name:</label>
+                    <input type="text" id="product-name" name="product-name" required>
+
+                    <label for="product-price">Price ($):</label>
+                    <input type="number" id="product-price" name="product-price" step="0.01" required>
+
+                    <button type="submit" id="save-product-btn">Save</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer-Section ----------------------------------------------------->
+    <footer>
+        <p>© 2024 ScanMate Ltd. | Admin Dashboard | Developed by Lars & Marven. All rights reserved.</p>
+    </footer>
+
+    <script src="scripts/admin-page-script.js"></script>
+</body>
+</html>

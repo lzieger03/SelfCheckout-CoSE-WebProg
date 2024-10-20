@@ -6,11 +6,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -35,19 +33,19 @@ public class ProductController {
     }
 
     /**
-     * Endpoint to retrieve a product by its ID.
+     * Retrieves a single product by its ID.
      *
-     * @param id The ID of the product to retrieve.
-     * @return A ResponseEntity containing the Product if found, or a not found response.
+     * @param id The product ID.
+     * @return The product if found, otherwise a 404 status.
      */
     @GetMapping("/product") // Entrypoint of API https://api.url/product
     public ResponseEntity<Product> getProduct(@RequestParam String id) { // @RequestParam is the API Parameter e.g.: .../product?id=123
         try {
-            Optional<Product> product = productService.getProduct(id);
-            if (product.isPresent()) {
-                return ResponseEntity.ok(product.get());
+            Optional<Product> productOpt = productService.getProduct(id);
+            if (productOpt.isPresent()) {
+                return ResponseEntity.ok(productOpt.get());
             } else {
-                return ResponseEntity.notFound().build();
+                return ResponseEntity.status(404).build();
             }
         } catch (Exception err) {
             logEvents(
@@ -56,6 +54,30 @@ public class ProductController {
                     err
             );
             return ResponseEntity.status(500).body(new Product("1", err.getMessage(), 0.0));
+        }
+    }
+
+    /**
+     * Retrieves all products.
+     *
+     * @return A list of all products.
+     */
+    @GetMapping("/allproducts")
+    public ResponseEntity<List<Product>> getAllProducts() {
+        try {
+            Optional<List<Product>> productsOpt = productService.getAllProducts();
+            if (productsOpt.isPresent()) {
+                return ResponseEntity.ok(productsOpt.get());
+            } else {
+                return ResponseEntity.status(404).build();
+            }
+        } catch (Exception err) {
+            logEvents(
+                    this.getClass().getName(),
+                    new Throwable().getStackTrace()[0].getMethodName(),
+                    err
+            );
+            return ResponseEntity.status(500).build();
         }
     }
 

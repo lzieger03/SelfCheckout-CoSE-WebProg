@@ -5,7 +5,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import javax.xml.transform.Result;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -45,6 +48,29 @@ public class ProductService {
         return null;
     }
 
+    private List<Product> getProductAll() throws SQLException {
+        List<Product> products = new ArrayList<>();
+        String url = "jdbc:sqlite:./src/main/java/com/example/springbootapi/db/item_database.db";
+        String query = "SELECT * FROM products";
+        try (Connection connection = DriverManager.getConnection(url);
+             PreparedStatement statement = connection.prepareStatement(query)) {
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    products.add(new Product(
+                            resultSet.getString(1),
+                            resultSet.getString(2),
+                            resultSet.getDouble(3)
+                    ));
+                }
+                return products;
+            }
+        } catch (Exception err) {
+            logEvents(this.getClass().getName(), new Throwable().getStackTrace()[0].getMethodName(), err);
+        }
+        return null;
+    }
+
     /**
      * Retrieves a product by its ID.
      *
@@ -53,6 +79,14 @@ public class ProductService {
      */
     public Optional<Product> getProduct(String id) {
         return Optional.ofNullable(sqlGetProductByID(id));
+    }
+    public Optional<List<Product>> getAllProducts() {
+        try {
+            return Optional.ofNullable(getProductAll());
+        } catch (SQLException e) {
+            logEvents(this.getClass().getName(), new Throwable().getStackTrace()[0].getMethodName(), e);
+        }
+        return Optional.empty();
     }
 
     /**
