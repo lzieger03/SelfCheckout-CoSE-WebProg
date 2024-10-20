@@ -13,6 +13,7 @@ body {
     display: flex;
     flex-direction: column;
     height: 100vh;
+    overflow: hidden;
 }
 
 /* -------------------------------------------------------------------
@@ -57,22 +58,33 @@ header h1 {
    Main Layout
 ------------------------------------------------------------------- */
 main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     flex: 1;
     padding: 20px;
-    display: flex;
-    flex-direction: column;
     gap: 20px;
-    overflow-y: auto;
+    overflow-y: hidden;
 }
 
 section#product-management {
+    grid-column: 1;
     background-color: white;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    height: 96%;
 }
 
 section#product-management h2 {
+    margin-bottom: 10px;
+}
+
+section#coupon-management {
+    grid-column: 2;
+    height: 96%;
+}
+
+section#coupon-management h2 {
     margin-bottom: 10px;
 }
 
@@ -92,8 +104,23 @@ section#product-management h2 {
 }
 
 /* -------------------------------------------------------------------
+   Table Container
+------------------------------------------------------------------- */
+.table-container {
+    max-height: 70vh;
+    overflow-y: scroll;
+}
+
+.table-header {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+/* -------------------------------------------------------------------
    Product Table
 ------------------------------------------------------------------- */
+
 #product-table {
     width: 100%;
     border-collapse: collapse;

@@ -23,20 +23,22 @@
         <section id="product-management">
             <h2>Manage Products</h2>
             <button id="add-product-btn" class="action-btn">Add New Product</button>
-            <table id="product-table">
-                <thead>
-                    <tr>
-                        <th>Image</th>
-                        <th>Product ID</th>
-                        <th>Name</th>
-                        <th>Price ($)</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Product rows will be populated here dynamically -->
-                </tbody>
-            </table>
+            <div class="table-container">
+                <table id="product-table">
+                    <thead class="table-header">
+                        <tr>
+                            <th>Image</th>
+                            <th>Product ID</th>
+                            <th>Name</th>
+                            <th>Price ($)</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Product rows will be populated here dynamically -->
+                    </tbody>
+                </table>
+            </div>
 
             <!-- Popup Overlay -->
             <div id="product-popup" class="popup-overlay">
@@ -67,18 +69,20 @@
         <section id="coupon-management">
             <h2>Manage Coupons</h2>
             <button id="add-coupon-btn" class="action-btn">Add New Coupon</button>
-            <table id="coupon-table">
-                <thead>
-                    <tr>
-                        <th>Coupon Code</th>
-                        <th>Discount (%)</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Coupon rows will be populated here dynamically -->
-                </tbody>
-            </table>
+            <div class="table-container">
+                <table id="coupon-table">
+                    <thead class="table-header">
+                        <tr>
+                            <th>Coupon Code</th>
+                            <th>Discount (%)</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Coupon rows will be populated here dynamically -->
+                    </tbody>
+                </table>
+            </div>
 
             <!-- Coupon Popup Overlay -->
             <div id="coupon-popup" class="popup-overlay">
