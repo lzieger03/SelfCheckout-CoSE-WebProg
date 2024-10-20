@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
     quantityDisplay.textContent = item.querySelector(
       ".barcode-list-productQuantity"
     ).textContent;
-    productImageElement.src = `/backend/itemPictures/${itemNumberElement.textContent}.png`;
+    productImageElement.src = `http://localhost:8080/product/image?id=${itemNumberElement.textContent}`;
     currentSelectedItem = item;
   }
 
@@ -179,7 +179,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const li = document.createElement("li");
       li.className = "barcode-item";
       li.innerHTML = `
-        <img src="/backend/itemPictures/${barcode}.png" alt="${productData.name}" class="barcode-list-productImage">
+        <img src="http://localhost:8080/product/image?id=${barcode}" alt="${productData.name}" class="barcode-list-productImage">
         <p class="barcode-list-productName">${productData.name}</p>
         <p class="barcode-list-productBarcode">${productData.id}</p>
         <p class="barcode-list-productSinglePrice">${productData.price.toFixed(
