@@ -255,3 +255,35 @@ footer {
         padding: 8px;
     }
 }
+
+/* Coupon Management Styles */
+section#coupon-management {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+section#coupon-management h2 {
+    margin-bottom: 10px;
+}
+
+#coupon-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#coupon-table th,
+#coupon-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+}
+
+#coupon-table th {
+    background-color: #f2f2f2;
+}
+
+#coupon-table tr:hover {
+    background-color: #f1f1f1;
+}
