@@ -105,7 +105,15 @@ document.addEventListener("DOMContentLoaded", () => {
         productPopup.style.display = "flex";
 
         //create a product id thats 13 digits long only numbers, unique and set it to the input field
-        const productId = Math.floor(Math.random() * 1e13).toString().padStart(13, '0');
+        // the id is not allowed to start with 0
+        // the id is not allowed to be 0000000000000
+        // must be 13 digits long
+        let productId = Math.floor(Math.random() * 1e13).toString().padStart(13, '1');
+        // if the id starts with 0, remove the 0 and add a 1 to the beginning
+        if (productId.startsWith('0')) {
+            productId = productId.slice(1);
+            productId = productId.padEnd(13, Math.floor(Math.random() * 10).toString());
+        }   
         document.getElementById("product-id").value = productId;
 
         //disable the id input field and grey it out

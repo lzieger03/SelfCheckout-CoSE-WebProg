@@ -123,7 +123,7 @@ public class ProductService {
     private List<Product> getProductAll() throws SQLException {
         List<Product> products = new ArrayList<>();
         String url = "jdbc:sqlite:./src/main/java/com/example/springbootapi/db/item_database.db";
-        String query = "SELECT * FROM products";
+        String query = "SELECT * FROM products ORDER BY ItemName ASC";
         try (Connection connection = DriverManager.getConnection(url);
              PreparedStatement statement = connection.prepareStatement(query)) {
 

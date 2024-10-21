@@ -33,7 +33,7 @@ header h1 {
 }
 
 #admin-controls {
-    grid-column: 3; 
+    grid-column: 3;
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -60,34 +60,117 @@ header h1 {
 main {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
     flex: 1;
     padding: 20px;
     gap: 20px;
-    overflow-y: hidden;
+    height: calc(100vh - 160px); /* Calculate height minus Header and Footer */
+    grid-template-areas: 
+    "Area1 Area2"
+    "Area1 Area3"; 
 }
 
-section#product-management {
-    grid-column: 1;
+/* -------------------------------------------------------------------
+Section Styling
+------------------------------------------------------------------- */
+section {
     background-color: white;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    height: 96%;
 }
 
-section#product-management h2 {
+section h2 {
+    margin-top: 0;
     margin-bottom: 10px;
 }
 
+/* -------------------------------------------------------------------
+Product Management
+------------------------------------------------------------------- */
+section#product-management {
+    grid-area: Area1;
+    max-height: 96%;
+}
+
+/* -------------------------------------------------------------------
+Coupon Management
+------------------------------------------------------------------- */
 section#coupon-management {
-    grid-column: 2;
-    height: 96%;
+    grid-area: Area2;
+    max-height: 92%;
 }
 
-section#coupon-management h2 {
-    margin-bottom: 10px;
+/* -------------------------------------------------------------------
+   User Management Styles
+------------------------------------------------------------------- */
+
+section#user-management {
+    grid-area: Area3;
+    max-height: 91%;
 }
 
+/* -------------------------------------------------------------------
+Table Container
+------------------------------------------------------------------- */
+.table-container {
+    overflow-y: scroll;
+}
+
+.overview-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table-header {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* -------------------------------------------------------------------
+Product Table
+------------------------------------------------------------------- */
+#product-table-container {
+    max-height: 74.5vh;
+}
+
+#product-table img {
+    width: 50px;
+    height: 50px;
+}
+
+/* -------------------------------------------------------------------
+Coupon Table
+------------------------------------------------------------------- */
+#coupon-table-container {
+    max-height: 32vh;
+}
+
+/* -------------------------------------------------------------------
+User Table
+------------------------------------------------------------------- */
+#user-table-container {
+    max-height: 29vh;
+}
+
+/* -------------------------------------------------------------------
+Action Buttons
+------------------------------------------------------------------- */
 .action-btn {
     background-color: #4CAF50;
     color: white;
@@ -101,49 +184,6 @@ section#coupon-management h2 {
 
 .action-btn:hover {
     background-color: #45a049;
-}
-
-/* -------------------------------------------------------------------
-   Table Container
-------------------------------------------------------------------- */
-.table-container {
-    max-height: 70vh;
-    overflow-y: scroll;
-}
-
-.table-header {
-    position: sticky;
-    top: 0;
-    z-index: 1;
-}
-
-/* -------------------------------------------------------------------
-   Product Table
-------------------------------------------------------------------- */
-
-#product-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-#product-table img {
-    width: 50px;
-    height: 50px;
-}   
-
-#product-table th,
-#product-table td {
-    border: 1px solid #ddd;
-    padding: 12px;
-    text-align: center;
-}
-
-#product-table th {
-    background-color: #f2f2f2;
-}
-
-#product-table tr:hover {
-    background-color: #f1f1f1;
 }
 
 .action-btn-edit {
@@ -198,13 +238,46 @@ section#coupon-management h2 {
     color: #333;
 }
 
-.popup-content h2 {
+.popup-title {
     margin-top: 0;
 }
 
+.popup-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.popup-label {
+    font-weight: bold;
+}
+
+.popup-input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.popup-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.popup-button:hover {
+    background-color: #45a049;
+}
+
+/* -------------------------------------------------------------------
+   Product Popup Styles
+------------------------------------------------------------------- */
 #product-popup {
     display: none;
-}       
+}
 
 #product-popup-image-container {
     width: 100%;
@@ -217,35 +290,20 @@ section#coupon-management h2 {
     height: 150px;
 }
 
-#product-form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+/* -------------------------------------------------------------------
+   Coupon Popup Styles
+------------------------------------------------------------------- */
+#coupon-popup {
+    display: none;
 }
 
-#product-form label {
-    font-weight: bold;
+/* -------------------------------------------------------------------
+   User Popup Styles
+------------------------------------------------------------------- */
+#user-popup {
+    display: none;
 }
 
-#product-form input {
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-#save-product-btn {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
-}
-
-#save-product-btn:hover {
-    background-color: #45a049;
-}
 
 /* -------------------------------------------------------------------
    Footer Styling
@@ -283,34 +341,33 @@ footer {
     }
 }
 
-/* Coupon Management Styles */
-section#coupon-management {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
 
-section#coupon-management h2 {
-    margin-bottom: 10px;
-}
 
-#coupon-table {
-    width: 100%;
-    border-collapse: collapse;
-}
 
-#coupon-table th,
-#coupon-table td {
-    border: 1px solid #ddd;
-    padding: 12px;
-    text-align: center;
-}
+/* Responsive Design Adjustments */
 
-#coupon-table th {
-    background-color: #f2f2f2;
-}
+@media (max-width: 768px) {
 
-#coupon-table tr:hover {
-    background-color: #f1f1f1;
+    /* Adjust User Management section in mobile view */
+    #user-management {
+        grid-column: 1 / -1;
+        grid-row: auto;
+    }
+
+    #user-table th,
+    #user-table td {
+        padding: 8px;
+    }
+
+    .action-btn {
+        padding: 8px 12px;
+    }
+
+    .popup-content {
+        padding: 15px 20px;
+    }
+
+    #save-user-btn {
+        padding: 8px;
+    }
 }

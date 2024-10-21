@@ -14,7 +14,7 @@ import java.sql.*;
 public class AdminRepository {
 
     private static final Logger logger = LoggerFactory.getLogger(AdminRepository.class);
-    private static final String DB_URL = "jdbc:sqlite:./src/main/java/com/example/springbootapi/db/login_database.db";
+    private static final String DB_URL = "jdbc:sqlite:./src/main/java/com/example/springbootapi/db/user_database.db";
 
     /**
      * Retrieves an Admin by their login.
