@@ -1,6 +1,10 @@
 package com.example.springbootapi.service;
 
+import com.example.springbootapi.api.model.user.Admin;
+import com.example.springbootapi.api.model.user.Customer;
 import com.example.springbootapi.api.model.user.User;
+import com.example.springbootapi.repository.AdminRepository;
+import com.example.springbootapi.repository.CustomerRepository;
 import com.example.springbootapi.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Service class responsible for User management and authentication.
@@ -17,6 +22,12 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private CustomerRepository customerRepository;
+
+    @Autowired
+    private AdminRepository adminRepository;
 
     /**
      * Authenticates a user with the given username and password.
@@ -35,20 +46,37 @@ public class UserService {
     }
 
     /**
-     * Adds a new user to the system.
+     * Adds a new Customer to the system.
      *
-     * @param uid      The user's id.
-     * @param username The user's username.
-     * @param email    The user's email.
-     * @param password The user's password in plain text.
-     * @param role     The role of the user (e.g., "ADMIN", "USER").
-     * @return true if the user was added successfully, false otherwise.
+     * @param uid        The user's id.
+     * @param username   The user's username.
+     * @param password   The user's password in plain text.
+     * @param role       The role of the user (should be "CUSTOMER").
+     * @param firstName  The customer's first name.
+     * @param lastName   The customer's last name.
+     * @param email      The customer's email.
+     * @return true if the customer was added successfully, false otherwise.
      */
-    public boolean addUser(String uid, String username, String email, String password, String role) {
+    public boolean addCustomer(String uid, String username, String password, String role, String firstName, String lastName, String email) {
         String hashedPassword = hashPassword(password);
-        String id = generateUniqueId(uid, role);
-        User user = new User(id, username, email, hashedPassword, role);
-        return userRepository.addUser(user);
+        String id = generateUniqueId(uid, "CUSTOMER");
+        Customer customer = new Customer(id, username, hashedPassword, role, firstName, lastName, email);
+        return customerRepository.addCustomer(customer);
+    }
+
+    /**
+     * Adds a new Admin to the system.
+     *
+     * @param uid      The admin's id.
+     * @param username The admin's username.
+     * @param password The admin's password in plain text.
+     * @return true if the admin was added successfully, false otherwise.
+     */
+    public boolean addAdmin(String uid, String username, String password) {
+        String hashedPassword = hashPassword(password);
+        String id = generateUniqueId(uid, "ADMIN");
+        Admin admin = new Admin(id, username, hashedPassword);
+        return adminRepository.addAdmin(admin);
     }
 
     /**
@@ -98,13 +126,15 @@ public class UserService {
     /**
      * Generates a unique ID for a new user.
      *
+     * @param uid   The base ID to use.
+     * @param role  The role of the user ("ADMIN" or "CUSTOMER").
      * @return A unique ID string.
      */
-    private String generateUniqueId(String id, String role) {
-        if("admin".equalsIgnoreCase(role)) {
-            return "USER_ADMIN_" + id;
+    private String generateUniqueId(String uid, String role) {
+        if ("ADMIN".equalsIgnoreCase(role)) {
+            return "USER_ADMIN_" + uid;
         }
-        return "USER_" + id;
+        return "USER_CUSTOMER_" + uid;
     }
 
     /**

@@ -1,6 +1,9 @@
 package com.example.springbootapi.api.controller;
 
+import com.example.springbootapi.repository.AdminRepository;
 import com.example.springbootapi.service.AdminService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = "http://127.0.0.1:5501") // Adjust the origin as per your frontend
 public class LoginController {
 
+    private static final Logger logger = LoggerFactory.getLogger(AdminRepository.class);
+
     @Autowired
     private AdminService adminService;
 
@@ -22,16 +27,16 @@ public class LoginController {
      * @param loginRequest An object containing login and password.
      * @return A ResponseEntity indicating the result of the authentication.
      */
-    @PostMapping("/login")
+    @PostMapping("/adminlogin")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
-        String login = loginRequest.getLogin();
+        String username = loginRequest.getUsername();
         String password = loginRequest.getPassword();
 
-        if (login == null || password == null || login.trim().isEmpty() || password.trim().isEmpty()) {
+        if (username == null || password == null || username.trim().isEmpty() || password.trim().isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse("Login and password must be provided."));
         }
 
-        boolean isAuthenticated = adminService.authenticate(login, password);
+        boolean isAuthenticated = adminService.authenticate(username, password);
         if (isAuthenticated) {
             // In a real application, you might generate a session or a JWT token here
             return ResponseEntity.ok().build();
@@ -44,17 +49,22 @@ public class LoginController {
      * Inner class to map login requests.
      */
     public static class LoginRequest {
-        private String login;
+        private String username;
         private String password;
+
+        public LoginRequest(String username, String password) {
+            this.username = username;
+            this.password = password;
+        }
 
         // Getters and Setters
 
-        public String getLogin() {
-            return login;
+        public String getUsername() {
+            return username;
         }
 
-        public void setLogin(String login) {
-            this.login = login;
+        public void setUsername(String login) {
+            this.username = username;
         }
 
         public String getPassword() {

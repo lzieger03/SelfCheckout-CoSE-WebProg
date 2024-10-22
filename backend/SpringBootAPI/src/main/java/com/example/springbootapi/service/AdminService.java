@@ -1,7 +1,9 @@
 package com.example.springbootapi.service;
 
-import com.example.springbootapi.api.model.admin.Admin;
+import com.example.springbootapi.api.model.user.Admin;
 import com.example.springbootapi.repository.AdminRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,18 +16,20 @@ import java.security.NoSuchAlgorithmException;
 @Service
 public class AdminService {
 
+    private static final Logger logger = LoggerFactory.getLogger(AdminRepository.class);
+
     @Autowired
-    private AdminRepository adminRepository = new AdminRepository();
+    private AdminRepository adminRepository;
 
     /**
      * Authenticates an admin with the given login and password.
      *
-     * @param login    The admin's login username.
-     * @param password The admin's password.
+     * @param username    The admin's login username.
+     * @param password The admin's password in plain text.
      * @return true if authentication is successful, false otherwise.
      */
-    public boolean authenticate(String login, String password) {
-        Admin admin = adminRepository.findByLogin(login);
+    public boolean authenticate(String username, String password) {
+        Admin admin = adminRepository.findAdminByUsername(username);
         if (admin == null) {
             return false;
         }
@@ -39,12 +43,12 @@ public class AdminService {
      * @param password The plain text password.
      * @return The hashed password as a hexadecimal string.
      */
-    public String hashPassword(String password) {
+    private String hashPassword(String password) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
             byte[] hashedBytes = md.digest(password.getBytes());
 
-            // Convert byte array into signum representation
+            // Convert byte array into hex string
             StringBuilder sb = new StringBuilder();
             for (byte b : hashedBytes) {
                 sb.append(String.format("%02x", b));
@@ -59,13 +63,14 @@ public class AdminService {
     /**
      * Adds a new admin to the system.
      *
-     * @param login    The admin's login username.
+     * @param uid
+     * @param username    The admin's login username.
      * @param password The admin's password in plain text.
      * @return true if the admin was added successfully, false otherwise.
      */
-    public boolean addAdmin(String login, String password) {
+    public boolean addAdmin(String uid, String username, String password) {
         String hashedPassword = hashPassword(password);
-        Admin admin = new Admin(generateUniqueId(), login, hashedPassword);
+        Admin admin = new Admin(generateUniqueId(uid), username, hashedPassword);
         return adminRepository.addAdmin(admin);
     }
 
@@ -75,9 +80,9 @@ public class AdminService {
      *
      * @return A unique ID string.
      */
-    private String generateUniqueId() {
+    private String generateUniqueId(String uid) {
         // Simple unique ID generation (for demonstration purposes)
-        return "ADMIN_" + (int)(System.currentTimeMillis() % 100000);
+        return "USER_ADMIN_" + uid;
     }
 
 //    public static void main(String[] args) {

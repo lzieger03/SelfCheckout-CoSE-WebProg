@@ -1,6 +1,8 @@
 package com.example.springbootapi.api.controller;
 
 import com.example.springbootapi.api.model.user.User;
+import com.example.springbootapi.service.AdminService;
+import com.example.springbootapi.service.CustomerService;
 import com.example.springbootapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +20,10 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private CustomerService customerService;
+    @Autowired
+    private AdminService adminService;
 
     /**
      * Retrieves all users.
@@ -47,25 +53,52 @@ public class UserController {
     }
 
     /**
-     * Adds a new user.
+     * Adds a new Customer.
      *
-     * @param user The user data to add.
+     * @param customer The Customer object to add.
      * @return A ResponseEntity indicating the result of the operation.
      */
-    @PostMapping("/adduser")
-    public ResponseEntity<?> addUser(@RequestBody User user) {
-        boolean isAdded = userService.addUser(user.getId(), user.getUsername(), user.getEmail(), user.getPassword(), user.getRole());
+    @PostMapping("/addcustomer")
+    public ResponseEntity<?> addCustomer(@RequestBody CustomerRequest customer) {
+        boolean isAdded = customerService.addCustomer(
+                customer.getUid(),
+                customer.getUsername(),
+                customer.getPassword(),
+                customer.getFirstName(),
+                customer.getLastName(),
+                customer.getEmail()
+        );
         if (isAdded) {
-            return ResponseEntity.status(HttpStatus.CREATED).body(new SuccessResponse("User added successfully."));
+            return ResponseEntity.status(HttpStatus.CREATED).body(new SuccessResponse("Customer added successfully."));
         } else {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorResponse("Failed to add user."));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorResponse("Failed to add customer."));
+        }
+    }
+
+    /**
+     * Adds a new Admin.
+     *
+     * @param admin The Admin object to add.
+     * @return A ResponseEntity indicating the result of the operation.
+     */
+    @PostMapping("/addadmin")
+    public ResponseEntity<?> addAdmin(@RequestBody AdminRequest admin) {
+        boolean isAdded = adminService.addAdmin(
+                admin.getUid(),
+                admin.getUsername(),
+                admin.getPassword()
+        );
+        if (isAdded) {
+            return ResponseEntity.status(HttpStatus.CREATED).body(new SuccessResponse("Admin added successfully."));
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorResponse("Failed to add admin."));
         }
     }
 
     /**
      * Updates an existing user.
      *
-     * @param user The user data to update.
+     * @param user The User object with updated information.
      * @return A ResponseEntity indicating the result of the operation.
      */
     @PutMapping("/updateuser")
@@ -133,6 +166,103 @@ public class UserController {
 
         public void setMessage(String message) {
             this.message = message;
+        }
+    }
+
+    /**
+     * Request class for adding a Customer.
+     */
+    public static class CustomerRequest {
+        private String uid;
+        private String username;
+        private String password;
+        private String firstName;
+        private String lastName;
+        private String email;
+
+        // Getters and Setters
+
+        public String getUid() {
+            return uid;
+        }
+
+        public void setUid(String uid) {
+            this.uid = uid;
+        }
+
+        public String getUsername() {
+            return username;
+        }
+
+        public void setUsername(String username) {
+            this.username = username;
+        }
+
+        public String getPassword() {
+            return password;
+        }
+
+        public void setPassword(String password) {
+            this.password = password;
+        }
+
+        public String getFirstName() {
+            return firstName;
+        }
+
+        public void setFirstName(String firstName) {
+            this.firstName = firstName;
+        }
+
+        public String getLastName() {
+            return lastName;
+        }
+
+        public void setLastName(String lastName) {
+            this.lastName = lastName;
+        }
+
+        public String getEmail() {
+            return email;
+        }
+
+        public void setEmail(String email) {
+            this.email = email;
+        }
+    }
+
+    /**
+     * Request class for adding an Admin.
+     */
+    public static class AdminRequest {
+        private String uid;
+        private String username;
+        private String password;
+
+        // Getters and Setters
+
+        public String getUid() {
+            return uid;
+        }
+
+        public void setUid(String uid) {
+            this.uid = uid;
+        }
+
+        public String getUsername() {
+            return username;
+        }
+
+        public void setUsername(String username) {
+            this.username = username;
+        }
+
+        public String getPassword() {
+            return password;
+        }
+
+        public void setPassword(String password) {
+            this.password = password;
         }
     }
 }

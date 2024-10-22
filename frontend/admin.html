@@ -1,6 +1,7 @@
 <!-- Admin page, only accessible by admin, shows all products, coupons, and users with editing capabilities -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,9 +9,11 @@
     <link rel="stylesheet" href="./styles/admin-page-styles.css">
     <link rel="stylesheet" href="./styles/popup-styles.css">
 </head>
+
 <body>
     <!-- Header-Section ----------------------------------------------------->
     <header>
+        <p id="admin-username">Hey x!</p>
         <h1>Admin Dashboard</h1>
         <div id="admin-controls">
             <button id="logout-button">Logout</button>
@@ -35,7 +38,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Product rows will be populated here dynamically -->
+                        <!-- Product rows will be dynamically populated here -->
                     </tbody>
                 </table>
             </div>
@@ -54,7 +57,8 @@
                         <input type="text" id="product-name" class="popup-input" name="product-name" required>
 
                         <label for="product-price" class="popup-label">Price ($):</label>
-                        <input type="number" id="product-price" class="popup-input" name="product-price" step="0.01" required>
+                        <input type="number" id="product-price" class="popup-input" name="product-price" step="0.01"
+                            required>
 
                         <label for="product-image" class="popup-label">Image:</label>
                         <input type="file" id="product-popup-image-upload" name="product-image" accept="image/*">
@@ -79,7 +83,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Coupon rows will be populated here dynamically -->
+                        <!-- Coupon rows will be dynamically populated here -->
                     </tbody>
                 </table>
             </div>
@@ -94,7 +98,8 @@
                         <input type="text" id="coupon-code" class="popup-input" name="coupon-code" required>
 
                         <label for="coupon-discount" class="popup-label">Discount (%):</label>
-                        <input type="number" id="coupon-discount" class="popup-input" name="coupon-discount" step="0.01" required>
+                        <input type="number" id="coupon-discount" class="popup-input" name="coupon-discount" step="0.01"
+                            required>
 
                         <button type="submit" id="save-coupon-btn" class="popup-button">Save</button>
                     </form>
@@ -105,7 +110,8 @@
         <!-- User Management -->
         <section id="user-management">
             <h2>Manage Users</h2>
-            <button id="add-user-btn" class="action-btn">Add New User</button>
+            <button id="add-admin-btn" class="action-btn">Add New Admin</button>
+            <button id="add-customer-btn" class="action-btn">Add New Customer</button>
             <div id="user-table-container" class="table-container">
                 <table id="user-table" class="overview-table">
                     <thead class="table-header">
@@ -122,36 +128,45 @@
                     </tbody>
                 </table>
             </div>
-
-            <!-- User Popup Overlay -->
-            <div id="user-popup" class="popup-overlay">
-                <div class="popup-content">
-                    <span id="user-popup-close" class="popup-close-btn">&times;</span>
-                    <h2 id="user-popup-title" class="popup-title">Add New User</h2>
-                    <form id="user-form" class="popup-form">
-                        <label for="user-id" class="popup-label">User ID:</label>
-                        <input type="text" id="user-id" class="popup-input" name="user-id" required>
-
-                        <label for="username" class="popup-label">Username:</label>
-                        <input type="text" id="username" class="popup-input" name="username" required>
-
-                        <label for="email" class="popup-label">Email:</label>
-                        <input type="email" id="email" class="popup-input" name="email" required>
-
-                        <label for="password" class="popup-label">Password:</label>
-                        <input type="password" id="password" class="popup-input" name="password" required>
-
-                        <label for="role" class="popup-label">Role:</label>
-                        <select id="role" class="popup-input" name="role" required>
-                            <option value="ADMIN">Admin</option>
-                            <option value="USER">User</option>
-                        </select>
-
-                        <button type="submit" id="save-user-btn" class="popup-button">Save</button>
-                    </form>
-                </div>
-            </div>
         </section>
+
+        <!-- User Popup -->
+        <div id="user-popup" class="popup-overlay">
+            <div class="popup-content">
+                <span id="user-popup-close" class="popup-close-btn">&times;</span>
+                <h2 id="user-popup-title" class="popup-title">Add New User</h2>
+                <form id="user-form" class="popup-form">
+                    <label for="user-id" class="popup-label">User ID:</label>
+                    <input type="text" id="user-id" class="popup-input" name="user-id" required disabled>
+
+                    <label for="username" class="popup-label">Username:</label>
+                    <input type="text" id="username" class="popup-input" name="username" required>
+
+                    <label for="password" class="popup-label">Password:</label>
+                    <input type="password" id="password" class="popup-input" name="password" required>
+
+                    <label for="role" class="popup-label">Role:</label>
+                    <select id="role" class="popup-input" name="role" required>
+                        <option value="ADMIN">Admin</option>
+                        <option value="CUSTOMER">Customer</option>
+                    </select>   
+
+                    <!-- Customer-specific fields -->
+                    <div id="customer-fields">
+                        <label for="first-name" class="popup-label">First Name:</label>
+                        <input type="text" id="first-name" class="popup-input" name="first-name">
+
+                        <label for="last-name" class="popup-label">Last Name:</label>
+                        <input type="text" id="last-name" class="popup-input" name="last-name">
+
+                        <label for="customer-email" class="popup-label">Customer Email:</label>
+                        <input type="email" id="customer-email" class="popup-input" name="customer-email">
+                    </div>
+
+                    <button type="submit" id="save-user-btn" class="popup-button">Save</button>
+                </form>
+            </div>
+        </div>
     </main>
 
     <!-- Footer-Section ----------------------------------------------------->
@@ -159,9 +174,10 @@
         <p>© 2024 ScanMate Ltd. | Admin Dashboard | Developed by Lars & Marven. All rights reserved.</p>
     </footer>
 
-    <script src="scripts/admin-page-script.js"></script>
-    <script src="scripts/admin-page-coupon-script.js"></script>
-    <!-- Include the new User Management script -->
-    <script src="scripts/admin-page-user-script.js"></script>
+    <script src="scripts/admin-page/standard.js"></script>
+    <script src="scripts/admin-page/product-script.js"></script>
+    <script src="scripts/admin-page/coupon-script.js"></script>
+    <script src="scripts/admin-page/user-script.js"></script>
 </body>
+
 </html>

@@ -346,8 +346,7 @@ input[type="radio"] {
     margin: 20px 0;
 }
 
-#admin-login-popup-login-input,
-#admin-login-popup-password-input {
+.admin-login-popup-input {
     font-size: 1.2rem;
     margin: 0;
     color: #252E3D;

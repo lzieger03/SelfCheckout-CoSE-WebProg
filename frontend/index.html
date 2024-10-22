@@ -44,8 +44,8 @@
             </div>
             <!-- Accessibility Controls - These buttons are intentionally not linked to any functionality! -->
             <div id="accessibility-controls">
-                <button class="accessibility-button" id="screenReader-btn"><img src="/frontend/resources/screenReaderButton.svg"
-                        class="accessibility-button-image"></button>
+                <button class="accessibility-button" id="screenReader-btn"><img
+                        src="/frontend/resources/screenReaderButton.svg" class="accessibility-button-image"></button>
                 <button class="accessibility-button" id="textSize-btn"><img src="/frontend/resources/textSizeButton.svg"
                         class="accessibility-button-image"></button>
                 <button class="accessibility-button" id="help-btn"><img src="/frontend/resources/helpButton_1.svg"
@@ -203,7 +203,8 @@
         <div id="help-popup-content">
             <span id="help-popup-close-btn" class="help-popup-close-btn">&times;</span>
             <h1>Help</h1>
-            <br><h3>Scan Items</h3>
+            <br>
+            <h3>Scan Items</h3>
             <p>Scan items by entering the barcode or scanning the barcode with the barcode scanner.</p>
             <hr><br>
             <h3>Add Items to Cart</h3>
@@ -229,7 +230,7 @@
             <span id="info-popup-close-btn" class="info-popup-close-btn">&times;</span>
             <h2>Info</h2>
             <p>ScanMate is a barcode scanner app that allows you to scan items and add them to your cart.</p>
-            <p>You can then proceed to payment with your chosen payment method.</p> 
+            <p>You can then proceed to payment with your chosen payment method.</p>
         </div>
     </div>
 
@@ -241,17 +242,20 @@
             <h2 id="admin-login-popup-title">Admin Login</h2>
             <p id="admin-login-popup-text">Enter your admin credentials to login.</p>
             <div id="admin-login-popup-input-container">
-                <input type="text" id="admin-login-popup-login-input" class="admin-login-popup-input" placeholder="Username">
-                <input type="password" id="admin-login-popup-password-input" class="admin-login-popup-input" placeholder="Password">
+                <input type="text" id="admin-login-popup-username-input" class="admin-login-popup-input"
+                    placeholder="Username">
+                <input type="password" id="admin-login-popup-password-input" class="admin-login-popup-input"
+                    placeholder="Password">
             </div>
             <button id="admin-login-popup-login-btn">Login</button>
         </div>
     </div>
 
 
-    <script src="scripts/barcode-script.js"></script>
-    <script src="scripts/payment-script.js"></script>
-    <script src="scripts/accessibility-script.js"></script>
-    <script src="scripts/admin-main-script.js"></script>
+    <script src="scripts/index-page/barcode-script.js"></script>
+    <script src="scripts/index-page/payment-script.js"></script>
+    <script src="scripts/index-page/accessibility-script.js"></script>
+    <script src="scripts/index-page/admin-login-script.js"></script>
 </body>
+
 </html>
