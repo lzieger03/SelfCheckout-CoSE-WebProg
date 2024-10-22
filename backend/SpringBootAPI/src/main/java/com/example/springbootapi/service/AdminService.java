@@ -82,7 +82,7 @@ public class AdminService {
      */
     private String generateUniqueId(String uid) {
         // Simple unique ID generation (for demonstration purposes)
-        return "USER_ADMIN_" + uid;
+        return "ADMIN_" + uid;
     }
 
 //    public static void main(String[] args) {

@@ -86,6 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             productTableBody.appendChild(tr);
         });
+        document.getElementById("product-count").textContent = `Products: ${products.length}`;
     }
 
     /**

@@ -59,6 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
             tr.appendChild(tdActions);
             couponTableBody.appendChild(tr);
         });
+        document.getElementById("coupon-count").textContent = `Active coupons: ${coupons.length}`;
     }
 
     async function initializeCoupons() {

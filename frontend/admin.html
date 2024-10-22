@@ -25,7 +25,10 @@
         <!-- Product Management -->
         <section id="product-management">
             <h2>Manage Products</h2>
-            <button id="add-product-btn" class="action-btn">Add New Product</button>
+            <div id="product-management-controls" class="section-management-controls">
+                <button id="add-product-btn" class="action-btn">Add New Product</button>
+                <p id="product-count" class="section-count">Products: 0</p>
+            </div>
             <div id="product-table-container" class="table-container">
                 <table id="product-table" class="overview-table">
                     <thead class="table-header">
@@ -72,7 +75,10 @@
         <!-- Coupon Management -->
         <section id="coupon-management">
             <h2>Manage Coupons</h2>
-            <button id="add-coupon-btn" class="action-btn">Add New Coupon</button>
+            <div id="coupon-management-controls" class="section-management-controls">
+                <button id="add-coupon-btn" class="action-btn">Add New Coupon</button>
+                <p id="coupon-count" class="section-count">Active coupons: 0</p>
+            </div>
             <div id="coupon-table-container" class="table-container">
                 <table id="coupon-table" class="overview-table">
                     <thead class="table-header">
@@ -110,8 +116,13 @@
         <!-- User Management -->
         <section id="user-management">
             <h2>Manage Users</h2>
-            <button id="add-admin-btn" class="action-btn">Add New Admin</button>
-            <button id="add-customer-btn" class="action-btn">Add New Customer</button>
+            <div id="user-management-controls" class="section-management-controls">
+                <div id="user-management-add-buttons">
+                    <button id="add-admin-btn" class="action-btn">Add New Admin</button>
+                    <button id="add-customer-btn" class="action-btn">Add New Customer</button>
+                </div>
+                <p id="user-count" class="section-count">Active users: 0</p>
+            </div>
             <div id="user-table-container" class="table-container">
                 <table id="user-table" class="overview-table">
                     <thead class="table-header">

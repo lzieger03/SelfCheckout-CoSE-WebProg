@@ -88,6 +88,6 @@ public class CustomerService {
      */
     private String generateUniqueId(String uid) {
         // Simple unique ID generation (for demonstration purposes)
-        return "USER_CUSTOMER_" + uid;
+        return "CUSTOMER_" + uid;
     }
 }

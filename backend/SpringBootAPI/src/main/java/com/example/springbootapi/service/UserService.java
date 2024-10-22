@@ -132,9 +132,9 @@ public class UserService {
      */
     private String generateUniqueId(String uid, String role) {
         if ("ADMIN".equalsIgnoreCase(role)) {
-            return "USER_ADMIN_" + uid;
+            return "ADMIN_" + uid;
         }
-        return "USER_CUSTOMER_" + uid;
+        return "CUSTOMER_" + uid;
     }
 
     /**

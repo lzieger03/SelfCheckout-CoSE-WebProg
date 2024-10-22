@@ -73,7 +73,7 @@ main {
     padding: 20px;
     gap: 20px;
     /* Calculate height minus Header and Footer */
-    height: calc(100vh - 160px); 
+    height: calc(100vh - 160px);
     grid-template-areas:
         "Area1 Area2"
         "Area1 Area3";
@@ -94,6 +94,21 @@ section h2 {
     margin-bottom: 10px;
 }
 
+.section-management-controls {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.action-btn {
+    width: fit-content;
+}
+
+.section-count {
+    margin-top: 10px;
+    font-size: 1.2rem;
+}
+
 /* -------------------------------------------------------------------
 Product Management
 ------------------------------------------------------------------- */
@@ -101,6 +116,8 @@ section#product-management {
     grid-area: Area1;
     max-height: 96%;
 }
+
+
 
 /* -------------------------------------------------------------------
 Coupon Management
@@ -119,22 +136,39 @@ section#user-management {
     max-height: 91%;
 }
 
+section#user-management #user-management-add-buttons {
+    justify-self: flex-start;
+}
+
 /* -------------------------------------------------------------------
 Table Container
 ------------------------------------------------------------------- */
 .table-container {
     overflow-y: scroll;
+    height: 100%;
+    padding-top: 0;
 }
 
 .overview-table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
 }
 
 .table-header {
     position: sticky;
+    padding-top: 0;
     top: 0;
     z-index: 1;
+    background-color: white;
+}
+
+.table-header tr th {
+    border-bottom: 1px solid #ddd;
+}
+
+tbody {
+    margin-top: 10px;
 }
 
 th,
@@ -146,6 +180,7 @@ td {
 
 th {
     background-color: #f2f2f2;
+    border-top: 1px solid #ddd;
 }
 
 tr:hover {

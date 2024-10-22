@@ -6,9 +6,11 @@ document.addEventListener("DOMContentLoaded", () => {
     if (adminUsername) {
         console.log('logged in as:', adminUsername);
         adminUsernameText.textContent = adminUsernameText.textContent.replace('x', adminUsername.toUpperCase());
+        localStorage.setItem('admin-username', adminUsername);
     } else {
         alert('No admin username cookie found');
         eraseCookie('admin-username');
+        localStorage.setItem('admin-username', '');
         window.location.href = "./index.html";
     }
     

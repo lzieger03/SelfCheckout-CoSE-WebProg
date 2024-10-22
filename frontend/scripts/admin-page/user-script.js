@@ -81,9 +81,23 @@ document.addEventListener("DOMContentLoaded", () => {
             deleteBtn.addEventListener("click", () => deleteUser(user.id));
             tdActions.appendChild(deleteBtn);
 
+            if (localStorage.getItem('admin-username') === user.username) {
+                tr.style.backgroundColor = "#F1EBEB";
+                tr.style.cursor = "not-allowed";
+                tdActions.disabled = true;
+                editBtn.disabled = true;
+                editBtn.style.backgroundColor = "#D5E3EF";
+                editBtn.style.cursor = "not-allowed";
+                deleteBtn.disabled = true;
+                deleteBtn.style.backgroundColor = "#EFD9D7";
+                deleteBtn.style.cursor = "not-allowed";
+            }
+
             tr.appendChild(tdActions);
             userTableBody.appendChild(tr);
         });
+        document.getElementById("user-count").textContent = `Active users: ${users.length}`;
+        
     }
 
     /**
