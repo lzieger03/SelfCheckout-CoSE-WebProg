@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let isEditMode = false;
     let editUserId = null;
+    let isUserListStale = localStorage.getItem("usersStale") !== "false";
 
     /**
      * Initializes the user management by fetching and rendering all users.
@@ -25,12 +26,31 @@ document.addEventListener("DOMContentLoaded", () => {
      * @returns {Promise<Array>} A promise that resolves to an array of users.
      */
     async function fetchAllUsers() {
+        // If users are cached and not stale, return from localStorage
+        if (!isUserListStale && localStorage.getItem("users")) {
+            try {
+                return JSON.parse(localStorage.getItem("users"));
+            } catch (error) {
+                console.warn("Error parsing cached users:", error);
+                isUserListStale = true;
+            }
+        }
+
         try {
             const response = await fetch('http://localhost:8080/allusers');
             if (!response.ok) {
                 throw new Error(`Error fetching users: ${response.statusText}`);
             }
             const users = await response.json();
+            
+            try {
+                localStorage.setItem("users", JSON.stringify(users));
+                localStorage.setItem("usersStale", "false");
+                isUserListStale = false;
+            } catch (error) {
+                console.warn("Failed to cache users:", error);
+            }
+
             return users;
         } catch (error) {
             console.error(error);
@@ -211,6 +231,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 throw new Error(errorMsg);
             }
 
+            isUserListStale = true;
+            localStorage.setItem("usersStale", "true");
             alert(isEditMode ? "User updated successfully." : "User added successfully.");
             userPopup.style.display = "none";
             initializeUsers();
@@ -281,6 +303,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 throw new Error(errorMsg);
             }
 
+            isUserListStale = true;
+            localStorage.setItem("usersStale", "true");
             alert("User deleted successfully.");
             initializeUsers();
         } catch (error) {

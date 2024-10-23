@@ -8,14 +8,34 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let isEditMode = false;
     let editCouponCode = null;
+    let isCouponListStale = localStorage.getItem("couponsStale") !== "false";
 
     async function fetchAllCoupons() {
+        // If coupons are cached and not stale, return from localStorage
+        if (!isCouponListStale && localStorage.getItem("coupons")) {
+            try {
+                return JSON.parse(localStorage.getItem("coupons"));
+            } catch (error) {
+                console.warn("Error parsing cached coupons:", error);
+                isCouponListStale = true;
+            }
+        }
+
         try {
             const response = await fetch('http://localhost:8080/allcoupons');
             if (!response.ok) {
                 throw new Error(`Error fetching coupons: ${response.statusText}`);
             }
             const coupons = await response.json();
+            
+            try {
+                localStorage.setItem("coupons", JSON.stringify(coupons));
+                localStorage.setItem("couponsStale", "false");
+                isCouponListStale = false;
+            } catch (error) {
+                console.warn("Failed to cache coupons:", error);
+            }
+
             return coupons;
         } catch (error) {
             console.error(error);
@@ -122,6 +142,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 throw new Error(errorMsg);
             }
 
+            isCouponListStale = true;
+            localStorage.setItem("couponsStale", "true");
             alert("Coupon saved successfully.");
             couponPopup.style.display = "none";
             initializeCoupons(); // Refresh the coupon list
@@ -149,6 +171,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 throw new Error(errorMsg);
             }
 
+            isCouponListStale = true;
+            localStorage.setItem("couponsStale", "true");
             alert("Coupon deleted successfully.");
             initializeCoupons(); // Refresh the coupon list
         } catch (error) {

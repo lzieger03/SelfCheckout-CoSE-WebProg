@@ -11,18 +11,50 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let isEditMode = false;
     let editProductId = null;
+    let isProductListStale = localStorage.getItem("productsStale") !== "false";
+
+    const IMAGE_CACHE_PREFIX = 'product_image_';
 
     /**
      * Fetches all products from the backend API.
      * @returns {Promise<Array>} A promise that resolves to an array of products.
      */
     async function fetchAllProducts() {
+        // If products are cached and not stale, return from localStorage
+        if (!isProductListStale && localStorage.getItem("products") && localStorage.getItem("products") !== "[]") {
+            try {
+                return JSON.parse(localStorage.getItem("products"));
+            } catch (error) {
+                console.warn("Error parsing cached products:", error);
+                isProductListStale = true; // Mark as stale if there's an error
+                localStorage.setItem("productsStale", "true");
+            }
+        }
+
         try {
             const response = await fetch('http://localhost:8080/allproducts');
             if (!response.ok) {
                 throw new Error(`Error fetching products: ${response.statusText}`);
             }
             const products = await response.json();
+            
+            // Store products without image data to reduce storage size
+            const productsForCache = products.map(product => ({
+                id: product.id,
+                name: product.name,
+                price: product.price
+                // Intentionally omitting itemImage
+            }));
+
+            try {
+                localStorage.setItem("products", JSON.stringify(productsForCache));
+                localStorage.setItem("productsStale", "false");
+                isProductListStale = false;
+            } catch (error) {
+                console.warn("Failed to cache products:", error);
+                // Continue even if caching fails
+            }
+
             return products;
         } catch (error) {
             console.error(error);
@@ -41,12 +73,22 @@ document.addEventListener("DOMContentLoaded", () => {
             const tr = document.createElement("tr");
 
             const tdImg = document.createElement("td");
-            if (product.id) { // Ensure the product has an ID
+            if (product.id) {
                 const img = document.createElement("img");
-                img.src = `http://localhost:8080/product/image?id=${product.id}`;
-                img.alt = product.name;
                 img.width = 50;
                 img.height = 50;
+                img.alt = product.name;
+                
+                // Use cached image or fetch new one
+                getProductImage(product.id).then(imageSrc => {
+                    if (imageSrc) {
+                        img.src = imageSrc;
+                    } else {
+                        img.src = ''; // or a default image
+                        img.alt = 'No Image';
+                    }
+                });
+                
                 tdImg.appendChild(img);
             } else {
                 tdImg.textContent = "No Image";
@@ -180,6 +222,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     body: formData
                 });
                 if (response.ok) {
+                    isProductListStale = true;
+                    localStorage.setItem("productsStale", "true");
+                    clearImageCache(id); // Clear cache for specific product
                     alert("Product updated successfully!");
                     productPopup.style.display = "none";
                     initializeProducts();
@@ -199,6 +244,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     body: formData
                 });
                 if (response.ok) {
+                    isProductListStale = true;
+                    localStorage.setItem("productsStale", "true");
                     alert("Product added successfully!");
                     productPopup.style.display = "none";
                     initializeProducts();
@@ -239,11 +286,16 @@ document.addEventListener("DOMContentLoaded", () => {
             productIdInput.style.backgroundColor = "#ccc";
 
             // Display the existing image if available
-            if (product.id) { // Ensures the product has an ID
-                productPopupImage.src = `http://localhost:8080/product/image?id=${product.id}`;
-                productPopupImage.alt = product.name;
-                productPopupImage.width = 50;
-                productPopupImage.height = 50;
+            if (product.id) {
+                const imageSrc = await getProductImage(product.id);
+                if (imageSrc) {
+                    productPopupImage.src = imageSrc;
+                    productPopupImage.alt = product.name;
+                    productPopupImage.style.display = 'block';
+                } else {
+                    productPopupImage.src = "";
+                    productPopupImage.style.display = 'none';
+                }
             } else {
                 productPopupImage.src = "";
             }
@@ -303,6 +355,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     method: 'DELETE'
                 });
                 if (response.ok) {
+                    isProductListStale = true;
+                    localStorage.setItem("productsStale", "true");
+                    clearImageCache(productId); // Clear cache for deleted product
                     alert("Product deleted successfully!");
                     // Refresh product list
                     await initializeProducts();
@@ -318,6 +373,115 @@ document.addEventListener("DOMContentLoaded", () => {
         } catch (error) {
             console.error(error);
             alert("Error deleting product.");
+        }
+    }
+    
+    async function getProductImage(productId) {
+        // Try to get from cache first
+        const cachedImage = localStorage.getItem(`${IMAGE_CACHE_PREFIX}${productId}`);
+        if (cachedImage && !isProductListStale) {
+            return cachedImage;
+        }
+        
+        try {
+            const response = await fetch(`http://localhost:8080/product/image?id=${productId}`);
+            if (!response.ok) throw new Error('Failed to fetch image');
+            
+            const blob = await response.blob();
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onloadend = () => {
+                    // Compress image before caching
+                    const img = new Image();
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas');
+                        const ctx = canvas.getContext('2d');
+                        
+                        // Set maximum dimensions
+                        const maxWidth = 200;
+                        const maxHeight = 200;
+                        
+                        let width = img.width;
+                        let height = img.height;
+                        
+                        // Calculate new dimensions
+                        if (width > height) {
+                            if (width > maxWidth) {
+                                height *= maxWidth / width;
+                                width = maxWidth;
+                            }
+                        } else {
+                            if (height > maxHeight) {
+                                width *= maxHeight / height;
+                                height = maxHeight;
+                            }
+                        }
+                        
+                        canvas.width = width;
+                        canvas.height = height;
+                        
+                        // Draw and compress
+                        ctx.drawImage(img, 0, 0, width, height);
+                        const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.6);
+                        
+                        try {
+                            localStorage.setItem(`${IMAGE_CACHE_PREFIX}${productId}`, compressedDataUrl);
+                        } catch (error) {
+                            if (error.name === 'QuotaExceededError') {
+                                // Clear old images if storage is full
+                                clearOldImageCache();
+                                try {
+                                    localStorage.setItem(`${IMAGE_CACHE_PREFIX}${productId}`, compressedDataUrl);
+                                } catch (e) {
+                                    console.warn('Still unable to cache image after clearing:', e);
+                                }
+                            }
+                        }
+                        resolve(compressedDataUrl);
+                    };
+                    img.src = reader.result;
+                };
+                reader.onerror = reject;
+                reader.readAsDataURL(blob);
+            });
+        } catch (error) {
+            console.error('Error fetching image:', error);
+            return null;
+        }
+    }
+    
+    function clearOldImageCache() {
+        const imagesToKeep = 10; // Adjust this number based on your needs
+        const imageKeys = [];
+        
+        // Collect all image keys
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            if (key.startsWith(IMAGE_CACHE_PREFIX)) {
+                imageKeys.push(key);
+            }
+        }
+        
+        // Remove oldest images if we have more than imagesToKeep
+        if (imageKeys.length > imagesToKeep) {
+            imageKeys
+                .slice(0, imageKeys.length - imagesToKeep)
+                .forEach(key => localStorage.removeItem(key));
+        }
+    }
+    
+    // Add function to clear image cache (add after getProductImage function)
+    function clearImageCache(productId) {
+        if (productId) {
+            localStorage.removeItem(`${IMAGE_CACHE_PREFIX}${productId}`);
+        } else {
+            // Clear all image cache
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key.startsWith(IMAGE_CACHE_PREFIX)) {
+                    localStorage.removeItem(key);
+                }
+            }
         }
     }
 

@@ -21,12 +21,14 @@
 
 .popup-title {
     margin-top: 0;
+    margin-bottom: 10px;
 }
 
 .popup-form {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    width: 100%;
 }
 
 .popup-label {
@@ -37,6 +39,7 @@
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    width: 100%;
 }
 
 .popup-button {
