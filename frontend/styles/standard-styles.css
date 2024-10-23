@@ -1,0 +1,65 @@
+/* -------------------------------------------------------------------
+   General Styles
+------------------------------------------------------------------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #E3E6E6;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    list-style: none;
+    justify-content: space-between;
+    overflow: hidden;
+}
+
+#root {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+/* -------------------------------------------------------------------
+   Main Layout
+------------------------------------------------------------------- */
+main {
+    display: flex;
+    flex: 1;
+    padding: 20px;
+    gap: 20px;
+    overflow: hidden; /* Prevents additional scrolling of the entire main */
+    height: calc(100vh - 160px); /* Calculate height minus Header and Footer */
+}
+
+/* -------------------------------------------------------------------
+   Header Styling
+------------------------------------------------------------------- */
+header {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    background-color: #252E3D;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+}
+
+header h1 {
+    grid-column: 2;
+    font-size: 1.6rem;
+}
+
+/* -------------------------------------------------------------------
+   Footer Styling
+------------------------------------------------------------------- */
+footer {
+    background-color: #252E3D;
+    color: white;
+    text-align: center;
+    font-size: 0.9rem;
+    padding: 1rem;
+}

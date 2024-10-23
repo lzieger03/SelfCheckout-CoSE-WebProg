@@ -5,8 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ScanMate</title>
-    <link rel="stylesheet" href="./styles/main-styles.css">
-    <link rel="stylesheet" href="./styles/popup-styles.css">
+    <link rel="stylesheet" href="./styles/index-page/styles.css">
+    <link rel="stylesheet" href="./styles/index-page/popup-styles.css">
+    <link rel="stylesheet" href="./styles/standard-styles.css">
+    <link rel="stylesheet" href="./styles/standard-popup-styles.css">
 </head>
 
 <body>
@@ -105,31 +107,35 @@
     <!-- Popup Overlays ----------------------------------------------------------------------------------------->
     <!-- StartPopup-Overlay ----------------------------------------------------->
     <div id="start-popup" class="popup-overlay">
-        <div id="start-popup-content">
-            <img src="resources/startPopup.svg" alt="Start by scanning your fist item or tap the screen">
+        <div id="start-popup-content" class="popup-content">
+            <img src="resources/startPopup.svg" id="start-popup-image" class="popup-image" 
+            alt="Start by scanning your fist item or tap the screen">
         </div>
     </div>
 
     <!-- ItemNotFoundPopup-Overlay ---------------------------------------------->
     <div id="itemNotFound-popup" class="popup-overlay">
-        <div id="itemNotFound-popup-content">
-            <img src="resources/prodNotFound.svg" alt="Product Not Found. Tap to continue">
+        <div id="itemNotFound-popup-content" class="popup-content">
+            <img src="resources/prodNotFound.svg" id="itemNotFound-popup-image" class="popup-image" 
+            alt="Product Not Found. Tap to continue">
         </div>
     </div>
 
     <!-- CartEmptyPopup-Overlay ------------------------------------------------->
     <div id="cartEmpty-popup" class="popup-overlay">
-        <div id="cartEmpty-popup-content">
-            <img src="resources/popup-cartEmpty.svg"
+        <div id="cartEmpty-popup-content" class="popup-content">
+            <img src="resources/popup-cartEmpty.svg" id="cartEmpty-popup-image" class="popup-image"
                 alt="Your cart is empty. Please add products before proceeding to payment. Tap to continue">
         </div>
     </div>
 
     <!-- CouponPopup-Overlay ---------------------------------------------------->
     <div id="coupon-popup" class="popup-overlay">
-        <div id="coupon-popup-content">
+        <div id="coupon-popup-content" class="popup-content">
+            <span id="coupon-popup-close-btn" class="popup-close-btn">&times;</span>
             <p>Enter Coupon Code</p>
-            <input type="text" name="coupon-input" id="coupon-input">
+            <input type="text" name="coupon-input" id="coupon-input" class="popup-input" 
+            placeholder="Enter Coupon Code">
             <div id="coupon-btn-container">
                 <button id="coupon-apply-btn" class="coupon-btn">Apply</button>
                 <button id="coupon-cancel-btn" class="coupon-btn">Cancel</button>
@@ -138,96 +144,133 @@
     </div>
 
     <!-- PaymentPopup-Overlay --------------------------------------------------->
-    <div id="payment-popup" class="payment-popup-overlay">
-        <div class="payment-popup-content">
-            <span id="payment-close-popup" class="payment-popup-close-btn">&times;</span>
+    <div id="payment-popup" class="popup-overlay">
+        <div id="payment-popup-content" class="popup-content">
+            <span id="payment-popup-close-btn" class="popup-close-btn">&times;</span>
             <h2>Choose Payment Method</h2>
-            <p id="payment-popup-subtotal">Subtotal: 0.00$</p>
-            <p id="payment-popup-tax">Tax: 0.00$</p>
-            <p id="payment-popup-total">Total: 0.00$</p>
-            <ul class="payment-popup-methods">
-                <li>
-                    <input type="radio" name="payment" id="apple-pay" value="Apple Pay">
-                    <label for="apple-pay" class="payment-popup-card-option">
-                        <img src="resources/payment-applepay.png" class="payment-popup-icon">
-                        <span class="payment-popup-info">
-                            <strong>Apple Pay</strong>
-                        </span>
-                    </label>
-                </li>
-                <li>
-                    <input type="radio" name="payment" id="google-pay" value="Google Pay">
-                    <label for="google-pay" class="payment-popup-card-option">
-                        <img src="resources/payment-googlepay.png" class="payment-popup-icon">
-                        <span class="payment-popup-info">
-                            <strong>Google Pay</strong>
-                        </span>
-                    </label>
-                </li>
-                <li>
-                    <input type="radio" name="payment" id="debit-credit" value="Debit/Credit">
-                    <label for="debit-credit" class="payment-popup-card-option">
-                        <img src="resources/payment-creditcard.png" class="payment-popup-icon">
-                        <span class="payment-popup-info">
-                            <strong>Debit/Credit</strong>
-                        </span>
-                    </label>
-                </li>
-                <li>
-                    <input type="radio" name="payment" id="cash" value="Cash">
-                    <label for="cash" class="payment-popup-card-option">
-                        <img src="resources/payment-cash.png" class="payment-popup-icon">
-                        <span class="payment-popup-info">
-                            <strong>Cash</strong>
-                        </span>
-                    </label>
-                </li>
-                <li>
-                    <input type="radio" name="payment" id="giftcard" value="Giftcard">
-                    <label for="giftcard" class="payment-popup-card-option">
-                        <img src="resources/payment-giftcard.png" class="payment-popup-icon">
-                        <span class="payment-popup-info">
-                            <strong>Giftcard</strong>
-                        </span>
-                    </label>
-                </li>
-            </ul>
-            <button id="payment-popup-proceed-button" class="payment-popup-proceed-btn" disabled>Proceed
-                with payment</button>
+            <div id="payment-summary" class="payment-summary">
+                <label class="payment-summary-label">Subtotal:</label>
+                <p id="payment-popup-subtotal" class="payment-summary-amount">$0.00</p>
+                <label class="payment-summary-label">Tax (7.5%):</label>
+                <p id="payment-popup-tax" class="payment-summary-amount">$0.00</p>
+                <label class="payment-summary-label">Total:</label> 
+                <p id="payment-popup-total" class="payment-summary-amount">$0.00</p>
+            </div>
+            <form id="payment-form">
+                <ul id="payment-popup-methods" class="payment-popup-methods">
+                    <li>
+                        <input type="radio" name="payment" id="apple-pay" value="Apple Pay">
+                        <label for="apple-pay" class="payment-popup-card-option">
+                            <img src="resources/payment-applepay.png" class="payment-popup-icon" alt="Apple Pay">
+                            <span class="payment-popup-info">
+                                <strong>Apple Pay</strong>
+                            </span>
+                        </label>
+                    </li>
+                    <li>
+                        <input type="radio" name="payment" id="google-pay" value="Google Pay">
+                        <label for="google-pay" class="payment-popup-card-option">
+                            <img src="resources/payment-googlepay.png" class="payment-popup-icon" alt="Google Pay">
+                            <span class="payment-popup-info">
+                                <strong>Google Pay</strong>
+                            </span>
+                        </label>
+                    </li>
+                    <li>
+                        <input type="radio" name="payment" id="debit-credit" value="Debit/Credit">
+                        <label for="debit-credit" class="payment-popup-card-option">
+                            <img src="resources/payment-creditcard.png" class="payment-popup-icon" alt="Debit/Credit">
+                            <span class="payment-popup-info">
+                                <strong>Debit/Credit</strong>
+                            </span>
+                        </label>
+                    </li>
+                    <li>
+                        <input type="radio" name="payment" id="cash" value="Cash">
+                        <label for="cash" class="payment-popup-card-option">
+                            <img src="resources/payment-cash.png" class="payment-popup-icon" alt="Cash">
+                            <span class="payment-popup-info">
+                                <strong>Cash</strong>
+                            </span>
+                        </label>
+                    </li>
+                    <li>
+                        <input type="radio" name="payment" id="giftcard" value="Giftcard">
+                        <label for="giftcard" class="payment-popup-card-option">
+                            <img src="resources/payment-giftcard.png" class="payment-popup-icon" alt="Giftcard">
+                            <span class="payment-popup-info">
+                                <strong>Giftcard</strong>
+                            </span>
+                        </label>
+                    </li>
+                </ul>
+                <button id="payment-popup-proceed-button" class="popup-btn" disabled>Proceed with Payment</button>
+            </form>
         </div>
     </div>
 
     <!-- Accessability Popup-Section ----------------------------------------------------->
     <!-- HelpPopup-Overlay ------------------------------------------------->
     <div id="help-popup" class="popup-overlay">
-        <div id="help-popup-content">
-            <span id="help-popup-close-btn" class="help-popup-close-btn">&times;</span>
+        <div id="help-popup-content" class="popup-content">
+            <span id="help-popup-close-btn" class="popup-close-btn">&times;</span>
             <h1>Help</h1>
             <br>
-            <h3>Scan Items</h3>
-            <p>Scan items by entering the barcode or scanning the barcode with the barcode scanner.</p>
-            <hr><br>
-            <h3>Add Items to Cart</h3>
-            <p>Add items to the cart by tapping the "+" button to increase the quantity.</p>
-            <p>Remove items from the cart by tapping the "-" button to decrease the quantity.</p>
-            <hr><br>
-            <h3>Add a Coupon</h3>
-            <p>Add a coupon by tapping the "Add Coupon" button and entering the coupon code.</p>
-            <p>Apply the coupon by tapping the "Apply" button.</p>
-            <p>Cancel the coupon by tapping the "Cancel" button.</p>
-            <hr><br>
-            <h3>Proceed to Payment</h3>
-            <p>Proceed to payment by tapping the "Pay →" button.</p>
-            <p>Cancel the payment by tapping the "x" button in the top right corner.</p>
-            <p>Choose your payment method by tapping the desired payment method.</p>
-            <p>Proceed with the payment by tapping the "Proceed with payment" button.</p>
+            <div id="help-popup-content-container">
+                <div class="collapsible-container">
+                    <button type="button" class="collapsible">Scan Items</button>
+                    <div class="collapsible-content">
+                        <ul>
+                            <li>Scan items by entering the barcode or scanning the barcode with the barcode scanner.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="collapsible-container">
+                    <button type="button" class="collapsible">Add Items to Cart</button>
+                    <div class="collapsible-content">
+                        <ul>
+                            <li>Add items to the cart by tapping the "+" button to increase the quantity.</li>
+                            <li>Remove items from the cart by tapping the "-" button to decrease the quantity.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="collapsible-container">
+                    <button type="button" class="collapsible">Add a Coupon</button>
+                    <div class="collapsible-content">
+                        <ul>
+                            <li>Add a coupon by tapping the "Add Coupon" button and entering the coupon code.</li>
+                            <li>Apply the coupon by tapping the "Apply" button.</li>
+                            <li>Cancel the coupon by tapping the "Cancel" button.</li>
+                    </div>
+                </div>
+                <div class="collapsible-container">
+                    <button type="button" class="collapsible">Login as Customer</button>
+                    <div class="collapsible-content">
+                        <ul>
+                            <li>Login as customer by tapping the "Login as Customer" button.</li>
+                            <li>Enter your customer credentials to login.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="collapsible-container">
+                    <button type="button" class="collapsible">Proceed to Payment</button>
+                    <div class="collapsible-content">
+                        <ul>
+                            <li>Proceed to payment by tapping the "Pay →" button.</li>
+                            <li>Cancel the payment by tapping the "x" button in the top right corner.</li>
+                            <li>Choose your payment method by tapping the desired payment method.</li>
+                            <li>Proceed with the payment by tapping the "Proceed with payment" button.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
     <!-- InfoPopup-Overlay ------------------------------------------------->
     <div id="info-popup" class="popup-overlay">
-        <div id="info-popup-content">
-            <span id="info-popup-close-btn" class="info-popup-close-btn">&times;</span>
+        <div id="info-popup-content" class="popup-content">
+            <span id="info-popup-close-btn" class="popup-close-btn">&times;</span>
             <h2>Info</h2>
             <p>ScanMate is a barcode scanner app that allows you to scan items and add them to your cart.</p>
             <p>You can then proceed to payment with your chosen payment method.</p>
@@ -237,14 +280,14 @@
 
     <!-- AdminLoginPopup-Overlay ------------------------------------------------->
     <div id="admin-login-popup" class="popup-overlay">
-        <div id="admin-login-popup-content">
-            <span id="admin-login-popup-close-btn" class="admin-login-popup-close-btn">&times;</span>
+        <div id="admin-login-popup-content" class="popup-content">
+            <span id="admin-login-popup-close-btn" class="popup-close-btn">&times;</span>
             <h2 id="admin-login-popup-title">Admin Login</h2>
             <p id="admin-login-popup-text">Enter your admin credentials to login.</p>
             <div id="admin-login-popup-input-container">
-                <input type="text" id="admin-login-popup-username-input" class="admin-login-popup-input"
+                <input type="text" id="admin-login-popup-username-input" class="popup-input"
                     placeholder="Username">
-                <input type="password" id="admin-login-popup-password-input" class="admin-login-popup-input"
+                <input type="password" id="admin-login-popup-password-input" class="popup-input"
                     placeholder="Password">
             </div>
             <button id="admin-login-popup-login-btn">Login</button>
@@ -257,5 +300,4 @@
     <script src="scripts/index-page/accessibility-script.js"></script>
     <script src="scripts/index-page/admin-login-script.js"></script>
 </body>
-
 </html>

@@ -1,74 +1,54 @@
 /* -------------------------------------------------------------------
-   Pop-up Overlays
+   Specific Popup Styles - index.html
 ------------------------------------------------------------------- */
-.popup-overlay {
+/* -------------------------------------------------------------------
+   Start Popup
+------------------------------------------------------------------- */
+#start-popup {
     display: flex;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8); /* Dark background */
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
 }
 
-/* Start Popup */
 #start-popup-content {
-    display: flex;
-    background-color: #E3E6E6;
-    border-radius: 20px;
     max-width: 85%;
     max-height: 85%;
-    align-items: center;
+    padding: 0;
 }
 
-#start-popup-content img {
-    height: 100%;
+#start-popup-image {
     width: 100%;
     border-radius: 20px;
+    padding: 0;
 }
 
-/* Item Not Found Popup */
+/* -------------------------------------------------------------------
+   Item Not Found Popup
+------------------------------------------------------------------- */
 #itemNotFound-popup {
     display: none;
 }
 
 #itemNotFound-popup-content {
-    display: flex;
-    background-color: #E3E6E6;
-    border-radius: 20px;
-    height: 70%;
     width: fit-content;
-    align-items: center;
+    height: 70%;
+    padding: 0;
 }
 
-#itemNotFound-popup-content img {
-    height: 100%;
-    border-radius: 20px;
-}
-
-/* Cart Empty Popup */
+/* -------------------------------------------------------------------
+   Cart Empty Popup
+------------------------------------------------------------------- */
 #cartEmpty-popup {
     display: none;
 }
 
 #cartEmpty-popup-content {
-    display: flex;
-    background-color: #E3E6E6;
-    border-radius: 20px;
-    height: 70%;
     width: fit-content;
-    align-items: center;
+    height: 70%;
+    padding: 0;
 }
 
-#cartEmpty-popup-content img {
-    height: 100%;
-    border-radius: 20px;
-}
-
-/* Coupon Popup */
+/* -------------------------------------------------------------------
+   Coupon Popup
+------------------------------------------------------------------- */
 #coupon-popup {
     display: none;
     align-items: center;
@@ -80,8 +60,6 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: #E3E6E6;
-    border-radius: 20px;
     height: 30%;
     width: 30%;
     padding: 20px;
@@ -162,6 +140,13 @@
     position: relative;
 }
 
+#help-popup-content {
+    width: 40%;
+    height: 70%;
+    overflow-y: scroll;
+    justify-content: flex-start;
+}
+
 #help-popup-close-btn,
 #info-popup-close-btn {
     position: absolute;
@@ -177,24 +162,75 @@
     margin: 10px 0;
 }
 
+#help-popup-content-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    margin: 10px 0;
+}
+
+/* -------------------------------------------------------------------
+   Collapsible Help Sections
+------------------------------------------------------------------- */
+.collapsible-container {
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.collapsible {
+    background-color: #f1f1f1;
+    color: #444;
+    cursor: pointer;
+    padding: 10px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 1.1rem;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.collapsible:hover {
+    background-color: #ddd;
+}
+
+.collapsible.active {
+    background-color: #ccc;
+}
+
+.collapsible-content {
+    padding: 0 15px;
+    display: none;
+    overflow: hidden;
+    background-color: #f9f9f9;
+    border-left: 3px solid #ccc;
+    margin-top: 5px;
+    border-radius: 0 5px 5px 5px;
+    text-align: left;
+    transition: display 0.3s ease;
+}
+
+.collapsible-content li {
+    margin: 10px;
+}
+
+/* Arrow indicator */
+.collapsible::after {
+    content: '\002B'; /* Plus sign */
+    font-size: 1.2rem;
+    float: right;
+}
+
+.collapsible.active::after {
+    content: "\2212"; /* Minus sign */
+}
 
 /* -------------------------------------------------------------------
    Payment Popup
 ------------------------------------------------------------------- */
-.payment-popup-overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-}
-
-.payment-popup-content {
+#payment-popup-content {
     background-color: white;
     border-radius: 10px;
     padding: 20px;
@@ -204,22 +240,42 @@
     position: relative;
 }
 
-.payment-popup-content h2 {
+#payment-popup-content h2 {
     font-size: 1.5rem;
     margin-bottom: 20px;
 }
 
-.payment-popup-close-btn {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    font-size: 1.5rem;
-    cursor: pointer;
+#payment-summary {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 2fr;
+    align-items: flex-start;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.payment-summary-label,
+.payment-summary-amount {
+    margin: 5px 0;
+}
+
+.payment-summary-label {
+    grid-column: 2;
+    text-align: left;
+    vertical-align: middle;
+    font-size: 1.2rem;
     color: #333;
 }
 
-.payment-popup-close-btn:hover {
-    color: #252E3D;
+.payment-summary-amount {
+    grid-column: 3;
+    text-align: right;
+    vertical-align: middle;
+    font-size: 1.2rem;
+}
+
+#payment-popup-total {
+    font-weight: bold;
+    font-size: 1.2rem;
 }
 
 .payment-popup-methods {
@@ -227,7 +283,7 @@
     justify-content: space-between;
     flex-wrap: wrap;
     padding: 0;
-    margin: 0;
+    margin: 0 0 20px 0;
     list-style: none;
 }
 
@@ -279,7 +335,7 @@ input[type="radio"] {
     display: none;
 }
 
-.payment-popup-proceed-btn {
+#payment-popup-proceed-button {
     background-color: #CCCCCC;
     color: #252E3D;
     font-weight: bold;
@@ -291,16 +347,15 @@ input[type="radio"] {
     transition: all 0.2s cubic-bezier(.22, .61, .36, 1);
 }
 
-.payment-popup-proceed-btn.active {
+#payment-popup-proceed-button.active {
     cursor: pointer;
     background-color: #FBDC3C;
 }
 
-.payment-popup-proceed-btn:hover.active {
+#payment-popup-proceed-button:hover.active {
     transform: translateY(-2px);
     background-color: #F0CD20;
 }
-
 
 /* -------------------------------------------------------------------  
    Admin Login Popup
@@ -310,7 +365,6 @@ input[type="radio"] {
 }   
 
 #admin-login-popup-content {
-    background-color: #E3E6E6; 
     border-radius: 20px;
     padding: 20px;
     width: 30%;
@@ -346,17 +400,6 @@ input[type="radio"] {
     margin: 20px 0;
 }
 
-.admin-login-popup-input {
-    font-size: 1.2rem;
-    margin: 0;
-    color: #252E3D;
-    border-radius: 10px;
-    line-height: 2;
-    padding: 5px 10px;
-    width: 100%;
-    border: 2px solid #f0cd204c;
-}
-
 #admin-login-popup-login-btn {
     background-color: #FBDC3C;
     border-radius: 10px;
@@ -384,3 +427,56 @@ input[type="radio"] {
     cursor: pointer;
     color: #333;
 }
+
+/* -------------------------------------------------------------------
+   Animations
+------------------------------------------------------------------- */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* -------------------------------------------------------------------
+   Responsive Design
+------------------------------------------------------------------- */
+@media (max-width: 600px) {
+    .popup-content {
+        padding: 20px 25px;
+        border-radius: 15px;
+        max-width: 90%;
+    }
+
+    .payment-popup-card-option {
+        width: 120px;
+        height: 120px;
+    }
+
+    .payment-popup-icon {
+        width: 50px;
+        height: 50px;
+    }
+
+    .payment-summary p {
+        font-size: 1rem;
+    }
+
+    .payment-popup-proceed-btn {
+        padding: 10px;
+        font-size: 1rem;
+    }
+
+    #coupon-popup-content {
+        width: 80%;
+    }
+
+    #admin-login-popup-content {
+        width: 80%;
+    }
+}
+

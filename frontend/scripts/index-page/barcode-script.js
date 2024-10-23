@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const couponApplyButton = document.getElementById("coupon-apply-btn");
   const couponCancelButton = document.getElementById("coupon-cancel-btn");  
   const couponInput = document.getElementById("coupon-input");
-
+  const couponCloseButton = document.getElementById("coupon-popup-close-btn");
   // Admin login initialization
   const adminLoginPopup = document.getElementById("admin-login-popup");
 
@@ -75,6 +75,11 @@ document.addEventListener("DOMContentLoaded", () => {
     () => (productErrorPopup.style.display = "none")
   ); // Close error popup
   const openErrorPopup = () => (productErrorPopup.style.display = "flex"); // Show error popup
+
+  //-------------------------------- Close Popups --------------------------------
+  couponCloseButton.addEventListener("click", () => {
+    couponPopup.style.display = "none";
+  });
 
   //-------------------------------- Barcode Input Handling --------------------------------
   barcodeInput.addEventListener("input", () => {

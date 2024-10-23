@@ -1,37 +1,9 @@
 /* -------------------------------------------------------------------
    Admin Styles
 ------------------------------------------------------------------- */
-
-/* -------------------------------------------------------------------
-   General Styles
-------------------------------------------------------------------- */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    overflow: hidden;
-}
-
 /* -------------------------------------------------------------------
    Header Styling
 ------------------------------------------------------------------- */
-header {
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    background-color: #252E3D;
-    color: white;
-    text-align: center;
-}
-
-header h1 {
-    grid-column: 2;
-    font-size: 1.6rem;
-}
-
 #admin-username {
     grid-column: 1;
     color: #999;
@@ -69,10 +41,6 @@ main {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
-    flex: 1;
-    padding: 20px;
-    gap: 20px;
-    /* Calculate height minus Header and Footer */
     height: calc(100vh - 160px);
     grid-template-areas:
         "Area1 Area2"
@@ -114,26 +82,23 @@ Product Management
 ------------------------------------------------------------------- */
 section#product-management {
     grid-area: Area1;
-    max-height: 96%;
+    max-height: 100%;
 }
-
-
 
 /* -------------------------------------------------------------------
 Coupon Management
 ------------------------------------------------------------------- */
 section#coupon-management {
     grid-area: Area2;
-    max-height: 92%;
+    max-height: 100%;
 }
 
 /* -------------------------------------------------------------------
    User Management Styles
 ------------------------------------------------------------------- */
-
 section#user-management {
     grid-area: Area3;
-    max-height: 91%;
+    max-height: 100%;
 }
 
 section#user-management #user-management-add-buttons {
@@ -250,128 +215,8 @@ Action Buttons
 }
 
 /* -------------------------------------------------------------------
-   Popup Styles
+Responsive Design
 ------------------------------------------------------------------- */
-.popup-overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.6);
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-}
-
-.popup-content {
-    background-color: #fff;
-    padding: 20px 30px;
-    border-radius: 10px;
-    width: 90%;
-    max-width: 400px;
-    position: relative;
-}
-
-.popup-close-btn {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: #333;
-}
-
-.popup-title {
-    margin-top: 0;
-}
-
-.popup-form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.popup-label {
-    font-weight: bold;
-}
-
-.popup-input {
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-.popup-button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
-}
-
-.popup-button:hover {
-    background-color: #45a049;
-}
-
-/* -------------------------------------------------------------------
-   Product Popup Styles
-------------------------------------------------------------------- */
-#product-popup {
-    display: none;
-}
-
-#product-popup-image-container {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-}
-
-#product-popup-image {
-    width: 300px;
-    height: 300px;
-    align-self: center;
-}
-
-/* -------------------------------------------------------------------
-   Coupon Popup Styles
-------------------------------------------------------------------- */
-#coupon-popup {
-    display: none;
-}
-
-/* -------------------------------------------------------------------
-   User Popup Styles
-------------------------------------------------------------------- */
-#user-popup {
-    display: none;
-}
-
-#user-id {
-    background-color: #ccc;
-    pointer-events: none;
-}
-
-#customer-fields {
-    display: none;
-    flex-direction: column;
-    gap: 10px;
-}
-
-/* -------------------------------------------------------------------
-   Footer Styling
-------------------------------------------------------------------- */
-footer {
-    background-color: #252E3D;
-    color: white;
-    text-align: center;
-    font-size: 0.9rem;
-}
-
-/* Responsive Design */
 @media (max-width: 768px) {
     header {
         flex-direction: column;
@@ -397,11 +242,9 @@ footer {
     }
 }
 
-
-
-
-/* Responsive Design Adjustments */
-
+/* -------------------------------------------------------------------
+Responsive Design Adjustments
+------------------------------------------------------------------- */
 @media (max-width: 768px) {
 
     /* Adjust User Management section in mobile view */

@@ -1,0 +1,85 @@
+/* -------------------------------------------------------------------
+   General Popup Styles
+------------------------------------------------------------------- */
+.popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.popup-content {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.3s ease-in-out;
+    align-items: center;
+    padding: 0;
+    position: relative; /* Added for centralizing close button */
+}
+
+.popup-image {
+    display: block;
+    height: 100%;
+    border-radius: 20px;
+    padding: 0;
+    margin: 0;
+}
+
+.popup-close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: #333;
+    transition: color 0.2s;
+}
+
+.popup-close-btn:hover {
+    color: #ff4742;
+}
+
+.popup-input {
+    font-size: 1.2rem;
+    margin: 0;
+    color: #252E3D;
+    border-radius: 10px;
+    line-height: 2;
+    padding: 5px 10px;
+    width: 100%;
+    border: 2px solid #f0cd204c;
+}
+
+/* -------------------------------------------------------------------
+   Animations
+------------------------------------------------------------------- */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* -------------------------------------------------------------------
+   Responsive Design
+------------------------------------------------------------------- */
+@media (max-width: 600px) {
+    .popup-content {
+        padding: 20px 25px;
+        border-radius: 15px;
+        max-width: 90%;
+    }
+}

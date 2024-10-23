@@ -8,7 +8,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let textSize = 1.6;
 
-
     // Screen Reader Button
     screenReaderBtn.addEventListener("click", () => {
         // TODO: Implement screen reader functionality
@@ -16,34 +15,36 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     textSizeBtn.addEventListener("click", () => {
-        // implement text size functionality
-        // increase text size by 0.5rem for each click 
+        // Implement text size functionality
+        // Erhöhe die Textgröße um 0.2rem bei jedem Klick
         textSize += 0.2;
 
         if (textSize > 2.4) {
             textSize = 1.2;
         }
 
-        console.log(textSize);
+        console.log(`Aktuelle Textgröße: ${textSize}rem`);
 
-        // increase size of barcode input
-        document.getElementById("barcode-input").style.fontSize = `${textSize}rem`;
-        document.getElementById("barcode-list").style.fontSize = `${textSize}rem`;
+        // Erhöhe die Größe der benötigten Elemente
+        const elementsToResize = [
+            "barcode-input",
+            "barcode-list",
+            "help-popup-content",
+            "info-popup-content",
+            "price-detail-subtotal",
+            "price-detail-tax",
+            "price-detail-total",
+            "payment-btn-label",
+            "coupon-btn-label"
+        ];
 
-        // increase size of help and info popup content
-        document.getElementById("help-popup-content").style.fontSize = `${textSize}rem`;
-        document.getElementById("info-popup-content").style.fontSize = `${textSize}rem`;
-
-        // increase size of price details
-        document.getElementById("price-detail-subtotal").style.fontSize = `${textSize}rem`;
-        document.getElementById("price-detail-tax").style.fontSize = `${textSize}rem`;
-        document.getElementById("price-detail-total").style.fontSize = `${textSize}rem`;
-
-        // increase size of buttons
-        document.getElementById("payment-btn-label").style.fontSize = `${textSize}rem`;
-        document.getElementById("coupon-btn-label").style.fontSize = `${textSize}rem`;
-        
-    }); 
+        elementsToResize.forEach(id => {
+            const element = document.getElementById(id);
+            if (element) {
+                element.style.fontSize = `${textSize}rem`;
+            }
+        });
+    });
 
     helpBtn.addEventListener("click", () => {
         // open help popup
@@ -63,5 +64,20 @@ document.addEventListener("DOMContentLoaded", () => {
     infoPopupCloseBtn.addEventListener("click", () => {
         // close info popup
         document.getElementById("info-popup").style.display = "none";
+    });
+
+    // Initialisiere die kollabierbaren Elemente
+    const collapsibles = document.querySelectorAll(".collapsible");
+
+    collapsibles.forEach((collapsible) => {
+        collapsible.addEventListener("click", function () {
+            this.classList.toggle("active");
+            const content = this.nextElementSibling;
+            if (content.style.display === "block") {
+                content.style.display = "none";
+            } else {
+                content.style.display = "block";
+            }
+        });
     });
 });
