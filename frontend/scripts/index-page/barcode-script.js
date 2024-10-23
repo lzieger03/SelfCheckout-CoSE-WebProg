@@ -29,6 +29,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const couponAppliedContainer = document.getElementById("coupon-applied-container");
   const couponAppliedRemoveBtn = document.getElementById("coupon-applied-remove-btn");
   const couponAppliedText = document.getElementById("coupon-applied-text");
+  const couponAppliedDiscountValue = document.getElementById("coupon-applied-discount-value");
+
   // Admin login initialization
   const adminLoginPopup = document.getElementById("admin-login-popup");
 
@@ -333,6 +335,8 @@ document.addEventListener("DOMContentLoaded", () => {
         for (const item of listItems) {
           updateTotalPrice(item); 
         }
+
+        // Update coupon applied container
         couponAppliedContainer.style.display = "grid";
         couponAppliedText.textContent = `Coupon applied: ${discount.code}`;
         couponAppliedDiscountValue.textContent = `Saved: ${formatPrice(parsePrice(subtotalElement.textContent) * (discount.value / 100))}`;
