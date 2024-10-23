@@ -8,11 +8,11 @@ public class POSReceipt extends POSDocument {
     private String phone;
 
     public void setLogo(String filePath) {
-        try {
-            addLogo(new POSLogo(filePath));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            addLogo(new POSLogo(filePath));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
     public void setTitle(String title) {
@@ -107,7 +107,7 @@ public class POSReceipt extends POSDocument {
     }
 
     public void addSeparator() {
-        addText("----------------------------------------\n");
+        addText("--------------------------------\n");
     }
 
     /**

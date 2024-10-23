@@ -57,9 +57,9 @@ public class ReceiptBuilder implements Builder {
      */
     @Override
     public Receipt build() {
-        if (logoPath == null || title == null || address == null || phone == null || cart == null) {
+        if (/*logoPath == null ||*/ title == null || address == null || phone == null || cart == null) {
             throw new IllegalStateException("Title, address, phone, and cart must be set");
         }
-        return new Receipt(logoPath, title, address, phone, cart, footer);
+        return new Receipt(null, title, address, phone, cart, footer);
     }
 }

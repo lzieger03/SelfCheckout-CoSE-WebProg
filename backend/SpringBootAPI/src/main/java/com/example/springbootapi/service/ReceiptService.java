@@ -38,9 +38,8 @@ public class ReceiptService {
         if (request.getDiscountCode() != null && !request.getDiscountCode().isEmpty() && request.getDiscountValue() > 0) {
             cart = new DiscountCartDecorator(cart, request.getDiscountCode(), request.getDiscountValue());
         }
-
-        return builder.setLogo("src/main/resources/static/scanMateLogo.png")
-                      .setTitle("ScanMate")
+        //.setLogo("src/main/resources/static/scanMateLogo.png")
+        return builder.setTitle("ScanMate")
                       .setAddress("ScanMate-street 1")
                       .setPhone("+49 123 4567890")
                       .addCart(cart)
