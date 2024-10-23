@@ -2,7 +2,6 @@ package com.example.springbootapi.api.model.receipt.template;
 
 import com.example.springbootapi.api.model.receipt.Receipt;
 import com.example.springbootapi.api.model.receipt.cart.CartInterface;
-import com.example.springbootapi.api.model.receipt.cart.CartObject;
 import com.example.springbootapi.bonprintextended.POS;
 import com.example.springbootapi.bonprintextended.POSBarcode;
 import com.example.springbootapi.bonprintextended.POSReceipt;
@@ -38,7 +37,7 @@ public class ReceiptTemplate {
         receipt.addSeparator();
 
         // Add receipt details (date, cashier, etc.)
-        receipt.addStyledText("Date: " + getCurrentDate() + "\n", POSStyle.CENTER);
+        receipt.addStyledText("Date:\n" + getCurrentDate() + "\n", POSStyle.CENTER);
         receipt.addStyledText("Cashier: Self\n", POSStyle.CENTER);
         receipt.addStyledText("Receipt No: " + receiptData.getCart().getCartId() + "\n", POSStyle.CENTER);
 

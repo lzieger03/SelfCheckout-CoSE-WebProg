@@ -84,7 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // --- Send data for printing ---
-  async function fetchPostPrint() {
+  function fetchPostPrint() {
     try {
       // --- Create payload ---
       const selectedMethod = document.querySelector('input[name="payment"]:checked').value;
@@ -111,12 +111,18 @@ document.addEventListener("DOMContentLoaded", () => {
       };
 
       // Send API request with Promise chain
-      await fetch(`http://localhost:8080/print`, {
+      fetch(`http://localhost:8080/print`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       })
-      .then(response => response.json())
+      .then(() => {
+        setTimeout(() => {                        // Somehow the response is not available immediately - asyn/await doesn't work, don't ask me why
+          console.log("Awaiting response...");  
+          alert("Awaiting response...");  // without a wait, the request times out - don't ask me why
+        }, 2000);                                 // This is a workaround, not a fix - I hate it
+      }) 
+      .then(response => {console.log(response); return response.json()})
       .then(result => {
         if (result.status === "success") {
           console.log("Printing successful");
@@ -132,11 +138,9 @@ document.addEventListener("DOMContentLoaded", () => {
         console.error("Error at fetchPostPrint:", error);
         alert("Error: " + (error.message || "Network error or CORS problem"));
       });
-
-      // setTimeout(() => {                        // Somehow the response is not available immediately - asyn/await doesn't work, don't ask me why
-      //   console.log("Awaiting response...");    // without a wait, the request times out - don't ask me why
-      // }, 2000);                                 // This is a workaround, not a fix - I hate it
-
+      alert("Printing successful");
+      
+      
     } catch (error) {
       console.error("Error:", error);
       alert(error instanceof SyntaxError 
