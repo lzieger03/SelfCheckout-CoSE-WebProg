@@ -38,11 +38,6 @@ public class PrintController {
             BindingResult bindingResult) {
         Map<String, String> response = new HashMap<>();
 
-        if (true) {
-            response.put("status", "success");
-            return new ResponseEntity<>(response, HttpStatus.CREATED);
-        }
-
         if (bindingResult.hasErrors()) {
             bindingResult.getFieldErrors().forEach(error ->
                     response.put(error.getField(), error.getDefaultMessage()));
