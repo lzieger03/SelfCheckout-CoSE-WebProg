@@ -125,7 +125,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (discountValue > 0) {
         li.querySelector(".barcode-list-productTotalPrice").textContent =
         formatPrice(singlePrice * quantity * (1 - (discountValue / 100))); // Update total price
-    console.log(
+   console.log(
         `Info: Total price updated to ${
           singlePrice * quantity * (1 - (discountValue / 100))
         }`
@@ -221,6 +221,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     calculateTotals();
     saveBarcodes();
+    if (localStorage.getItem("discountCode")) {
+        updateCouponAppliedDiscountValue();
+    }
     barcodeList.scrollTop = barcodeList.scrollHeight; // Auto-scroll to bottom
     focusBarcodeInput();
   }
@@ -230,6 +233,9 @@ document.addEventListener("DOMContentLoaded", () => {
     delete barcodeItemMap[barcode];
     calculateTotals();
     saveBarcodes();
+    if (localStorage.getItem("discountCode")) {
+        updateCouponAppliedDiscountValue();
+    }
     if (currentSelectedItem === li) {
       currentSelectedItem = null;
       itemNameElement.textContent = "Start scanning";
@@ -260,6 +266,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
       calculateTotals();
       saveBarcodes();
+      if (localStorage.getItem("discountCode")) {
+        updateCouponAppliedDiscountValue();
+      }
     }
   };
 
@@ -308,8 +317,27 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.removeItem("discountCode");
     localStorage.removeItem("discountValue");
     couponAppliedContainer.style.display = "none";
+    calculateTotals(); // Recalculate totals after removing discount
   });
 
+
+  function updateCouponAppliedDiscountValue() {
+    const discountCode = localStorage.getItem("discountCode");
+    const discountValue = parseFloat(localStorage.getItem("discountValue"));
+
+    // Calculate original subtotal without discount
+    let originalSubtotal = 0;
+    document.querySelectorAll(".barcode-item").forEach((li) => {
+        const singlePrice = parsePrice(li.querySelector(".barcode-list-productSinglePrice").textContent);
+        const quantity = parseInt(li.querySelector(".barcode-list-productQuantity").textContent);
+        originalSubtotal += singlePrice * quantity;
+    });
+
+    // Update coupon applied container
+    couponAppliedContainer.style.display = "grid";
+    couponAppliedText.textContent = `Coupon applied: ${discountCode}`;
+    couponAppliedDiscountValue.textContent = `Saved: ${formatPrice(originalSubtotal * (discountValue / 100))}`;
+  }
 
 
   async function applyCoupon() {
@@ -334,15 +362,10 @@ document.addEventListener("DOMContentLoaded", () => {
         const listItems = document.querySelectorAll(".barcode-item");
         for (const item of listItems) {
           updateTotalPrice(item); 
-        }
-
-        // Update coupon applied container
-        couponAppliedContainer.style.display = "grid";
-        couponAppliedText.textContent = `Coupon applied: ${discount.code}`;
-        couponAppliedDiscountValue.textContent = `Saved: ${formatPrice(parsePrice(subtotalElement.textContent) * (discount.value / 100))}`;
-        
+        }  
         calculateTotals();
         saveBarcodes();
+        updateCouponAppliedDiscountValue();
         focusBarcodeInput();
       } catch (error) {
         console.error("Invalid promo code:", error);
