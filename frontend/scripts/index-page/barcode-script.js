@@ -26,6 +26,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const couponCancelButton = document.getElementById("coupon-cancel-btn");  
   const couponInput = document.getElementById("coupon-input");
   const couponCloseButton = document.getElementById("coupon-popup-close-btn");
+  const couponAppliedContainer = document.getElementById("coupon-applied-container");
+  const couponAppliedRemoveBtn = document.getElementById("coupon-applied-remove-btn");
+  const couponAppliedText = document.getElementById("coupon-applied-text");
   // Admin login initialization
   const adminLoginPopup = document.getElementById("admin-login-popup");
 
@@ -299,6 +302,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }); 
 
+  couponAppliedRemoveBtn.addEventListener("click", () => {
+    localStorage.removeItem("discountCode");
+    localStorage.removeItem("discountValue");
+    couponAppliedContainer.style.display = "none";
+  });
+
+
+
   async function applyCoupon() {
     const couponCode = couponInput.value.trim();
     if (couponCode) {
@@ -322,6 +333,10 @@ document.addEventListener("DOMContentLoaded", () => {
         for (const item of listItems) {
           updateTotalPrice(item); 
         }
+        couponAppliedContainer.style.display = "grid";
+        couponAppliedText.textContent = `Coupon applied: ${discount.code}`;
+        couponAppliedDiscountValue.textContent = `Saved: ${formatPrice(parsePrice(subtotalElement.textContent) * (discount.value / 100))}`;
+        
         calculateTotals();
         saveBarcodes();
         focusBarcodeInput();
