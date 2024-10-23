@@ -84,7 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // --- Send data for printing ---
-  function fetchPostPrint() {
+  async function fetchPostPrint() {
     try {
       // --- Create payload ---
       const selectedMethod = document.querySelector('input[name="payment"]:checked').value;
@@ -111,7 +111,7 @@ document.addEventListener("DOMContentLoaded", () => {
       };
 
       // Send API request with Promise chain
-      fetch(`http://localhost:8080/print`, {
+      await fetch(`http://localhost:8080/print`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
@@ -133,9 +133,9 @@ document.addEventListener("DOMContentLoaded", () => {
         alert("Error: " + (error.message || "Network error or CORS problem"));
       });
 
-      setTimeout(() => {                        // Somehow the response is not available immediately - asyn/await doesn't work, don't ask me why
-        console.log("Awaiting response...");    // without a wait, the request times out - don't ask me why
-      }, 1000);                                 // This is a workaround, not a fix - I hate it
+      // setTimeout(() => {                        // Somehow the response is not available immediately - asyn/await doesn't work, don't ask me why
+      //   console.log("Awaiting response...");    // without a wait, the request times out - don't ask me why
+      // }, 2000);                                 // This is a workaround, not a fix - I hate it
 
     } catch (error) {
       console.error("Error:", error);
