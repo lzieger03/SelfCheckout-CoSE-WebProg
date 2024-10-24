@@ -17,7 +17,7 @@ public class WebConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**") // Allow CORS for all endpoints
-                        .allowedOrigins("http://127.0.0.1:5501") // Adjust the origin as per your frontend's address and port
+                        .allowedOrigins("http://localhost:5501", "http://127.0.0.1:5501") // Adjust the origin as per your frontend's address and port
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
                         .allowCredentials(true);

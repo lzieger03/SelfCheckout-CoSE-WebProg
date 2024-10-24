@@ -357,6 +357,19 @@ input[type="radio"] {
     background-color: #F0CD20;
 }
 
+/* -------------------------------------------------------------------
+   Receipt Is Printing Popup
+------------------------------------------------------------------- */
+#receiptIsPrinting-popup {
+    display: none;
+}
+
+#receiptIsPrinting-popup-content {
+    width: fit-content;
+    height: 70%;
+    padding: 0;
+}
+
 /* -------------------------------------------------------------------  
    Admin Login Popup
 ------------------------------------------------------------------- */

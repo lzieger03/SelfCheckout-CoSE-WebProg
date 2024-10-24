@@ -14,16 +14,20 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.print.PrintService;
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@CrossOrigin(origins = "127.0.0.1:5501")
+@CrossOrigin(origins = {"http://localhost:5501", "http://127.0.0.1:5501"})
 public class PrintController {
     private static final Logger logger = LoggerFactory.getLogger(PrintController.class);
 
     @Autowired
     private ReceiptService receiptService;
+
+
 
     /**
      * Endpoint to create and print a receipt based on the provided cart and payment method.

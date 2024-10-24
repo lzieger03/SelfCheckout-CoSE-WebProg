@@ -16,6 +16,9 @@ document.addEventListener("DOMContentLoaded", () => {
   // --- Get all coupon related elements ---
   const couponPopup = document.getElementById("coupon-popup");
 
+  // --- Get receipt printing popup element ---
+  const receiptIsPrintingPopup = document.getElementById("receiptIsPrinting-popup");
+
   // --- Check if cart is empty ---
   const isCartEmpty = () => {
     const storedProducts = localStorage.getItem("barcodes");
@@ -23,7 +26,8 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   // --- Show appropriate popup on payment button click ---
-  paymentButton.addEventListener("click", () => {
+  paymentButton.addEventListener("click", (event) => {
+    event.preventDefault(); // Prevent default behavior (e.g., form submission)
     if (isCartEmpty()) {
       cartEmptyPopup.style.display = "flex";
       couponPopup.style.display = "none";
@@ -33,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
       paymentPopup.style.display = "flex";
       cartEmptyPopup.style.display = "none";
       couponPopup.style.display = "none";
-      // lose input focus on barcode input
+      // Disable barcode input to prevent changes during payment process
       barcodeInput.disabled = true;
     }
   });
@@ -74,9 +78,10 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // --- Proceed button functionality ---
-  paymentProceedButton.addEventListener("click", () => {
+  paymentProceedButton.addEventListener("click", async (event) => {
+    event.preventDefault(); // Prevent default behavior (e.g., form submission)
     if (!paymentProceedButton.disabled && !isCartEmpty()) {
-      fetchPostPrint();
+      await fetchPostPrint();
       paymentPopup.style.display = "none";
     } else {
       cartEmptyPopup.style.display = "flex";
@@ -84,16 +89,22 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // --- Send data for printing ---
-  function fetchPostPrint() {
+  async function fetchPostPrint() {
     try {
+      console.log("fetchPostPrint: Function started");
+
       // --- Create payload ---
       const selectedMethod = document.querySelector('input[name="payment"]:checked').value;
+      console.log("Selected Payment Method:", selectedMethod);
+
       const storedProducts = localStorage.getItem("barcodes");
       const productsArray = JSON.parse(storedProducts) || [];
-      
+      console.log("Stored Products:", productsArray);
+
       // Retrieve discount information
       const discountCode = localStorage.getItem("discountCode") || "";
       const discountValue = parseFloat(localStorage.getItem("discountValue")) || 0.0;
+      console.log("Discount Code:", discountCode, "Discount Value:", discountValue);
 
       // Prepare data for API request
       const products = productsArray.map((item) => ({
@@ -102,6 +113,7 @@ document.addEventListener("DOMContentLoaded", () => {
         price: parseFloat(item.price),
         quantity: Number(item.quantity)
       }));
+      console.log("Prepared Products for API:", products);
 
       const payload = {
         paymentMethod: selectedMethod,
@@ -109,44 +121,55 @@ document.addEventListener("DOMContentLoaded", () => {
         discountCode,
         discountValue
       };
+      console.log("Payload Created:", payload);
 
-      // Send API request with Promise chain
-      fetch(`http://localhost:8080/print`, {
+      // Show awaiting response alert
+      console.log("fetchPostPrint: Awaiting response...");
+      // alert("Awaiting response..."); // Optional: Remove for testing
+
+      // Send API request
+      const response = await fetch(`http://127.0.0.1:8080/print`, { // Changed to 127.0.0.1 for consistency
+        keepalive: true,
+        mode: 'cors',
+        timeout: 10000,
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
-      })
-      .then(() => {
-        setTimeout(() => {                        // Somehow the response is not available immediately - asyn/await doesn't work, don't ask me why
-          console.log("Awaiting response...");  
-          alert("Awaiting response...");  // without a wait, the request times out - don't ask me why
-        }, 2000);                                 // This is a workaround, not a fix - I hate it
-      }) 
-      .then(response => {console.log(response); return response.json()})
-      .then(result => {
-        if (result.status === "success") {
-          console.log("Printing successful");
-          alert("Printing successful");
-          // Clean up after successful print
-          localStorage.removeItem("discountCode");
-          localStorage.removeItem("discountValue");
-        } else {
-          throw new Error(result.error || "Printing failed");
-        }
-      })
-      .catch(error => {
-        console.error("Error at fetchPostPrint:", error);
-        alert("Error: " + (error.message || "Network error or CORS problem"));
       });
-      alert("Printing successful");
-      
-      
+      console.log("fetchPostPrint: Received response with status:", response.status);
+
+      if (!response.ok) {
+        const errorMsg = await response.text();
+        console.error("fetchPostPrint: Response not OK. Error Message:", errorMsg);
+        throw new Error(errorMsg || "Network response was not ok");
+      }
+
+      const result = await response.json();
+      console.log("fetchPostPrint: Response JSON:", result);
+
+      if (result.message === "Print successful") {
+        console.log("Printing successful");
+        receiptIsPrintingPopup.style.display = "flex";
+
+        // Clean up after successful print
+        localStorage.removeItem("discountCode");
+        localStorage.removeItem("discountValue");
+        console.log("fetchPostPrint: Cleaned up discount data");
+
+        // Show the popup for at least 5 seconds or until user clicks
+        setTimeout(() => {
+          receiptIsPrintingPopup.style.display = "none";
+          // Optionally reload the page after 5 seconds
+          window.location.reload();
+        }, 5000);
+      } else {
+        console.error("fetchPostPrint: Unexpected message:", result.message);
+        throw new Error(result.error || "Printing failed");
+      }
+
     } catch (error) {
-      console.error("Error:", error);
-      alert(error instanceof SyntaxError 
-        ? "Received malformed JSON from the server."
-        : `Error: ${error.message || "An unknown error occurred."}`
-      );
+      console.error("Error at fetchPostPrint:", error);
+      alert("Error: " + (error.message || "Network error or CORS problem"));
     }
   }
 
@@ -161,6 +184,18 @@ document.addEventListener("DOMContentLoaded", () => {
         cartEmptyPopup.style.display = "none";
         couponPopup.style.display = "none";
       }
+      if (receiptIsPrintingPopup.style.display === "flex") {
+        receiptIsPrintingPopup.style.display = "none";
+        // Optionally reload the page upon closing the popup
+        // window.location.reload();
+      }
     }
+  });
+
+  // --- Close Receipt Popup on Click ---
+  receiptIsPrintingPopup.addEventListener("click", () => {
+    receiptIsPrintingPopup.style.display = "none";
+    // Optionally reload the page upon closing the popup
+    window.location.reload();
   });
 });
