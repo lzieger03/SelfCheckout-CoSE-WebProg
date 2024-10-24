@@ -154,7 +154,12 @@
     right: 15px;
     font-size: 1.5rem;
     cursor: pointer;
-    color: #333;
+    color: #252E3D;
+}
+
+#help-popup-close-btn:hover,
+#info-popup-close-btn:hover {
+    color: #ff4842b4;
 }
 
 #help-popup-content p {
@@ -168,6 +173,7 @@
     align-items: flex-start;
     justify-content: center;
     margin: 10px 0;
+    width: 100%;
 }
 
 /* -------------------------------------------------------------------
@@ -179,8 +185,8 @@
 }
 
 .collapsible {
-    background-color: #f1f1f1;
-    color: #444;
+    background-color: #FBDC3C;
+    color: #252E3D;
     cursor: pointer;
     padding: 10px;
     width: 100%;
@@ -193,11 +199,11 @@
 }
 
 .collapsible:hover {
-    background-color: #ddd;
+    background-color: #F0CD20;
 }
 
 .collapsible.active {
-    background-color: #ccc;
+    background-color: #F0CD20;
 }
 
 .collapsible-content {
