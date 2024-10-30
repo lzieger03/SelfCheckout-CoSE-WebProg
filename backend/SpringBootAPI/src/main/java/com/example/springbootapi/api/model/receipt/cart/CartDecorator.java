@@ -49,6 +49,11 @@ public abstract class CartDecorator implements CartInterface {
     }
 
     @Override
+    public double getPriceBeforeDiscount() {
+        return decoratedCart.getPriceBeforeDiscount();
+    }
+
+    @Override
     public String getDiscountCode() {
         return decoratedCart.getDiscountCode();
     }

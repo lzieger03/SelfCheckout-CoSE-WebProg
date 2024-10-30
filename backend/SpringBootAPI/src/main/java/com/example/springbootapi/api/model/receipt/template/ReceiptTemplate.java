@@ -47,12 +47,14 @@ public class ReceiptTemplate {
         CartInterface cart = receiptData.getCart();
         for (var item : cart.getCartObjectList()) {
             receipt.addItem(item.getName(), item.getPrice(), item.getQuantity());
-            if (item.getDiscountAmount() > 0) {
-                receipt.addDiscountToItem(String.format("Discount on %s:", item.getName()), item.getDiscountAmount());
-            }
+//            if (item.getDiscountAmount() > 0) {
+//                receipt.addDiscountToItem(String.format("Discount on %s:", item.getName()), item.getDiscountAmount());
+//            }
         }
 
         receipt.addSeparator();
+
+        receipt.addDiscount(receiptData.getDiscountCode(), receiptData.getDiscountValue(), cart.getPriceBeforeDiscount());
 
         // Add subtotal
         receipt.addSubTotal(cart.getSubTotalPrice());

@@ -39,7 +39,7 @@ public class POSReceipt extends POSDocument {
 
     public void addItem(String itemName, double price, int quantity) {
         addStyle(POSStyle.LEFT);
-        String itemLine = String.format("%d x %-20s $%5.2f\n", quantity, itemName, price);
+        String itemLine = String.format("%d x %-20s $%5.2f\n", quantity, itemName, (price * quantity));
         addText(itemLine);
         resetStyle();
     }
@@ -54,6 +54,16 @@ public class POSReceipt extends POSDocument {
         addStyle(POSStyle.SMALL, POSStyle.LEFT);
         String discountLine = String.format("%s -$%5.2f\n", discountDescription, discountAmount);
         addText(discountLine);
+        resetStyle();
+    }
+
+    public void addDiscount(String discountCode, double discountAmount, double subTotal) {
+        addFeed(1);
+        addStyle(POSStyle.BOLD, POSStyle.RIGHT);
+        String discountLine = String.format("%s %5.0f %s\n", discountCode, discountAmount, "%");
+        addText(discountLine);
+        String discountAppliedLine = String.format("%s -$%5.2f\n", "Saved:", ((discountAmount/100) * subTotal));
+        addText(discountAppliedLine);
         resetStyle();
     }
 

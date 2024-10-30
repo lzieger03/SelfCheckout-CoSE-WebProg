@@ -61,4 +61,6 @@ public interface Builder {
      * @return A fully constructed Receipt object.
      */
     Receipt build();
+
+    Builder addDiscount(String discountCode, double discountValue);
 }

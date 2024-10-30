@@ -1,6 +1,5 @@
 package com.example.springbootapi.api.model.receipt;
 
-import com.example.springbootapi.api.model.receipt.cart.Cart;
 import com.example.springbootapi.api.model.receipt.cart.CartInterface;
 
 /**
@@ -14,6 +13,8 @@ public class Receipt {
     private final String address;
     private final String phone;
     private CartInterface cart;
+    private final String discountCode;
+    private final double discountValue;
     private final String footer;
 
     /**
@@ -24,14 +25,20 @@ public class Receipt {
      * @param address The business address.
      * @param phone The contact phone number.
      * @param cart The Cart object containing items and payment information.
+     * @param discountCode
+     * @param discountValue
      * @param footer A footer message for the receipt.
      */
-    public Receipt(String logoPath, String title, String address, String phone, CartInterface cart, String footer) {
+    public Receipt(String logoPath, String title, String address,
+                   String phone, CartInterface cart, String discountCode,
+                   double discountValue, String footer) {
         this.logoPath = logoPath;
         this.title = title;
         this.address = address;
         this.phone = phone;
         this.cart = cart;
+        this.discountCode = discountCode;
+        this.discountValue = discountValue;
         this.footer = footer;
     }
 
@@ -57,6 +64,14 @@ public class Receipt {
 
     public void setCart(CartInterface cart) {
         this.cart = cart;
+    }
+
+    public String getDiscountCode() {
+        return discountCode;
+    }
+
+    public double getDiscountValue() {
+        return discountValue;
     }
 
     public String getFooter() {

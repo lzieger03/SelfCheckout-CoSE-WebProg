@@ -43,6 +43,7 @@ public class ReceiptService {
                       .setAddress("ScanMate-street 1")
                       .setPhone("+49 123 4567890")
                       .addCart(cart)
+                      .addDiscount(request.getDiscountCode(), request.getDiscountValue())
                       .setFooter("Thank you for using ScanMate!")
                       .build();
     }

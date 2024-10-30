@@ -12,6 +12,7 @@ public class DiscountCartDecorator extends CartDecorator {
         this.discountCode = discountCode;
         this.discountValue = discountValue;
         applyDiscount(discountCode, discountValue);
+        getPriceBeforeDiscount();
     }
 
     // Additional discount-related methods can be added here if needed

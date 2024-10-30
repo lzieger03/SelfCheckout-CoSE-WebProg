@@ -14,4 +14,6 @@ public interface CartInterface {
     
     String getDiscountCode();
     double getDiscountValue();
+
+    double getPriceBeforeDiscount();
 }

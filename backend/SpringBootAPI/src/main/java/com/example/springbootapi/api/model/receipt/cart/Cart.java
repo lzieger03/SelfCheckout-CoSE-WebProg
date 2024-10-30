@@ -41,6 +41,14 @@ public class Cart implements CartInterface {
         return Long.toString(randomNumber);
     }
 
+    public double getPriceBeforeDiscount() {
+        double priceBeforeDiscount = 0;
+        for (CartObject cartObject : cartObjectList) {
+            priceBeforeDiscount += (cartObject.getPrice() * cartObject.getQuantity());
+        }
+        return priceBeforeDiscount;
+    }
+
     /**
      * Calculates the subtotal price of all items in the cart, applying any discounts.
      *

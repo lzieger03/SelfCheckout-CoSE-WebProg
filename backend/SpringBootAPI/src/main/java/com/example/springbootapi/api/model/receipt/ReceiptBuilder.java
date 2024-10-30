@@ -12,6 +12,8 @@ public class ReceiptBuilder implements Builder {
     private String address;
     private String phone;
     private CartInterface cart;
+    private String discountCode;
+    private double discountValue;
     private String footer;
 
     public Builder setLogo(String logoPath) {
@@ -42,6 +44,12 @@ public class ReceiptBuilder implements Builder {
         return this;
     }
 
+    public Builder addDiscount(String discountCode, double discountValue) {
+        this.discountCode = discountCode;
+        this.discountValue = discountValue;
+        return this;
+    }
+
     @Override
     public Builder setFooter(String footer) {
         this.footer = footer;
@@ -60,6 +68,7 @@ public class ReceiptBuilder implements Builder {
         if (/*logoPath == null ||*/ title == null || address == null || phone == null || cart == null) {
             throw new IllegalStateException("Title, address, phone, and cart must be set");
         }
-        return new Receipt(null, title, address, phone, cart, footer);
+        return new Receipt(null, title, address, phone,
+                cart, discountCode, discountValue, footer);
     }
 }
