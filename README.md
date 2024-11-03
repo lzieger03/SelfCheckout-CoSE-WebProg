@@ -11,6 +11,17 @@ Welcome to the ScanMate 1.0.0-X "Aurora" project! This is all about making your 
 3. Start Scanning Items
 4. Default Admin Login: admin pw: admin123
 
+### Item numbers for quick usage or test purposes
+
+- 8156679408476 (Apple)
+- 6270917051323 (Banana)
+- 1183820248147 (Orange)
+
+### Discount codes
+
+- SALE15 for 15% discount
+- EXTRA50 for 50% discount
+- TEST100 for free shopping
 
 ## How It Works
 
