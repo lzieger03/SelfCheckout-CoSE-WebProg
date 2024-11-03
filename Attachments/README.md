@@ -12,8 +12,8 @@
 
 ## Memes 
 
-![meme1](./meme1.png)
-![meme2](./meme2.png)
-![meme3](./meme3.png)
-![meme4](./meme4.png)
-![meme5](./meme5.png)
+![meme1](./Memes/meme1.png)
+![meme2](./Memes/meme2.png)
+![meme3](./Memes/meme3.png)
+![meme4](./Memes/meme4.png)
+![meme5](./Memes/meme5.png)
