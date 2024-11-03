@@ -7,13 +7,13 @@
 ![addProductToCart](./addingProductToCart.jpg)
 
 ### Printing Receipt
-![printReceipt](./printReceipt.jpg)
+![printReceipt](./paymentProcess.jpg)
 
 
 ## Memes 
 
-![meme1](./meme1.jpg)
-![meme2](./meme2.jpg)
-![meme3](./meme3.jpg)
-![meme4](./meme4.jpg)
-![meme5](./meme5.jpg)
+![meme1](./meme1.png)
+![meme2](./meme2.png)
+![meme3](./meme3.png)
+![meme4](./meme4.png)
+![meme5](./meme5.png)
