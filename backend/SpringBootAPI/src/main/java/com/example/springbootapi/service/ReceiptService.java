@@ -32,8 +32,7 @@ public class ReceiptService {
      */
     public Receipt createReceipt(PrintReceiptRequest request) {
         ReceiptBuilder builder = new ReceiptBuilder();
-        CartInterface cart = new Cart(request.getCartObjects(), request.getPaymentMethod()) {
-        };
+        CartInterface cart = new Cart(request.getCartObjects(), request.getPaymentMethod());
 
         if (request.getDiscountCode() != null && !request.getDiscountCode().isEmpty() && request.getDiscountValue() > 0) {
             cart = new DiscountCartDecorator(cart, request.getDiscountCode(), request.getDiscountValue());

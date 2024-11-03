@@ -128,7 +128,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // alert("Awaiting response..."); // Optional: Remove for testing
 
       // Send API request
-      const response = await fetch(`http://127.0.0.1:8080/print`, { // Changed to 127.0.0.1 for consistency
+      const response = await fetch(`http://127.0.0.1:8080/print`, { // Changed to 127.0.0.1
         keepalive: true,
         mode: 'cors',
         timeout: 10000,

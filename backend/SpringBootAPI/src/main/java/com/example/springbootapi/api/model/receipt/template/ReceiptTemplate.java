@@ -22,7 +22,7 @@ public class ReceiptTemplate {
      */
     public static void createReceipt(POSReceipt receipt, Receipt receiptData) {
         // Add logo
-        receipt.setLogo(receiptData.getLogoPath());
+        //receipt.setLogo(receiptData.getLogoPath());
 
         // Add title (company name)
         receipt.setTitle(receiptData.getTitle());

@@ -218,26 +218,26 @@ public class ProductService {
                 e.getMessage());
     }
 
-    public static void main(String[] args) {
-        // put in every product image in the database
-        ProductService productService = new ProductService();
-        Optional<List<Product>> products = productService.getAllProducts();
-
-        // the database row is empty, so we need to put in every product image in the database
-        // so that the frontend can display the images, the images are in the resources/images folder 
-        // the images are named after the product id in png format
-
-        for (Product product : products.get()) {
-            String imagePath = "./src/main/resources/itemPictures/" + product.getId() + ".png";
-            File imageFile = new File(imagePath);
-            byte[] imageBytes = null;
-            try {
-                imageBytes = Files.readAllBytes(imageFile.toPath());
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            product.setItemImage(imageBytes);
-            productService.updateProduct(product);
-        }
-    }
+//    public static void main(String[] args) {
+//        // put in every product image in the database
+//        ProductService productService = new ProductService();
+//        Optional<List<Product>> products = productService.getAllProducts();
+//
+//        // the database row is empty, so we need to put in every product image in the database
+//        // so that the frontend can display the images, the images are in the resources/images folder
+//        // the images are named after the product id in png format
+//
+//        for (Product product : products.get()) {
+//            String imagePath = "./src/main/resources/itemPictures/" + product.getId() + ".png";
+//            File imageFile = new File(imagePath);
+//            byte[] imageBytes = null;
+//            try {
+//                imageBytes = Files.readAllBytes(imageFile.toPath());
+//            } catch (IOException e) {
+//                throw new RuntimeException(e);
+//            }
+//            product.setItemImage(imageBytes);
+//            productService.updateProduct(product);
+//        }
+//    }
 }
