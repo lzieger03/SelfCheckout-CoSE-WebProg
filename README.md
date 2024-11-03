@@ -4,6 +4,14 @@
 
 Welcome to the ScanMate 1.0.0-X "Aurora" project! This is all about making your supermarket checkout experience as smooth as possible. Imagine walking up to a kiosk, scanning your items, choosing how you want to pay, and getting a receipt—all without waiting in line. That's what we're building here.
 
+## How to use
+
+1. Start SpringBoot Application 
+2. Open Index HTML Live Server on Port 5501
+3. Start Scanning Items
+4. Default Admin Login: admin pw: admin123
+
+
 ## How It Works
 
 - **Scan Your Stuff**: Use a barcode scanner to add items to your cart. Each item pops up with its name and price.
