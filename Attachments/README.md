@@ -1,3 +1,3 @@
 # SelfCheckOut-CoSe-WebProg Project
 
-![addProductToCart](./Attachments/addingProductToCart.jpg)
+![addProductToCart](./addingProductToCart.jpg)
