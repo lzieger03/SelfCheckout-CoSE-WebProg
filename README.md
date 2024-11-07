@@ -26,8 +26,8 @@ The project is a checkout system for a supermarket. It is a proof of concept and
 ## How to run
 ### How to use
 
-1. Start the Backend part of the application by running the ![SpringBoot Application](backend/SpringBootAPI/src/main/java/com/example/springbootapi/SpringBootApiApplication.java) in e.g. IntelliJ, the application will start on port 8080. 
-2. Open the ![Index HTML](frontend/index.html) in e.g. Live Server in VSCode the port must be 5501.
+1. Start the Backend part of the application by running the ![SpringBoot Application](backend/SpringBootAPI/src/main/java/com/example/springbootapi/SpringBootApiApplication.java) SpringBootApiApplication.java in e.g. IntelliJ, the application will start on port 8080. 
+2. Open the ![Index HTML](frontend/index.html) index.html in e.g. Live Server in VSCode the port must be 5501.
 3. Start Scanning Items by scanning the barcodes of the items or by manually entering the barcode.
 4. to access the admin panel use the "Admin Login Button" in the top right corner and use the default 
       credentials: 
