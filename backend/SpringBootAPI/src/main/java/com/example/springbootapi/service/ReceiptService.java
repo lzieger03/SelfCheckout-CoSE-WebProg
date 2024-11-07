@@ -31,20 +31,25 @@ public class ReceiptService {
      * @return A constructed Receipt object.
      */
     public Receipt createReceipt(PrintReceiptRequest request) {
-        ReceiptBuilder builder = new ReceiptBuilder();
+//        ReceiptBuilder builder = new ReceiptBuilder();
         CartInterface cart = new Cart(request.getCartObjects(), request.getPaymentMethod());
 
         if (request.getDiscountCode() != null && !request.getDiscountCode().isEmpty() && request.getDiscountValue() > 0) {
             cart = new DiscountCartDecorator(cart, request.getDiscountCode(), request.getDiscountValue());
         }
-        //.setLogo("src/main/resources/static/scanMateLogo.png")
-        return builder.setTitle("ScanMate")
-                      .setAddress("ScanMate-street 1")
-                      .setPhone("+49 123 4567890")
-                      .addCart(cart)
-                      .addDiscount(request.getDiscountCode(), request.getDiscountValue())
-                      .setFooter("Thank you for using ScanMate!")
-                      .build();
+//        //.setLogo("src/main/resources/static/scanMateLogo.png") // Train wreck Pattern!!! not good
+//        return builder.setTitle("ScanMate")
+//                      .setAddress("ScanMate-street 1")
+//                      .setPhone("+49 123 4567890")
+//                      .addCart(cart)
+//                      .addDiscount(request.getDiscountCode(), request.getDiscountValue())
+//                      .setFooter("Thank you for using ScanMate!")
+//                      .build();
+        ReceiptBuilder builder = new ReceiptBuilder(null, "ScanMate", "ScanMate-street1",
+                "+49 123 4567890", cart, request.getDiscountCode(), request.getDiscountValue(),
+                "Thank you for using ScanMate!");
+
+        return builder.build();
     }
 
     /**

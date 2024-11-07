@@ -16,6 +16,19 @@ public class ReceiptBuilder implements Builder {
     private double discountValue;
     private String footer;
 
+    public ReceiptBuilder(String logoPath, String title, String address,
+                          String phone, CartInterface cart, String discountCode,
+                          double discountValue, String footer) {
+        this.logoPath = logoPath;
+        this.title = title;
+        this.address = address;
+        this.phone = phone;
+        this.cart = cart;
+        this.discountCode = discountCode;
+        this.discountValue = discountValue;
+        this.footer = footer;
+    }
+
     public Builder setLogo(String logoPath) {
         this.logoPath = logoPath;
         return this;
