@@ -1,10 +1,5 @@
 # ScanMate 1.0.0-X "Aurora"
 
-## What's This About?
-
-Welcome to the ScanMate 1.0.0-X "Aurora" project! This is all about making your supermarket checkout experience as smooth as possible. Imagine walking up to a kiosk, scanning your items, choosing how you want to pay, and getting a receipt—all without waiting in line. That's what we're building here.
-
-
 # Web Programming required Part of README.md
 
 ## Grading
@@ -46,6 +41,19 @@ The project is a checkout system for a supermarket. It is a proof of concept and
 - SALE15 for 15% discount
 - EXTRA50 for 50% discount
 - TEST100 for free shopping
+
+
+
+#
+#
+#
+
+
+
+## What's This About?
+
+Welcome to the ScanMate 1.0.0-X "Aurora" project! This is all about making your supermarket checkout experience as smooth as possible. Imagine walking up to a kiosk, scanning your items, choosing how you want to pay, and getting a receipt—all without waiting in line. That's what we're building here.
+
 
 ## How It Works
 
