@@ -29,6 +29,16 @@ The project is a checkout system for a supermarket. It is a proof of concept and
          login: admin
          pw: admin123
 
+### How to start ScanMate
+
+![startScanMate](./Attachments/howToStartScanMate.mp4)
+
+
+### How to use ScanMate
+
+![useScanMate](./Attachments/howToUseScanMate.mp4)
+
+
 ## Item numbers and discount codes for quick usage or test purposes
 ### Item numbers
 
