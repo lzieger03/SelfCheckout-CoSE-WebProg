@@ -4,14 +4,38 @@
 
 Welcome to the ScanMate 1.0.0-X "Aurora" project! This is all about making your supermarket checkout experience as smooth as possible. Imagine walking up to a kiosk, scanning your items, choosing how you want to pay, and getting a receipt—all without waiting in line. That's what we're building here.
 
-## How to use
 
-1. Start SpringBoot Application 
-2. Open Index HTML Live Server on Port 5501
-3. Start Scanning Items
-4. Default Admin Login: admin pw: admin123
+# Web Programming required Part of README.md
 
-### Item numbers for quick usage or test purposes
+## Grading
+
+This project is a combination of two projects from two different courses: the frontend is intended for the Web Programming course, and the backend is for the Core Concepts of Software Engineering course. This has been discussed and confirmed with both instructors. The part to be graded should be limited solely to the portion of the project relevant to the specific course.
+
+This project is a group effort by students Marven and Lars and should be evaluated as a group, not individually.
+
+
+## Who did what?
+
+All the code in this project was developed collaboratively by Marven and Lars as part of a group effort for the Web Programming & Core Concepts of Software Engineering courses at DHBW Karlsruhe. While the distribution of commits in the GitHub repository may not appear equal, this is because we worked together extensively over Discord, engaging in pair programming sessions where both students contributed equally to the design, coding, and problem-solving processes.
+
+
+## Whats is the project about?
+
+The project is a checkout system for a supermarket. It is a proof of concept and may not be fully functional or secure for real-world applications.
+
+## How to run
+### How to use
+
+1. Start the Backend part of the application by running the ![SpringBoot Application](backend/SpringBootAPI/src/main/java/com/example/springbootapi/SpringBootApiApplication.java) in e.g. IntelliJ, the application will start on port 8080. 
+2. Open the ![Index HTML](frontend/index.html) in e.g. Live Server in VSCode the port must be 5501.
+3. Start Scanning Items by scanning the barcodes of the items or by manually entering the barcode.
+4. to access the admin panel use the "Admin Login Button" in the top right corner and use the default 
+      credentials: 
+         login: admin 
+         pw: admin123
+
+## Item numbers and discount codes for quick usage or test purposes
+### Item numbers
 
 - 8156679408476 (Apple)
 - 6270917051323 (Banana)
@@ -25,7 +49,7 @@ Welcome to the ScanMate 1.0.0-X "Aurora" project! This is all about making your 
 
 ## How It Works
 
-- **Scan Your Stuff**: Use a barcode scanner to add items to your cart. Each item pops up with its name and price.
+- **Scan Your Stuff**: Use a barcode scanner to add items to your cart or manually input the barcode. Each item pops up with its name and price.
 - **Pay Your Way**: Whether you're a cash person or a card swiper, we've got you covered. The system guides you through the payment process.
 - **Get Your Receipt**: Once you pay, a receipt prints out with all the details—what you bought, how much it cost, and how you paid.
 
