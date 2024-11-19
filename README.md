@@ -26,7 +26,7 @@ This guide provides step-by-step instructions for setting up and running the bac
 
 This Guide is primarily for macOS, as we have noticed that you used a Mac in the lectures.
 
-## 0. Install Homebrew (for macOS)
+## 0. Install Homebrew (only macOS)
 
 Homebrew is a package manager for macOS that will make it easier to install dependencies like Java and Maven.
 
@@ -133,14 +133,15 @@ Maven is a build automation tool used for Java projects, and it is required to r
   ```bash
   mvn spring-boot:run
   ```
+   *** If an error occurs during the first run, simply run the command again, and it should work. Once completed, the server will start automatically and the logs will be displayed in the terminal.***
 
-** If an error occurs during the first run, simply run the command again, and it should work. Once completed, the server will start automatically and the logs will be displayed in the terminal.**
+<br>
 
 # Frontend Setup Guide using Live Server (VSCode)
 
 ## 6. Install Visual Studio Code (VSCode)
 
-To work with the frontend part of the project, you will need Visual Studio Code.
+To work with the frontend part of the project, you will need Visual Studio Code and a Live Server Plugin, if you dont have it already, follow these steps:
 
 - **Download and Install VSCode**:
 
