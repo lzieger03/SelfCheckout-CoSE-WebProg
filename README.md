@@ -40,6 +40,10 @@ Homebrew is a package manager for macOS that will make it easier to install depe
     brew --version
     ```
   - If the version appears, Homebrew has been installed successfully.
+    ```bash
+    Output:
+    Homebrew 4.4.6
+    ```
 
 ## 1. Install Java (JDK 23)
 
@@ -50,14 +54,6 @@ The backend of this project requires Java (JDK 23). It is crucial that you insta
     ```bash
     brew install openjdk@23
     ```
-  - After installation, set Java 23 as the default version by adding the following to your shell profile (e.g., `.zshrc` or `.bash_profile`):
-    ```bash
-    export PATH="/opt/homebrew/opt/openjdk@23/bin:$PATH"
-    ```
-  - Reload the profile with:
-    ```bash
-    source ~/.zshrc
-    ```
   - Verify the Java version:
     ```bash
     java --version
@@ -67,6 +63,15 @@ The backend of this project requires Java (JDK 23). It is crucial that you insta
     openjdk 23 2024-09-17
     OpenJDK Runtime Environment (build 23+37-2369)
     OpenJDK 64-Bit Server VM (build 23+37-2369, mixed mode, sharing)
+    ```
+   optional if the java version is not set automatically:
+  - After installation, set Java 23 as the default version by adding the following to your shell profile (e.g., `.zshrc` or `.bash_profile`):
+    ```bash
+    export PATH="/opt/homebrew/opt/openjdk@23/bin:$PATH"
+    ```
+  - Reload the profile with:
+    ```bash
+    source ~/.zshrc
     ```
 
 - **Windows**:
@@ -119,11 +124,16 @@ Maven is a build automation tool used for Java projects, and it is required to r
 - Open a terminal (macOS) or Command Prompt (Windows).
 - Navigate to the `backend/SpringBootAPI` folder of the extracted project directory. Use the `cd` command:
   ```bash
-  cd path/to/extracted-folder/backend/SpringBootAPI
+  cd path/to/extracted-folder/location/backend/SpringBootAPI
+  ```
+- Run the following command to start the backend server, ensure that you run this command from the `backend/SpringBootAPI` directory:
+  ```bash
+  mvn spring-boot:run
   ```
 
- If an error occurs during the first run, simply run the command again, and it should work. Once completed, the server will start automatically and the logs will be displayed in the terminal.
+** If an error occurs during the first run, simply run the command again, and it should work. Once completed, the server will start automatically and the logs will be displayed in the terminal.**
 
+# Frontend Setup Guide using Live Server (VSCode)
 
 ## 6. Install Visual Studio Code (VSCode)
 
@@ -139,10 +149,16 @@ To work with the frontend part of the project, you will need Visual Studio Code.
 
 ## 7. Run the Frontend
 
-- Open the project folder in VSCode by selecting "File > Open Folder" and navigate to the extracted project directory.
-- Navigate to the `frontend` folder.
-- Right-click on `index.html` and select "Open with Live Server".
-- A browser window will open displaying the ScanMate site. You can now interact with the system by entering barcodes, inputting discount codes, or logging into the admin view.
+1. Open the project folder in VSCode by selecting "File > Open Folder" and navigate to the extracted project directory.
+2. Navigate to the `frontend` folder.
+3. Right-click on `index.html` and select "Open with Live Server".
+4. make sure the Frontend Live Server is running on port `5501`. You can check this in the bottom right corner of the VSCode window. <br> If the port is not `5501`, you can change the port in the settings or create a new `settings.json` file in the `.vscode` folder and add the following lines: 
+  ```json
+  {
+    "liveServer.settings.port": 5501
+   }
+  ```
+5. A browser window will open displaying the ScanMate site. You can now interact with the system by entering barcodes, inputting discount codes, or logging into the admin view.
 
 ## Additional Notes
 
