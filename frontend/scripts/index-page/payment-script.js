@@ -165,7 +165,7 @@ document.addEventListener("DOMContentLoaded", () => {
         setTimeout(() => {
           console.log("fetchPostPrint: Reloading page...");
           location.reload();
-        }, 50000);
+        }, 5000);
       } else {
         console.error("fetchPostPrint: Unexpected message:", result.message);
         throw new Error(result.error || "Printing failed");

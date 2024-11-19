@@ -1,18 +1,16 @@
 # ScanMate Mock-Backend Version - Web Programming Course
 
-## Grading
+## Grading & Collaboration
 
-This project is a combination of two projects from two different courses: the frontend is intended for the Web Programming course, and the backend is for the Core Concepts of Software Engineering course. This has been discussed and confirmed with both instructors. The part to be graded should be limited solely to the portion of the project relevant to the specific course.
-
-This project is a group effort by students Marven and Lars and should be evaluated as a group, not individually.
+This project combines two courses: Web Programming (frontend) and Core Concepts of Software Engineering (backend), with grading limited to each course's relevant portion. Both instructors have approved this. Marven and Lars developed the project collaboratively, and it should be evaluated as a group.
 
 ## Who did what?
 
-All the code in this project was developed collaboratively by Marven and Lars as part of a group effort for the Web Programming & Core Concepts of Software Engineering courses at DHBW Karlsruhe. While the distribution of commits in the GitHub repository may not appear equal, this is because we worked together extensively over Discord, engaging in pair programming sessions where both students contributed equally to the design, coding, and problem-solving processes.
+Marven and Lars worked together on all code through pair programming, even if GitHub commits appear uneven, contributing equally to design and problem-solving.
 
 ## Whats is the project about?
 
-The project is a checkout system for a supermarket. It is a proof of concept and may not be fully functional or secure for real-world applications.
+The project is a supermarket checkout system, serving as a proof of concept and not intended for real-world use.
 
 <br> <br> <br>
 
@@ -22,7 +20,7 @@ This guide provides step-by-step instructions for setting up and running the moc
 
 This Guide is primarily for macOS, as we have noticed that you used a Mac in the lectures.
 
-## 0. Install Homebrew (only macOS)
+## 0. Install Homebrew (if not already installed)
 
 Homebrew is a package manager for macOS that will make it easier to install dependencies like NodeJS and npm.
 
@@ -90,7 +88,7 @@ The mock-backend uses JSON Server and Express.
 
 ## 3. Download the Project Repository
 
-- Go to the GitHub repository: [SelfCheckout-CoSE-WebProg](https://github.com/lzieger03/SelfCheckout-CoSE-WebProg).
+- Go to the GitHub repository and **use the "json-server-version" branch**: [SelfCheckout-CoSE-WebProg](https://github.com/lzieger03/SelfCheckout-CoSE-WebProg).
 - Click on the "Code" button and select "Download ZIP".
 - Extract the ZIP file to a location of your choice.
 
@@ -159,8 +157,8 @@ To work with the frontend part of the project, you will need Visual Studio Code 
 
 ### Discount codes
 
-- SAVE10 for 10% discount
 - SALE15 for 15% discount
+- EXTRA50 for 50% discount
 - TEST100 for free shopping
 
 ### Admin login
