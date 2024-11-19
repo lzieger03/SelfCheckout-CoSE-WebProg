@@ -204,9 +204,9 @@ document.addEventListener("DOMContentLoaded", () => {
         <button class="delete-btn">Delete</button>
       `;
 
-      li.querySelector(".delete-btn").addEventListener("click", () =>
-        removeBarcodeItem(li, barcode)
-      ); // Delete button handler
+      li.querySelector(".delete-btn").addEventListener("click", async () =>{
+        await removeBarcodeItem(li, barcode);
+      }); // Delete button handler
 
       li.addEventListener("click", () => {
         document

@@ -161,12 +161,11 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.removeItem("barcodes");
         console.log("fetchPostPrint: Cleaned up discount and cart data");
 
-        // Show the popup for at least 5 seconds or until user clicks
+        // Wait for 5 seconds before reloading the page
         setTimeout(() => {
-          receiptIsPrintingPopup.style.display = "none";
-          // Optionally reload the page after 5 seconds
-          window.location.reload();
-        }, 5000);
+          console.log("fetchPostPrint: Reloading page...");
+          location.reload();
+        }, 50000);
       } else {
         console.error("fetchPostPrint: Unexpected message:", result.message);
         throw new Error(result.error || "Printing failed");
@@ -194,8 +193,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       if (receiptIsPrintingPopup.style.display === "flex") {
         receiptIsPrintingPopup.style.display = "none";
-        // Optionally reload the page upon closing the popup
-        window.location.reload();
       }
     }
   });
@@ -203,7 +200,5 @@ document.addEventListener("DOMContentLoaded", () => {
   // --- Close Receipt Popup on Click ---
   receiptIsPrintingPopup.addEventListener("click", () => {
     receiptIsPrintingPopup.style.display = "none";
-    // Optionally reload the page upon closing the popup
-    window.location.reload();
   });
 });
