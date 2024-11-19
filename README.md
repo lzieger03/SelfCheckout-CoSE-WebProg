@@ -66,7 +66,7 @@ The backend of this project requires Java (JDK 23). It is crucial that you insta
     OpenJDK Runtime Environment (build 23+37-2369)
     OpenJDK 64-Bit Server VM (build 23+37-2369, mixed mode, sharing)
     ```
-    optional if the java version is not set automatically:
+  optional if the java version is not set automatically:
   - After installation, set Java 23 as the default version by adding the following to your shell profile (e.g., `.zshrc` or `.bash_profile`):
     ```bash
     export PATH="/opt/homebrew/opt/openjdk@23/bin:$PATH"
