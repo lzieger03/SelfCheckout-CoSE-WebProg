@@ -24,6 +24,8 @@ The project is a checkout system for a supermarket. It is a proof of concept and
 
 This guide provides step-by-step instructions for setting up and running the backend server for the ScanMate project. Please follow these steps carefully to ensure all components are installed correctly and the server runs smoothly.
 
+This Guide is primarily for macOS, as we have noticed that you used a Mac in the lectures.
+
 ## 0. Install Homebrew (for macOS)
 
 Homebrew is a package manager for macOS that will make it easier to install dependencies like Java and Maven.
@@ -154,7 +156,7 @@ To work with the frontend part of the project, you will need Visual Studio Code.
 1. Open the project folder in VSCode by selecting "File > Open Folder" and navigate to the extracted project directory.
 2. Navigate to the `frontend` folder.
 3. Right-click on `index.html` and select "Open with Live Server".
-4. *Make sure the Frontend Live Server is running on port `5501`. You can check this in the bottom right corner of the VSCode window. <br> If the port is not `5501`, you can change the port in the settings or create a new `settings.json` file in the `.vscode` folder and add the following lines:*
+4. *Make sure the Frontend Live Server is running on port `5501`. You can check this in the bottom right corner of the VSCode window. <br> If the port is ***not*** `5501`, you can change the port in the settings or create a new `settings.json` file in the `.vscode` folder and add the following lines:*
    ```json
    {
      "liveServer.settings.port": 5501
@@ -166,7 +168,7 @@ To work with the frontend part of the project, you will need Visual Studio Code.
 ## Additional Notes
 
 - Ensure that both the backend and frontend are running simultaneously for the full application to work.
-- The backend must be running on port `8080`, and the Live Server for the frontend should run on port `5501`.
+- The backend **must be** running on port `8080`, and the Live Server for the frontend **must be** on port `5501`.
 - If any errors occur, verify the compatibility of Java and Maven versions as specified in the installation steps.
 
 ## Troubleshooting
@@ -176,16 +178,7 @@ To work with the frontend part of the project, you will need Visual Studio Code.
 - **Frontend Not Loading Properly**: Confirm that the backend server is running before starting the Live Server.
 
 #
-
-<br> <br><br> <br>
-
-### How to start ScanMate
-
-[![startScanMate](./Attachments/howToStartScanMate.png)](./Attachments/howToStartScanMate.mp4)
-
-### How to use ScanMate
-
-[![useScanMate](./Attachments/howToUseScanMate.png)](./Attachments/howToUseScanMate.mp4)
+<br><br>
 
 ## Item numbers and discount codes for quick usage or test purposes
 
