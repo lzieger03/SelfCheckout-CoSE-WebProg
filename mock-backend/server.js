@@ -1,21 +1,19 @@
 const jsonServer = require('json-server');
-const express = require('express'); // Require Express.js
+const express = require('express');
 const server = jsonServer.create();
 const path = require('path');
 const router = jsonServer.router(path.join(__dirname, 'db.json'));
 const middlewares = jsonServer.defaults();
 const bodyParser = require('body-parser');
 
-// Use default middlewares (logger, static, cors, and no-cache)
 server.use(middlewares);
 
 // Serve images from the /images endpoint using Express static middleware
 server.use('/images', express.static(path.join(__dirname, 'images')));
 
-// Parse JSON bodies
 server.use(bodyParser.json());
 
-// Custom route for fetching product by barcode
+
 server.get('/product', (req, res) => {
   const id = req.query.id;
   const product = router.db.get('products').find({ id }).value();
@@ -26,7 +24,7 @@ server.get('/product', (req, res) => {
   }
 });
 
-// Custom route for fetching discount by code
+
 server.get('/discount', (req, res) => {
   const code = req.query.code;
   const discount = router.db.get('discounts').find({ code }).value();
@@ -37,7 +35,7 @@ server.get('/discount', (req, res) => {
   }
 });
 
-// Custom route for admin login
+
 server.post('/adminlogin', (req, res) => {
   const { username, password } = req.body;
   const user = router.db.get('adminUsers').find({ username, password }).value();
@@ -48,19 +46,17 @@ server.post('/adminlogin', (req, res) => {
   }
 });
 
-// Custom route for printing receipts
+
 server.post('/print', (req, res) => {
-  const { paymentMethod, cartObjects, discountCode, discountValue } = req.body;
-  // Here you can add logic to handle the print request as needed
-  // For mocking purposes, we'll assume it's always successful
-  router.db.get('prints').push({
-    id: Date.now(),
-    paymentMethod,
-    cartObjects,
-    discountCode,
-    discountValue,
-    timestamp: new Date().toISOString()
-  }).write();
+//  const { paymentMethod, cartObjects, discountCode, discountValue } = req.body;
+//   router.db.get('prints').push({
+//     id: Date.now(),
+//     paymentMethod,
+//     cartObjects,
+//     discountCode,
+//     discountValue,
+//     timestamp: new Date().toISOString()
+//   }).write();
   
   res.jsonp({ message: "Print successful" });
 });
