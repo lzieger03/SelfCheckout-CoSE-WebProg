@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // fetch the admin login endpoint if the input is not empty and not only spaces
         if (username.trim() && password.trim()) {
             try {
-                const response = await fetch("http://localhost:8080/adminlogin", {
+                const response = await fetch("http://localhost:3000/adminlogin", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({username, password})
@@ -57,8 +57,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 } else {
                     setCookie('admin-username', username, 1);  // Cookie set for 1 day
 
+
+                    alert("Login successful, but unfortunately the admin page is not available in the mock-backend version of ScanMate.");
+                    location.reload();
+
                     // if everything is correct, redirect to the admin page
-                    window.location.href = "./admin.html";
+                    // window.location.href = "./admin.html";
                 }
             } catch (error) {
                 console.error("Login request failed:", error);

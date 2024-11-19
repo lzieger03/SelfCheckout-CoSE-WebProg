@@ -1,0 +1,44 @@
+{
+  "products": [
+    {
+      "id": "8156679408476",
+      "name": "Apple",
+      "price": 0.99,
+      "image": "/mock-backend/images/8156679408476.png"
+    },
+    {
+      "id": "4012345678901",
+      "name": "Banana",
+      "price": 0.59,
+      "image": "/mock-backend/images/4012345678901.png"
+    },
+    {
+      "id": "1234567890123",
+      "name": "Cherry",
+      "price": 2.99,
+      "image": "/mock-backend/images/1234567890123.png"
+    }
+  ],
+  "discounts": [
+    {
+      "code": "TEST100",
+      "value": 100.0
+    },
+    {
+      "code": "SALE15",
+      "value": 15.0
+    },
+    {
+      "code": "SAVE10",
+      "value": 10.0
+    }
+  ],
+  "adminUsers": [
+    {
+      "id": 1,
+      "username": "admin",
+      "password": "password123"
+    }
+  ],
+  "prints": []
+} 

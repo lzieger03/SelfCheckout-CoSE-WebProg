@@ -66,7 +66,9 @@ document.addEventListener("DOMContentLoaded", () => {
     quantityDisplay.textContent = item.querySelector(
       ".barcode-list-productQuantity"
     ).textContent;
-    productImageElement.src = `http://localhost:8080/product/image?id=${itemNumberElement.textContent}`;
+    productImageElement.src = item.querySelector(
+      ".barcode-list-productImage"
+    ).src;
     currentSelectedItem = item;
   }
 
@@ -96,7 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
   async function fetchProductByBarcode(barcode) {
     try {
       const response = await fetch(
-        `http://localhost:8080/product?id=${barcode}`
+        `http://localhost:3000/product?id=${barcode}`
       );
       if (!response.ok) throw new Error("Error with the server response");
 
@@ -189,7 +191,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const li = document.createElement("li");
       li.className = "barcode-item";
       li.innerHTML = `
-        <img src="http://localhost:8080/product/image?id=${barcode}" alt="${productData.name}" class="barcode-list-productImage">
+        <img src="${productData.image}" alt="${productData.name}" class="barcode-list-productImage">
         <p class="barcode-list-productName">${productData.name}</p>
         <p class="barcode-list-productBarcode">${productData.id}</p>
         <p class="barcode-list-productSinglePrice">${productData.price.toFixed(
@@ -344,7 +346,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const couponCode = couponInput.value.trim();
     if (couponCode) {
       try {
-        const response = await fetch(`http://localhost:8080/discount?code=${encodeURIComponent(couponCode)}`);
+        const response = await fetch(`http://localhost:3000/discount?code=${encodeURIComponent(couponCode)}`);
         if (!response.ok) {
           throw new Error("Invalid promo code.");
         }

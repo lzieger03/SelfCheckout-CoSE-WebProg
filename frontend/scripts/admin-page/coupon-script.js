@@ -10,6 +10,10 @@ document.addEventListener("DOMContentLoaded", () => {
     let editCouponCode = null;
     let isCouponListStale = localStorage.getItem("couponsStale") !== "false";
 
+    /**
+     * Fetches all coupons from the backend API.
+     * @returns {Promise<Array>} A promise that resolves to an array of coupons.
+     */
     async function fetchAllCoupons() {
         // If coupons are cached and not stale, return from localStorage
         if (!isCouponListStale && localStorage.getItem("coupons")) {
@@ -22,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         try {
-            const response = await fetch('http://localhost:8080/allcoupons');
+            const response = await fetch('http://localhost:3000/coupons');
             if (!response.ok) {
                 throw new Error(`Error fetching coupons: ${response.statusText}`);
             }
@@ -44,8 +48,12 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    /**
+     * Renders the list of coupons in the admin table.
+     * @param {Array} coupons - An array of coupon objects.
+     */
     function renderCoupons(coupons) {
-        couponTableBody.innerHTML = '';
+        couponTableBody.innerHTML = "";
         coupons.forEach(coupon => {
             const tr = document.createElement("tr");
 
@@ -53,117 +61,148 @@ document.addEventListener("DOMContentLoaded", () => {
             tdCode.textContent = coupon.code;
             tr.appendChild(tdCode);
 
-            const tdDiscount = document.createElement("td");
-            tdDiscount.textContent = coupon.value.toFixed(2); // Ensure correct property
-            tr.appendChild(tdDiscount);
+            const tdValue = document.createElement("td");
+            tdValue.textContent = coupon.value;
+            tr.appendChild(tdValue);
 
             const tdActions = document.createElement("td");
 
-            const editBtn = document.createElement("button");
-            editBtn.textContent = "Edit";
-            editBtn.classList.add("action-btn-edit", "action-btn");
-            editBtn.addEventListener("click", () => {
-                isEditMode = true;
-                openEditCouponPopup(coupon.code);
-            });
-            tdActions.appendChild(editBtn);
+            const editButton = document.createElement("button");
+            editButton.textContent = "Edit";
+            editButton.classList.add("edit-btn");
+            editButton.addEventListener("click", () => openEditCouponPopup(coupon.code));
+            tdActions.appendChild(editButton);
 
-            const deleteBtn = document.createElement("button");
-            deleteBtn.textContent = "Delete";
-            deleteBtn.classList.add("action-btn-delete", "action-btn");
-            deleteBtn.addEventListener("click", () => {
-                deleteCoupon(coupon.code);
-            });
-            tdActions.appendChild(deleteBtn);
+            const deleteButton = document.createElement("button");
+            deleteButton.textContent = "Delete";
+            deleteButton.classList.add("delete-btn");
+            deleteButton.addEventListener("click", () => deleteCoupon(coupon.code));
+            tdActions.appendChild(deleteButton);
 
             tr.appendChild(tdActions);
+
             couponTableBody.appendChild(tr);
         });
-        document.getElementById("coupon-count").textContent = `Active coupons: ${coupons.length}`;
     }
 
+    /**
+     * Initializes the coupon management by fetching and rendering all coupons.
+     */
     async function initializeCoupons() {
         const coupons = await fetchAllCoupons();
         renderCoupons(coupons);
     }
 
-    addCouponBtn.addEventListener("click", () => {
-        isEditMode = false;
-        couponPopupTitle.textContent = "Add New Coupon";
-        couponForm.reset();
+    /**
+     * Opens the popup for adding or editing a coupon.
+     * @param {string} [code] - The coupon code to edit. If undefined, opens in add mode.
+     */
+    function openCouponPopup(code = null) {
+        if (code) {
+            isEditMode = true;
+            editCouponCode = code;
+            couponPopupTitle.textContent = "Edit Coupon";
+            // Pre-fill the form with existing coupon data
+            const coupon = JSON.parse(localStorage.getItem("coupons")).find(c => c.code === code);
+            if (coupon) {
+                document.getElementById("coupon-code").value = coupon.code;
+                document.getElementById("coupon-discount").value = coupon.value;
+                document.getElementById("coupon-code").disabled = true; // Prevent changing code
+            }
+        } else {
+            isEditMode = false;
+            editCouponCode = null;
+            couponPopupTitle.textContent = "Add Coupon";
+            couponForm.reset();
+            document.getElementById("coupon-code").disabled = false;
+        }
         couponPopup.style.display = "flex";
-    });
+    }
 
-    couponPopupClose.addEventListener("click", () => {
+    /**
+     * Closes the coupon popup.
+     */
+    function closeCouponPopup() {
         couponPopup.style.display = "none";
-    });
+    }
 
+    /**
+     * Handles the submission of the coupon form for adding or editing.
+     * @param {Event} event - The form submission event.
+     */
     couponForm.addEventListener("submit", async (event) => {
         event.preventDefault();
         const code = document.getElementById("coupon-code").value.trim();
-        const value = parseFloat(document.getElementById("coupon-discount").value.trim());
+        const value = parseFloat(document.getElementById("coupon-discount").value);
 
-        if (!code || isNaN(value) || value < 0 || value > 100) {
-            alert("Please enter a valid coupon code and discount value.");
+        if (!code || isNaN(value)) {
+            alert("Please provide valid coupon code and discount value.");
             return;
         }
 
-        try {
-            let response;
-            if (isEditMode && editCouponCode) {
-                console.log("Updating existing coupon: " + editCouponCode);
-                // Update existing coupon
-                response = await fetch(`http://localhost:8080/discount?code=${encodeURIComponent(editCouponCode)}`, {
+        if (isEditMode) {
+            // Edit existing coupon
+            try {
+                const response = await fetch(`http://localhost:3000/coupons/${encodeURIComponent(code)}`, {
                     method: 'PUT',
                     headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'Content-Type': 'application/json'
                     },
-                    body: new URLSearchParams({
-                        value: value,
-                    }),
+                    body: JSON.stringify({ code, value })
                 });
-            } else {
-                console.log("Creating new coupon: " + code);
-                // Create new coupon
-                response = await fetch('http://localhost:8080/discount', {
+
+                if (!response.ok) {
+                    const errorMsg = await response.text();
+                    throw new Error(errorMsg);
+                }
+
+                isCouponListStale = true;
+                localStorage.setItem("couponsStale", "true");
+                alert("Coupon updated successfully.");
+                closeCouponPopup();
+                initializeCoupons(); // Refresh the coupon list
+            } catch (error) {
+                console.error("Error updating coupon:", error);
+                alert(`Error updating coupon: ${error.message}`);
+            }
+        } else {
+            // Add new coupon
+            try {
+                const response = await fetch('http://localhost:3000/coupons', {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'Content-Type': 'application/json'
                     },
-                    body: new URLSearchParams({
-                        code: code,
-                        value: value,
-                    }),
+                    body: JSON.stringify({ code, value })
                 });
-            }
 
-            if (!response.ok) {
-                const errorMsg = await response.text();
-                throw new Error(errorMsg);
-            }
+                if (!response.ok) {
+                    const errorMsg = await response.text();
+                    throw new Error(errorMsg);
+                }
 
-            isCouponListStale = true;
-            localStorage.setItem("couponsStale", "true");
-            alert("Coupon saved successfully.");
-            couponPopup.style.display = "none";
-            initializeCoupons(); // Refresh the coupon list
-        } catch (error) {
-            console.error("Error saving coupon:", error);
-            alert(`Error saving coupon: ${error.message}`);
+                isCouponListStale = true;
+                localStorage.setItem("couponsStale", "true");
+                alert("Coupon added successfully.");
+                closeCouponPopup();
+                initializeCoupons(); // Refresh the coupon list
+            } catch (error) {
+                console.error("Error adding coupon:", error);
+                alert(`Error adding coupon: ${error.message}`);
+            }
         }
     });
 
     /**
      * Deletes a coupon by its code.
-     * Implement the delete endpoint on the backend if not already done.
      * @param {string} code - The coupon code to delete.
      */
     async function deleteCoupon(code) {
         if (!confirm(`Are you sure you want to delete the coupon "${code}"?`)) return;
 
         try {
-            const response = await fetch(`http://localhost:8080/discount?code=${encodeURIComponent(code)}`, {
-                method: 'DELETE', // Ensure backend supports DELETE method
+            const response = await fetch(`http://localhost:3000/coupons/${encodeURIComponent(code)}`, {
+                method: 'DELETE'
             });
 
             if (!response.ok) {
@@ -181,26 +220,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    /**
-     * Opens the edit popup with the coupon details pre-filled.
-     * @param {string} code - The coupon code to edit.
-     */
-    function openEditCouponPopup(code) {
-        // Fetch the coupon details if necessary
-        // For simplicity, assuming the coupon details are already available
-        isEditMode = true;
-        editCouponCode = code;
-        couponPopupTitle.textContent = "Edit Coupon";
-        // Pre-fill the form
-        const coupon = Array.from(couponTableBody.children)
-            .find(row => row.children[0].textContent === code);
-        if (coupon) {
-            const discount = parseFloat(coupon.children[1].textContent);
-            document.getElementById("coupon-code").value = code;
-            document.getElementById("coupon-discount").value = discount;
-        }
-        couponPopup.style.display = "flex";
-    }
+    // Event Listeners
+    addCouponBtn.addEventListener("click", () => openCouponPopup());
+    couponPopupClose.addEventListener("click", closeCouponPopup);
 
+    // Initialize Coupons on Page Load
     initializeCoupons();
 });

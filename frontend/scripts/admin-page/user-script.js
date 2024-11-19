@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         try {
-            const response = await fetch('http://localhost:8080/allusers');
+            const response = await fetch('http://localhost:3000/users');
             if (!response.ok) {
                 throw new Error(`Error fetching users: ${response.statusText}`);
             }
@@ -76,214 +76,152 @@ document.addEventListener("DOMContentLoaded", () => {
             tdUsername.textContent = user.username;
             tr.appendChild(tdUsername);
 
-            const tdEmail = document.createElement("td");
-            tdEmail.textContent = user.email || "-";
-            tr.appendChild(tdEmail);
-
             const tdRole = document.createElement("td");
             tdRole.textContent = user.role;
             tr.appendChild(tdRole);
 
             const tdActions = document.createElement("td");
-            const editBtn = document.createElement("button");
-            editBtn.textContent = "Edit";
-            editBtn.classList.add("action-btn-edit", "action-btn");
-            editBtn.addEventListener("click", () => {
-                isEditMode = true;
-                console.log("edit user: " + user);
-                editUser(user);
-            });
-            tdActions.appendChild(editBtn);
 
-            const deleteBtn = document.createElement("button");
-            deleteBtn.textContent = "Delete";
-            deleteBtn.classList.add("action-btn-delete", "action-btn");
-            deleteBtn.addEventListener("click", () => deleteUser(user.id));
-            tdActions.appendChild(deleteBtn);
+            const editButton = document.createElement("button");
+            editButton.textContent = "Edit";
+            editButton.classList.add("edit-btn");
+            editButton.addEventListener("click", () => openEditUserPopup(user.id));
+            tdActions.appendChild(editButton);
 
-            if (localStorage.getItem('admin-username') === user.username) {
-                tr.style.backgroundColor = "#F1EBEB";
-                tr.style.cursor = "not-allowed";
-                tdActions.disabled = true;
-                editBtn.disabled = true;
-                editBtn.style.backgroundColor = "#D5E3EF";
-                editBtn.style.cursor = "not-allowed";
-                deleteBtn.disabled = true;
-                deleteBtn.style.backgroundColor = "#EFD9D7";
-                deleteBtn.style.cursor = "not-allowed";
-            }
+            const deleteButton = document.createElement("button");
+            deleteButton.textContent = "Delete";
+            deleteButton.classList.add("delete-btn");
+            deleteButton.addEventListener("click", () => deleteUser(user.id));
+            tdActions.appendChild(deleteButton);
 
             tr.appendChild(tdActions);
+
             userTableBody.appendChild(tr);
         });
-        document.getElementById("user-count").textContent = `Active users: ${users.length}`;
-        
     }
 
     /**
-     * Opens the user popup in add mode.
-     * @param {string} role - The role of the user to add ("ADMIN" or "CUSTOMER").
+     * Initializes the user management by fetching and rendering all users.
      */
-    function openAddUserPopup(role) {
-        isEditMode = false;
-        editUserId = null;
-        userPopupTitle.textContent = `Add New ${role === "ADMIN" ? "Admin" : "Customer"}`;
-        userForm.reset();
-        document.getElementById("user-id").value = generateUniqueUserId();
-        roleSelect.value = role;
-        customerFields.style.display = role === "CUSTOMER" ? "flex" : "none";
+    async function initializeUsers() {
+        const users = await fetchAllUsers();
+        renderUsers(users);
+    }
+
+    /**
+     * Opens the popup for adding or editing a user.
+     * @param {string} [id] - The user ID to edit. If undefined, opens in add mode.
+     */
+    function openUserPopup(id = null) {
+        if (id) {
+            isEditMode = true;
+            editUserId = id;
+            userPopupTitle.textContent = "Edit User";
+            // Pre-fill the form with existing user data
+            const users = JSON.parse(localStorage.getItem("users"));
+            const user = users.find(u => u.id === id);
+            if (user) {
+                document.getElementById("user-id").value = user.id;
+                document.getElementById("username").value = user.username;
+                document.getElementById("password").value = user.password;
+                roleSelect.value = user.role;
+                if (user.role === "CUSTOMER") {
+                    customerFields.style.display = "flex";
+                    // Assuming customer-specific details are available
+                    // Populate customer fields if available
+                } else {
+                    customerFields.style.display = "none";
+                }
+                document.getElementById("user-id").disabled = true; // Prevent changing ID
+            }
+        } else {
+            isEditMode = false;
+            editUserId = null;
+            userPopupTitle.textContent = "Add User";
+            userForm.reset();
+            customerFields.style.display = "none";
+            document.getElementById("user-id").disabled = false;
+        }
         userPopup.style.display = "flex";
     }
-
-    /**
-     * Generates a unique user ID for a new user.
-     */
-    function generateUniqueUserId() {
-        // Generate a unique user ID (similar logic as products)
-        let userId = Math.floor(Math.random() * 1e6).toString().padStart(6, '1');
-        return userId;
-    }
-
-    /**
-     * Handles the click event for adding a new Admin.
-     */
-    addAdminBtn.addEventListener("click", () => {
-        openAddUserPopup("ADMIN");
-    });
-
-    /**
-     * Handles the click event for adding a new Customer.
-     */
-    addCustomerBtn.addEventListener("click", () => {
-        openAddUserPopup("CUSTOMER");
-    });
 
     /**
      * Closes the user popup.
      */
-    userPopupClose.addEventListener("click", () => {
+    function closeUserPopup() {
         userPopup.style.display = "none";
-    });
+    }
 
     /**
-     * Handles the form submission for adding or editing a user.
+     * Handles the submission of the user form for adding or editing.
      * @param {Event} event - The form submission event.
      */
     userForm.addEventListener("submit", async (event) => {
         event.preventDefault();
-
         const id = document.getElementById("user-id").value.trim();
         const username = document.getElementById("username").value.trim();
         const password = document.getElementById("password").value.trim();
-        const role = document.getElementById("role").value;
+        const role = roleSelect.value;
 
-        // Gather customer-specific data if applicable
-        let firstName = null;
-        let lastName = null;
-        let customerEmail = null;
-
-        if (role === "CUSTOMER") {
-            firstName = document.getElementById("first-name").value.trim();
-            lastName = document.getElementById("last-name").value.trim();
-            customerEmail = document.getElementById("customer-email").value.trim();
-
-            if (!firstName || !lastName || !customerEmail) {
-                alert("Please fill in all customer-specific fields.");
-                return;
-            }
-        }
-
-        // Prepare the payload based on role
-        let payload = {
-            uid: id,
-            username,
-            password,
-            role
-        };
-
-        if (role === "CUSTOMER") {
-            payload.firstName = firstName;
-            payload.lastName = lastName;
-            payload.email = customerEmail;
+        if (!id || !username || !password || !role) {
+            alert("Please provide valid user details.");
+            return;
         }
 
         try {
-            let response;
             if (isEditMode) {
-                // Update existing user
-                response = await fetch(`http://localhost:8080/updateuser`, {
+                // Edit existing user
+                const response = await fetch(`http://localhost:3000/users/${encodeURIComponent(id)}`, {
                     method: 'PUT',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ id, username, password, role })
                 });
+
+                if (!response.ok) {
+                    const errorMsg = await response.text();
+                    throw new Error(errorMsg);
+                }
+
+                isUserListStale = true;
+                localStorage.setItem("usersStale", "true");
+                alert("User updated successfully.");
+                closeUserPopup();
+                initializeUsers(); // Refresh the user list
             } else {
-                // Add new user based on role
-                const endpoint = role === "ADMIN" ? 'addadmin' : 'addcustomer';
-                response = await fetch(`http://localhost:8080/${endpoint}`, {
+                // Add new user
+                const response = await fetch('http://localhost:3000/users', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ id, username, password, role })
                 });
-            }
 
-            if (!response.ok) {
-                const errorMsg = await response.text();
-                throw new Error(errorMsg);
-            }
+                if (!response.ok) {
+                    const errorMsg = await response.text();
+                    throw new Error(errorMsg);
+                }
 
-            isUserListStale = true;
-            localStorage.setItem("usersStale", "true");
-            alert(isEditMode ? "User updated successfully." : "User added successfully.");
-            userPopup.style.display = "none";
-            initializeUsers();
+                isUserListStale = true;
+                localStorage.setItem("usersStale", "true");
+                alert("User added successfully.");
+                closeUserPopup();
+                initializeUsers(); // Refresh the user list
+            }
         } catch (error) {
-            console.error(error);
-            alert(`Error: ${error.message}`);
+            console.error("Error saving user:", error);
+            alert(`Error saving user: ${error.message}`);
         }
     });
 
     /**
-     * Opens the user popup in edit mode with pre-filled data.
-     * @param {Object} user - The user object to edit.
+     * Opens the edit popup with the user details pre-filled.
+     * @param {string} id - The user ID to edit.
      */
-    async function editUser(user) {
-        isEditMode = true;
-        editUserId = user.id;
-        userPopupTitle.textContent = "Edit User";
-
-        // Populate form fields with existing user data
-        document.getElementById("user-id").value = user.id;
-        document.getElementById("username").value = user.username;
-        document.getElementById("password").value = ""; // Leave password blank for security
-        document.getElementById("role").value = user.role;
-
-        if (user.role === "CUSTOMER") {
-            // Fetch customer-specific details
-            try {
-                const response = await fetch(`http://localhost:8080/user?id=${encodeURIComponent(user.id)}`);
-                if (!response.ok) {
-                    throw new Error("Failed to fetch customer details.");
-                }
-                const customer = await response.json();
-                document.getElementById("first-name").value = customer.firstName || "";
-                document.getElementById("last-name").value = customer.lastName || "";
-                document.getElementById("customer-email").value = customer.email || "";
-                customerFields.style.display = "flex";
-            } catch (error) {
-                console.error(error);
-                alert("Error fetching customer data.");
-                customerFields.style.display = "none";
-            }
-        } else {
-            customerFields.style.display = "none";
-        }
-
-        // Disable the ID input field and grey it out
-        const userIdInput = document.getElementById("user-id");
-        userIdInput.disabled = true;
-        userIdInput.style.backgroundColor = "#ccc";
-
-        userPopup.style.display = "flex";
+    function openEditUserPopup(id) {
+        openUserPopup(id);
     }
 
     /**
@@ -294,7 +232,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!confirm(`Are you sure you want to delete the user "${userId}"?`)) return;
 
         try {
-            const response = await fetch(`http://localhost:8080/deleteuser?id=${encodeURIComponent(userId)}`, {
+            const response = await fetch(`http://localhost:3000/users/${encodeURIComponent(userId)}`, {
                 method: 'DELETE'
             });
 
@@ -306,25 +244,41 @@ document.addEventListener("DOMContentLoaded", () => {
             isUserListStale = true;
             localStorage.setItem("usersStale", "true");
             alert("User deleted successfully.");
-            initializeUsers();
+            initializeUsers(); // Refresh the user list
         } catch (error) {
             console.error("Error deleting user:", error);
             alert(`Error deleting user: ${error.message}`);
         }
     }
 
+    // Event Listeners
+    addAdminBtn.addEventListener("click", () => {
+        roleSelect.value = "ADMIN";
+        openUserPopup();
+    });
+    addCustomerBtn.addEventListener("click", () => {
+        roleSelect.value = "CUSTOMER";
+        openUserPopup();
+    });
+    userPopupClose.addEventListener("click", closeUserPopup);
+
     /**
-     * Handles the change event for the role selection to toggle customer-specific fields.
+     * Handles role selection to show/hide customer-specific fields.
      */
     roleSelect.addEventListener("change", () => {
         if (roleSelect.value === "CUSTOMER") {
-            userPopupTitle.textContent = userPopupTitle.textContent.replace("Admin", "Customer");
+            userPopupTitle.textContent = "Add Customer";
             customerFields.style.display = "flex";
         } else {
-            userPopupTitle.textContent = userPopupTitle.textContent.replace("Customer", "Admin");
+            userPopupTitle.textContent = "Add Admin";
             customerFields.style.display = "none";
         }
     });
+
+    /**
+     * Handles customer-specific details if needed.
+     * Add any additional logic here.
+     */
 
     // Initial Render
     initializeUsers();

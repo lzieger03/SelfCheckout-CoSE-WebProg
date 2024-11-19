@@ -61,6 +61,8 @@ document.addEventListener("DOMContentLoaded", () => {
   paymentCloseButton.addEventListener("click", () => {
     paymentPopup.style.display = "none";
     couponPopup.style.display = "none";
+    // Enable barcode input when closing payment popup
+    barcodeInput.disabled = false;
   });
 
   barcodeInput.addEventListener("input", () => {
@@ -83,6 +85,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!paymentProceedButton.disabled && !isCartEmpty()) {
       await fetchPostPrint();
       paymentPopup.style.display = "none";
+      // Enable barcode input after payment
+      barcodeInput.disabled = false;
     } else {
       cartEmptyPopup.style.display = "flex";
     }
@@ -128,10 +132,10 @@ document.addEventListener("DOMContentLoaded", () => {
       // alert("Awaiting response..."); // Optional: Remove for testing
 
       // Send API request
-      const response = await fetch(`http://127.0.0.1:8080/print`, { // Changed to 127.0.0.1
+      const response = await fetch(`http://localhost:3000/print`, { // Changed to localhost:3000
         keepalive: true,
         mode: 'cors',
-        timeout: 10000,
+        // JSON-Server does not support the `timeout` option
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
@@ -154,7 +158,8 @@ document.addEventListener("DOMContentLoaded", () => {
         // Clean up after successful print
         localStorage.removeItem("discountCode");
         localStorage.removeItem("discountValue");
-        console.log("fetchPostPrint: Cleaned up discount data");
+        localStorage.removeItem("barcodes");
+        console.log("fetchPostPrint: Cleaned up discount and cart data");
 
         // Show the popup for at least 5 seconds or until user clicks
         setTimeout(() => {
@@ -179,6 +184,9 @@ document.addEventListener("DOMContentLoaded", () => {
     if (event.key === "Escape") {
       if (paymentPopup.style.display === "flex") {
         paymentPopup.style.display = "none";
+        couponPopup.style.display = "none";
+        // Enable barcode input when closing payment popup
+        barcodeInput.disabled = false;
       }
       if (cartEmptyPopup.style.display === "flex") {
         cartEmptyPopup.style.display = "none";
@@ -187,7 +195,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (receiptIsPrintingPopup.style.display === "flex") {
         receiptIsPrintingPopup.style.display = "none";
         // Optionally reload the page upon closing the popup
-        // window.location.reload();
+        window.location.reload();
       }
     }
   });
