@@ -22,15 +22,15 @@
   "discounts": [
     {
       "code": "TEST100",
-      "value": 100.0
+      "value": 100
     },
     {
       "code": "SALE15",
-      "value": 15.0
+      "value": 15
     },
     {
       "code": "SAVE10",
-      "value": 10.0
+      "value": 10
     }
   ],
   "adminUsers": [
@@ -40,5 +40,351 @@
       "password": "password123"
     }
   ],
-  "prints": []
-} 
+  "prints": [
+    {
+      "id": 1732038004541,
+      "paymentMethod": "Cash",
+      "cartObjects": [
+        {
+          "id": "1234567890123",
+          "name": "Cherry",
+          "price": 2.99,
+          "quantity": 4
+        }
+      ],
+      "discountCode": "SALE15",
+      "discountValue": 15,
+      "timestamp": "2024-11-19T17:40:04.541Z"
+    },
+    {
+      "id": 1732038048508,
+      "paymentMethod": "Giftcard",
+      "cartObjects": [
+        {
+          "id": "1234567890123",
+          "name": "Cherry",
+          "price": 2.99,
+          "quantity": 1
+        }
+      ],
+      "discountCode": "",
+      "discountValue": 0,
+      "timestamp": "2024-11-19T17:40:48.508Z"
+    },
+    {
+      "id": 1732038065845,
+      "paymentMethod": "Debit/Credit",
+      "cartObjects": [
+        {
+          "id": "1234567890123",
+          "name": "Cherry",
+          "price": 2.99,
+          "quantity": 1
+        }
+      ],
+      "discountCode": "",
+      "discountValue": 0,
+      "timestamp": "2024-11-19T17:41:05.845Z"
+    },
+    {
+      "id": 1732038096711,
+      "paymentMethod": "Cash",
+      "cartObjects": [
+        {
+          "id": "1234567890123",
+          "name": "Cherry",
+          "price": 2.99,
+          "quantity": 1
+        }
+      ],
+      "discountCode": "",
+      "discountValue": 0,
+      "timestamp": "2024-11-19T17:41:36.711Z"
+    },
+    {
+      "id": 1732038130581,
+      "paymentMethod": "Debit/Credit",
+      "cartObjects": [
+        {
+          "id": "1234567890123",
+          "name": "Cherry",
+          "price": 2.99,
+          "quantity": 1
+        }
+      ],
+      "discountCode": "",
+      "discountValue": 0,
+      "timestamp": "2024-11-19T17:42:10.581Z"
+    },
+    {
+      "id": 1732038203112,
+      "paymentMethod": "Cash",
+      "cartObjects": [
+        {
+          "id": "1234567890123",
+          "name": "Cherry",
+          "price": 2.99,
+          "quantity": 1
+        }
+      ],
+      "discountCode": "",
+      "discountValue": 0,
+      "timestamp": "2024-11-19T17:43:23.112Z"
+    },
+    {
+      "id": 1732038281381,
+      "paymentMethod": "Cash",
+      "cartObjects": [
+        {
+          "id": "1234567890123",
+          "name": "Cherry",
+          "price": 2.99,
+          "quantity": 1
+        }
+      ],
+      "discountCode": "",
+      "discountValue": 0,
+      "timestamp": "2024-11-19T17:44:41.381Z"
+    },
+    {
+      "id": 1732038321518,
+      "paymentMethod": "Cash",
+      "cartObjects": [
+        {
+          "id": "1234567890123",
+          "name": "Cherry",
+          "price": 2.99,
+          "quantity": 1
+        }
+      ],
+      "discountCode": "",
+      "discountValue": 0,
+      "timestamp": "2024-11-19T17:45:21.518Z"
+    },
+    {
+      "id": 1732038330408,
+      "paymentMethod": "Debit/Credit",
+      "cartObjects": [
+        {
+          "id": "1234567890123",
+          "name": "Cherry",
+          "price": 2.99,
+          "quantity": 1
+        }
+      ],
+      "discountCode": "",
+      "discountValue": 0,
+      "timestamp": "2024-11-19T17:45:30.408Z"
+    },
+    {
+      "id": 1732038478406,
+      "paymentMethod": "Cash",
+      "cartObjects": [
+        {
+          "id": "1234567890123",
+          "name": "Cherry",
+          "price": 2.99,
+          "quantity": 1
+        }
+      ],
+      "discountCode": "",
+      "discountValue": 0,
+      "timestamp": "2024-11-19T17:47:58.406Z"
+    },
+    {
+      "id": 1732038484564,
+      "paymentMethod": "Debit/Credit",
+      "cartObjects": [
+        {
+          "id": "1234567890123",
+          "name": "Cherry",
+          "price": 2.99,
+          "quantity": 1
+        }
+      ],
+      "discountCode": "",
+      "discountValue": 0,
+      "timestamp": "2024-11-19T17:48:04.564Z"
+    },
+    {
+      "id": 1732038563679,
+      "paymentMethod": "Cash",
+      "cartObjects": [
+        {
+          "id": "1234567890123",
+          "name": "Cherry",
+          "price": 2.99,
+          "quantity": 1
+        }
+      ],
+      "discountCode": "",
+      "discountValue": 0,
+      "timestamp": "2024-11-19T17:49:23.679Z"
+    },
+    {
+      "id": 1732038649534,
+      "paymentMethod": "Cash",
+      "cartObjects": [
+        {
+          "id": "1234567890123",
+          "name": "Cherry",
+          "price": 2.99,
+          "quantity": 1
+        }
+      ],
+      "discountCode": "",
+      "discountValue": 0,
+      "timestamp": "2024-11-19T17:50:49.534Z"
+    },
+    {
+      "id": 1732038680344,
+      "paymentMethod": "Debit/Credit",
+      "cartObjects": [
+        {
+          "id": "1234567890123",
+          "name": "Cherry",
+          "price": 2.99,
+          "quantity": 1
+        }
+      ],
+      "discountCode": "",
+      "discountValue": 0,
+      "timestamp": "2024-11-19T17:51:20.344Z"
+    },
+    {
+      "id": 1732038705454,
+      "paymentMethod": "Debit/Credit",
+      "cartObjects": [
+        {
+          "id": "1234567890123",
+          "name": "Cherry",
+          "price": 2.99,
+          "quantity": 1
+        }
+      ],
+      "discountCode": "",
+      "discountValue": 0,
+      "timestamp": "2024-11-19T17:51:45.454Z"
+    },
+    {
+      "id": 1732038718300,
+      "paymentMethod": "Cash",
+      "cartObjects": [
+        {
+          "id": "1234567890123",
+          "name": "Cherry",
+          "price": 2.99,
+          "quantity": 1
+        }
+      ],
+      "discountCode": "",
+      "discountValue": 0,
+      "timestamp": "2024-11-19T17:51:58.300Z"
+    },
+    {
+      "id": 1732038872912,
+      "paymentMethod": "Debit/Credit",
+      "cartObjects": [
+        {
+          "id": "1234567890123",
+          "name": "Cherry",
+          "price": 2.99,
+          "quantity": 1
+        }
+      ],
+      "discountCode": "",
+      "discountValue": 0,
+      "timestamp": "2024-11-19T17:54:32.912Z"
+    },
+    {
+      "id": 1732038886843,
+      "paymentMethod": "Debit/Credit",
+      "cartObjects": [
+        {
+          "id": "1234567890123",
+          "name": "Cherry",
+          "price": 2.99,
+          "quantity": 1
+        }
+      ],
+      "discountCode": "",
+      "discountValue": 0,
+      "timestamp": "2024-11-19T17:54:46.843Z"
+    },
+    {
+      "id": 1732038944868,
+      "paymentMethod": "Debit/Credit",
+      "cartObjects": [
+        {
+          "id": "1234567890123",
+          "name": "Cherry",
+          "price": 2.99,
+          "quantity": 1
+        }
+      ],
+      "discountCode": "",
+      "discountValue": 0,
+      "timestamp": "2024-11-19T17:55:44.868Z"
+    },
+    {
+      "id": 1732039001698,
+      "paymentMethod": "Cash",
+      "cartObjects": [
+        {
+          "id": "1234567890123",
+          "name": "Cherry",
+          "price": 2.99,
+          "quantity": 1
+        }
+      ],
+      "discountCode": "",
+      "discountValue": 0,
+      "timestamp": "2024-11-19T17:56:41.698Z"
+    },
+    {
+      "id": 1732039044500,
+      "paymentMethod": "Cash",
+      "cartObjects": [
+        {
+          "id": "1234567890123",
+          "name": "Cherry",
+          "price": 2.99,
+          "quantity": 1
+        }
+      ],
+      "discountCode": "",
+      "discountValue": 0,
+      "timestamp": "2024-11-19T17:57:24.500Z"
+    },
+    {
+      "id": 1732039086317,
+      "paymentMethod": "Cash",
+      "cartObjects": [
+        {
+          "id": "1234567890123",
+          "name": "Cherry",
+          "price": 2.99,
+          "quantity": 1
+        }
+      ],
+      "discountCode": "",
+      "discountValue": 0,
+      "timestamp": "2024-11-19T17:58:06.317Z"
+    },
+    {
+      "id": 1732039230004,
+      "paymentMethod": "Cash",
+      "cartObjects": [
+        {
+          "id": "1234567890123",
+          "name": "Cherry",
+          "price": 2.99,
+          "quantity": 1
+        }
+      ],
+      "discountCode": "",
+      "discountValue": 0,
+      "timestamp": "2024-11-19T18:00:30.004Z"
+    }
+  ]
+}
