@@ -8,17 +8,16 @@ This project is a combination of two projects from two different courses: the fr
 
 This project is a group effort by students Marven and Lars and should be evaluated as a group, not individually.
 
-
 ## Who did what?
 
 All the code in this project was developed collaboratively by Marven and Lars as part of a group effort for the Web Programming & Core Concepts of Software Engineering courses at DHBW Karlsruhe. While the distribution of commits in the GitHub repository may not appear equal, this is because we worked together extensively over Discord, engaging in pair programming sessions where both students contributed equally to the design, coding, and problem-solving processes.
-
 
 ## Whats is the project about?
 
 The project is a checkout system for a supermarket. It is a proof of concept and may not be fully functional or secure for real-world applications.
 
 #
+
 <br> <br>
 
 # Detailed Backend Server Setup Guide
@@ -50,6 +49,7 @@ Homebrew is a package manager for macOS that will make it easier to install depe
 The backend of this project requires Java (JDK 23). It is crucial that you install the correct version for compatibility.
 
 - **macOS with Homebrew**:
+
   - Use Homebrew to install JDK 23 by running:
     ```bash
     brew install openjdk@23
@@ -64,7 +64,7 @@ The backend of this project requires Java (JDK 23). It is crucial that you insta
     OpenJDK Runtime Environment (build 23+37-2369)
     OpenJDK 64-Bit Server VM (build 23+37-2369, mixed mode, sharing)
     ```
-   optional if the java version is not set automatically:
+    optional if the java version is not set automatically:
   - After installation, set Java 23 as the default version by adding the following to your shell profile (e.g., `.zshrc` or `.bash_profile`):
     ```bash
     export PATH="/opt/homebrew/opt/openjdk@23/bin:$PATH"
@@ -87,6 +87,7 @@ The backend of this project requires Java (JDK 23). It is crucial that you insta
 Maven is a build automation tool used for Java projects, and it is required to run the backend server.
 
 - **macOS with Homebrew**:
+
   - Install Maven by running:
     ```bash
     brew install maven
@@ -140,6 +141,7 @@ Maven is a build automation tool used for Java projects, and it is required to r
 To work with the frontend part of the project, you will need Visual Studio Code.
 
 - **Download and Install VSCode**:
+
   - Visit the [Visual Studio Code download page](https://code.visualstudio.com/Download).
   - Download and follow the installation instructions for your operating system.
 
@@ -152,12 +154,13 @@ To work with the frontend part of the project, you will need Visual Studio Code.
 1. Open the project folder in VSCode by selecting "File > Open Folder" and navigate to the extracted project directory.
 2. Navigate to the `frontend` folder.
 3. Right-click on `index.html` and select "Open with Live Server".
-4. make sure the Frontend Live Server is running on port `5501`. You can check this in the bottom right corner of the VSCode window. <br> If the port is not `5501`, you can change the port in the settings or create a new `settings.json` file in the `.vscode` folder and add the following lines: 
-  ```json
-  {
-    "liveServer.settings.port": 5501
+4. *Make sure the Frontend Live Server is running on port `5501`. You can check this in the bottom right corner of the VSCode window. <br> If the port is not `5501`, you can change the port in the settings or create a new `settings.json` file in the `.vscode` folder and add the following lines:*
+   ```json
+   {
+     "liveServer.settings.port": 5501
    }
-  ```
+   ```
+
 5. A browser window will open displaying the ScanMate site. You can now interact with the system by entering barcodes, inputting discount codes, or logging into the admin view.
 
 ## Additional Notes
@@ -173,19 +176,19 @@ To work with the frontend part of the project, you will need Visual Studio Code.
 - **Frontend Not Loading Properly**: Confirm that the backend server is running before starting the Live Server.
 
 #
+
 <br> <br><br> <br>
 
 ### How to start ScanMate
 
 [![startScanMate](./Attachments/howToStartScanMate.png)](./Attachments/howToStartScanMate.mp4)
 
-
 ### How to use ScanMate
 
 [![useScanMate](./Attachments/howToUseScanMate.png)](./Attachments/howToUseScanMate.mp4)
 
-
 ## Item numbers and discount codes for quick usage or test purposes
+
 ### Item numbers
 
 - 8156679408476 (Apple)
@@ -198,18 +201,15 @@ To work with the frontend part of the project, you will need Visual Studio Code.
 - EXTRA50 for 50% discount
 - TEST100 for free shopping
 
-
-
-#
-#
 #
 
+#
 
+#
 
 ## What's This About?
 
 Welcome to the ScanMate 1.0.0-X "Aurora" project! This is all about making your supermarket checkout experience as smooth as possible. Imagine walking up to a kiosk, scanning your items, choosing how you want to pay, and getting a receipt—all without waiting in line. That's what we're building here.
-
 
 ## How It Works
 
@@ -217,31 +217,31 @@ Welcome to the ScanMate 1.0.0-X "Aurora" project! This is all about making your 
 - **Pay Your Way**: Whether you're a cash person or a card swiper, we've got you covered. The system guides you through the payment process.
 - **Get Your Receipt**: Once you pay, a receipt prints out with all the details—what you bought, how much it cost, and how you paid.
 
-
 ## What's Under the Hood?
 
 - **Frontend**: Built with HTML, CSS, and JavaScript. It's the face of the system where all the action happens.
 - **Backend**: Powered by Java and Spring Boot. This is where the magic happens—handling all the data and logic.
 - **Database**: A SQLite Database keeps track of all the product info, like barcodes, names, and prices.
 
-
 ## Project Structure
 
 Here's how the project is organized:
 
 1. **Frontend**:
-   - **HTML**: The main interface is defined in `index.html`, which includes various sections for product display, barcode input, and payment options.
-   - **CSS**: Styling is managed in `styles.css`, providing layout and design for the application.
-   - **JavaScript**: Scripts like `barcode-script.js` handle barcode scanning and interaction logic.
+
+- **HTML**: The main interface is defined in `index.html`, which includes various sections for product display, barcode input, and payment options.
+- **CSS**: Styling is managed in `styles.css`, providing layout and design for the application.
+- **JavaScript**: Scripts like `barcode-script.js` handle barcode scanning and interaction logic.
 
 2. **Backend**:
-   - **Java**: The backend is built using Spring Boot, with configurations like `WebConfig.java` to manage CORS settings.
-   - **Database**: The application uses a SQLite database, `item_database.db`, to store product information.
+
+- **Java**: The backend is built using Spring Boot, with configurations like `WebConfig.java` to manage CORS settings.
+- **Database**: The application uses a SQLite database, `item_database.db`, to store product information.
 
 3. **Configuration**:
-   - **Maven**: The project uses Maven for dependency management, as specified in `pom.xml`.
-   - **Git**: The `.gitignore` file ensures that unnecessary files are not tracked in version control.
 
+- **Maven**: The project uses Maven for dependency management, as specified in `pom.xml`.
+- **Git**: The `.gitignore` file ensures that unnecessary files are not tracked in version control.
 
 ## The Big Picture
 
@@ -259,36 +259,44 @@ We're a dynamic duo of student developers, Marven Drechsel and Lars Zieger, work
 
 In a nutshell, ScanMate 1.0.0-X "Aurora" is about creating a checkout experience that's fast, friendly, and accessible to everyone. Whether you're a developer looking to learn or a shopper wanting a better checkout, this project has something for you.
 
-
-
 # Disclaimer
 
-## General 
+## General
+
 This project is a learning exercise and is not intended for production use. It is a proof of concept and may not be fully functional or secure for real-world applications.
 
 ### Security
+
 The backend is not secured and does not use HTTPS. It is intended for local use only.
 
 ### Database
+
 The database is not backed up and does not use a remote database. It is intended for local use only.
 
 ### Discounts
+
 The discount system is not secured and does not use a remote discount database. It is intended for local use only.
 
 ### Barcodes
+
 The barcode system is not secured and does not use a remote barcode database. It is intended for local use only.
 
 ### Payment
+
 The payment system is not secured and does not use a remote payment processor. It is intended for local use only.
 
 ### Receipts
+
 The receipt system is not secured and does not use a remote receipt printer. It is intended for local use only.
 
 ### Accessibility
-The accessibility features are not fully implemented and do not provide full accessibility support. This is a known limitation, but will not be implemented in this version.
 
+The accessibility features are not fully implemented and do not provide full accessibility support. This is a known limitation, but will not be implemented in this version.
 
 ## Further Information
 
 For further information, please view [Disclaimer.md](Disclaimer.md) and [Legal.md](Legal.md) or contact the project team.
 
+```
+
+```
