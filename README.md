@@ -19,6 +19,7 @@ All the code in this project was developed collaboratively by Marven and Lars as
 The project is a checkout system for a supermarket. It is a proof of concept and may not be fully functional or secure for real-world applications.
 
 #
+<br> <br>
 
 # Detailed Backend Server Setup Guide
 
@@ -156,7 +157,7 @@ To work with the frontend part of the project, you will need Visual Studio Code.
 - **Frontend Not Loading Properly**: Confirm that the backend server is running before starting the Live Server.
 
 #
-
+<br> <br><br> <br>
 
 ### How to start ScanMate
 
