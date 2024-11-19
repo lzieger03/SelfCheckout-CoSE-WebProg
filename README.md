@@ -18,16 +18,145 @@ All the code in this project was developed collaboratively by Marven and Lars as
 
 The project is a checkout system for a supermarket. It is a proof of concept and may not be fully functional or secure for real-world applications.
 
-## How to run
-### How to use
+#
 
-1. Start the Backend part of the application by running the [SpringBoot Application](backend/SpringBootAPI/src/main/java/com/example/springbootapi/SpringBootApiApplication.java) SpringBootApiApplication.java in e.g. IntelliJ, the application will start on port 8080. 
-2. Open the [Index HTML](frontend/index.html) index.html in e.g. Live Server in VSCode the port must be 5501.
-3. Start Scanning Items by scanning the barcodes of the items or by manually entering the barcode.
-4. to access the admin panel use the "Admin Login Button" in the top right corner and use the default 
-      credentials: 
-         login: admin
-         pw: admin123
+# Detailed Backend Server Setup Guide
+
+This guide provides step-by-step instructions for setting up and running the backend server for the ScanMate project. Please follow these steps carefully to ensure all components are installed correctly and the server runs smoothly.
+
+## 0. Install Homebrew (for macOS)
+
+Homebrew is a package manager for macOS that will make it easier to install dependencies like Java and Maven.
+
+- If Homebrew is not already installed on your system, follow these steps:
+  - Visit the [Homebrew website](https://brew.sh) for more information.
+  - Run the following command in your terminal to install Homebrew:
+    ```bash
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    ```
+  - After installation, verify that Homebrew is installed by running:
+    ```bash
+    brew --version
+    ```
+  - If the version appears, Homebrew has been installed successfully.
+
+## 1. Install Java (JDK 23)
+
+The backend of this project requires Java (JDK 23). It is crucial that you install the correct version for compatibility.
+
+- **macOS with Homebrew**:
+  - Use Homebrew to install JDK 23 by running:
+    ```bash
+    brew install openjdk@23
+    ```
+  - After installation, set Java 23 as the default version by adding the following to your shell profile (e.g., `.zshrc` or `.bash_profile`):
+    ```bash
+    export PATH="/opt/homebrew/opt/openjdk@23/bin:$PATH"
+    ```
+  - Reload the profile with:
+    ```bash
+    source ~/.zshrc
+    ```
+  - Verify the Java version:
+    ```bash
+    java --version
+    ```
+    Expected output:
+    ```
+    openjdk 23 2024-09-17
+    OpenJDK Runtime Environment (build 23+37-2369)
+    OpenJDK 64-Bit Server VM (build 23+37-2369, mixed mode, sharing)
+    ```
+
+- **Windows**:
+  - Visit the [Java JDK 23 download page](https://jdk.java.net/23/).
+  - Download the installer and follow the instructions to install.
+  - Verify the installation by running the following command in Command Prompt:
+    ```cmd
+    java --version
+    ```
+
+## 2. Install Maven
+
+Maven is a build automation tool used for Java projects, and it is required to run the backend server.
+
+- **macOS with Homebrew**:
+  - Install Maven by running:
+    ```bash
+    brew install maven
+    ```
+  - Verify Maven installation:
+    ```bash
+    mvn --version
+    ```
+    Expected output:
+    ```
+    Apache Maven 3.9.9 (8e8579a9e76f7d015ee5ec7bfcdc97d260186937)
+    Maven home: /opt/homebrew/Cellar/maven/3.9.9/libexec
+    Java version: 23.0.1, vendor: Homebrew, runtime: /opt/homebrew/Cellar/openjdk/23.0.1/libexec/openjdk.jdk/Contents/Home
+    Default locale: en_US, platform encoding: UTF-8
+    OS name: "mac os x", version: "15.2", arch: "aarch64", family: "Mac"
+    ```
+
+- **Windows**:
+  - Visit the [Maven download page](https://maven.apache.org/download.cgi).
+  - Download the ZIP file and extract it to a preferred directory (e.g., `C:\Program Files\Maven`).
+  - Add the `bin` directory of Maven to your `PATH` environment variable.
+  - Verify Maven installation by running:
+    ```cmd
+    mvn --version
+    ```
+
+## 3. Download the Project Repository
+
+- Go to the GitHub repository: [SelfCheckout-CoSE-WebProg](https://github.com/lzieger03/SelfCheckout-CoSE-WebProg).
+- Click on the "Code" button and select "Download ZIP".
+- Extract the ZIP file to a location of your choice.
+
+## 4. Navigate to the Backend Directory
+
+- Open a terminal (macOS) or Command Prompt (Windows).
+- Navigate to the `backend/SpringBootAPI` folder of the extracted project directory. Use the `cd` command:
+  ```bash
+  cd path/to/extracted-folder/backend/SpringBootAPI
+  ```
+
+ If an error occurs during the first run, simply run the command again, and it should work. Once completed, the server will start automatically and the logs will be displayed in the terminal.
+
+
+## 6. Install Visual Studio Code (VSCode)
+
+To work with the frontend part of the project, you will need Visual Studio Code.
+
+- **Download and Install VSCode**:
+  - Visit the [Visual Studio Code download page](https://code.visualstudio.com/Download).
+  - Download and follow the installation instructions for your operating system.
+
+- **Install the "Live Server" Plugin**:
+  - Open VSCode and go to the Extensions view by clicking on the Extensions icon in the Activity Bar or pressing `Ctrl+Shift+X`.
+  - Search for "Live Server" by `ritwickdey` and click "Install".
+
+## 7. Run the Frontend
+
+- Open the project folder in VSCode by selecting "File > Open Folder" and navigate to the extracted project directory.
+- Navigate to the `frontend` folder.
+- Right-click on `index.html` and select "Open with Live Server".
+- A browser window will open displaying the ScanMate site. You can now interact with the system by entering barcodes, inputting discount codes, or logging into the admin view.
+
+## Additional Notes
+
+- Ensure that both the backend and frontend are running simultaneously for the full application to work.
+- The backend must be running on port `8080`, and the Live Server for the frontend should run on port `5501`.
+- If any errors occur, verify the compatibility of Java and Maven versions as specified in the installation steps.
+
+## Troubleshooting
+
+- **Java or Maven Command Not Found**: Make sure the installation paths have been correctly added to your system's `PATH` environment variable.
+- **Backend Server Not Starting**: Check the terminal for error messages. Ensure that all dependencies are installed, and the Java version is correct.
+- **Frontend Not Loading Properly**: Confirm that the backend server is running before starting the Live Server.
+
+#
+
 
 ### How to start ScanMate
 
